@@ -9,9 +9,13 @@ public:
 	virtual bool init();
 	//这个类对象的访问接口，通过它来实例化对象
 	static UnitsSprite* getInstance();
-	void setproperty(const actor_property&);
-	int createdamage(const int&, const int&);
-	int receivedamage(const int&, const int&);
+	bool setproperty(const actor_property&);
+	bool bpdamage();
+	bool evadamage(const int&);//if is physical(1),if is magical(1),,if is holy(2)
+	int createdamage(const int&,const int&);//if is physical(1),if is magical(1),,if is holy(2),the second means the MP you cost
+	int createdamage(const int&);//if is physical(1),if is magical(1),,if is holy(2)
+	int receivedamage(const int&,const int&, const int&, const int&);//if is magical(0),if is physical(1),if is true(2),
+	int receivedamage(const int&, const int&, const int&);//if is magical(0),if is physical(1),if is true(2),
 	int consumeSTA(const int&, const int&);
 	int changeproperty(const int&, const int&, const __String&);
 	void Recover(const int&, const int&, const __String&);//return HP
