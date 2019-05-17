@@ -96,17 +96,63 @@ int UnitsSprite::receivedamage(const int& damage, const int& defenceval, const i
 		return dam;
 	}
 }
-int UnitsSprite::consumeSTA(const int& val, const int& type)
+int UnitsSprite::consumeSTA(const int& val)
 {
-
+	m_property.STA -= val;
+	return m_property.STA;
 }
-int UnitsSprite::changeproperty(const int& val, const int& time, const __String& name)
+bool UnitsSprite::changeproperty(const int& val, const __String& name)
 {
-
-}
+	const std::string str = name.getCString();
+	if (str == "HP")
+		m_property.HP = val;
+	else if (str == "MP")
+		m_property.MP = val;
+	else if (str == "STA")
+		m_property.STA = val;
+	else if (str == "MHP")
+		m_property.MHP = val;
+	else if (str == "MP")
+		m_property.MMP = val;
+	else if (str == "MMP")
+		m_property.MP = val;
+	else if (str == "MSTA")
+		m_property.MSTA = val;
+	else if (str == "RHP")
+		m_property.RHP = val;
+	else if (str == "RMP")
+		m_property.RMP = val;
+	else if (str == "RSTA")
+		m_property.RSTA = val;
+	else if (str == "EVA")
+		m_property.EVA = val;
+	else if (str == "SPE")
+		m_property.SPE = val;
+	else if (str == "ACC")
+		m_property.ACC = val;
+	else if (str == "ATK")
+		m_property.ATK = val;
+	else if (str == "ATKM")
+		m_property.ATKM = val;
+	else if (str == "ATKS")
+		m_property.ATKS = val;
+	else if (str == "DEF")
+		m_property.DEF = val;
+	else if (str == "RES")
+		m_property.RES = val;
+	else if (str == "RDR")
+		m_property.RDR = val;
+	else if (str == "BP")
+		m_property.BP = val;
+	else
+		return FALSE;
+	return TRUE;
+}	
 void UnitsSprite::Recover(const int& val, const int& time, const __String& name)//return condition
 {
-
+	m_property.HP += m_property.RHP;
+	m_property.MP += m_property.RMP;
+	m_property.STA += m_property.RSTA;
 }
 
 UnitsSprite* UnitsSprite::getInstance()

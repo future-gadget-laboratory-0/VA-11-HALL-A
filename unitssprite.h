@@ -2,6 +2,7 @@
 #define _UNITS_H_
 #include "cocos2d.h"
 #include "define.h"
+#include <string>
 USING_NS_CC;
 class UnitsSprite :public Sprite
 {
@@ -16,8 +17,8 @@ public:
 	int createdamage(const int&);//if is physical(1),if is magical(1),,if is holy(2)
 	int receivedamage(const int&,const int&, const int&, const int&);//if is magical(0),if is physical(1),if is true(2),
 	int receivedamage(const int&, const int&, const int&);//if is magical(0),if is physical(1),if is true(2),
-	int consumeSTA(const int&, const int&);
-	int changeproperty(const int&, const int&, const __String&);
+	int consumeSTA(const int&);
+	bool changeproperty(const int&, const __String&);
 	void Recover(const int&, const int&, const __String&);//return HP
 	CREATE_FUNC(UnitsSprite);
 private:
