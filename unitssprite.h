@@ -20,6 +20,7 @@ public:
 	int consumeSTA(const int&);
 	bool changeproperty(const int&, const __String&);
 	void Recover(const int&, const int&, const __String&);//return HP
+
 	CREATE_FUNC(UnitsSprite);
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了

@@ -54,7 +54,6 @@ int UnitsSprite::createdamage(const int& type)
 		return m_property.ATKS;
 }
 
-
 int UnitsSprite::receivedamage(const int& damage, const int& defenceval, const int& type)
 {
 	int dam;
@@ -74,8 +73,6 @@ int UnitsSprite::receivedamage(const int& damage, const int& defenceval, const i
 		return dam;
 	}
 }
-
-
 
 int UnitsSprite::receivedamage(const int& damage, const int& defenceval, const int& type, const int& Reductionrate)
 {
@@ -164,7 +161,6 @@ UnitsSprite* UnitsSprite::getInstance()
 	}
 	return instance;
 }
-
 
 
 bool UnitsSprite::init()
