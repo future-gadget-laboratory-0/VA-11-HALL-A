@@ -18,10 +18,14 @@ public:
 	void stop_rb();
 	void stop_lb();
 	CREATE_FUNC(SpriteCatherine);
+	Vec2 pos;
+	Vec2 old_pos=Point(-1,-1);
+	void move();
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	SpriteCatherine();
 	static SpriteCatherine* instance;
+	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
 	Sprite* m_hero;
 	Animate* animate;
 };

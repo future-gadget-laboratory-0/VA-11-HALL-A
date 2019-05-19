@@ -74,6 +74,7 @@ bool SpriteCatherine::init()
 	auto CaBody = PhysicsBody::createBox(m_hero->getContentSize(),PHYSICSBODY_MATERIAL_DEFAULT);
 	//m_hero->setPhysicsBody(CaBody);
 	//CaBody->setContactTestBitmask(0xFFFFFFFF);
+	CaBody->setRotationEnable(false);
 	CaBody->setCategoryBitmask(1);
 	CaBody->setCollisionBitmask(1);
 	CaBody->setContactTestBitmask(1);
@@ -104,54 +105,102 @@ bool SpriteCatherine::init()
 
 void SpriteCatherine::move_lf()
 {
-	m_hero = Sprite::createWithSpriteFrameName("snow0_0.png");
+	//auto pos = m_hero->getPosition();
+//	m_hero->stopAllActions();
+	//m_hero = Sprite::createWithSpriteFrameName("snow0_0.png");
+//	m_hero->setTexture("snow0_0.png");
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lf"));
 	m_hero->runAction(RepeatForever::create(animate));
-	this->addChild(m_hero);
+	//m_hero->setPosition(Point(pos));
+//	this->addChild(m_hero);
 }
 void SpriteCatherine::move_rf()
 {
-	m_hero = Sprite::createWithSpriteFrameName("snow1_0.png");
+	//auto pos = m_hero->getPosition();
+//	m_hero->setTexture("snow1_0.png");
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rf"));
 	m_hero->runAction(RepeatForever::create(animate));
+	//m_hero->setPosition(Point(pos));
+//	this->addChild(m_hero);
 }
 void SpriteCatherine::move_rb()
 {
-	m_hero = Sprite::createWithSpriteFrameName("snow2_0.png");
+	//auto pos = m_hero->getPosition();
+//	m_hero->setTexture("snow2_0.png");
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rb"));
 	m_hero->runAction(RepeatForever::create(animate));
+//	m_hero->setPosition(Point(pos));
+//	this->addChild(m_hero);
 }
 void SpriteCatherine::move_lb()
 {
-	m_hero = Sprite::createWithSpriteFrameName("snow3_0.png");
+	//auto pos = m_hero->getPosition();
+//	m_hero->setTexture("snow3_0.png");
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lb"));
 	m_hero->runAction(RepeatForever::create(animate));
+	//m_hero->setPosition(Point(pos));
+//	this->addChild(m_hero);
 }
 void SpriteCatherine::stop_lf()
 {
-	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
-	m_hero = Sprite::createWithSpriteFrameName("snow0_0.png");
+//	auto pos = m_hero->getPosition();
 	actionManager->removeAllActionsFromTarget(this->m_hero);
-	free(actionManager);
+	m_hero->setTexture("snow0_0.png");
+	//_rect.size = m_hero->getContentSize();
+	m_hero->setTextureRect(CCRectMake(0, 0, 100, 100));
+	//free(actionManager);
+	//m_hero->setPosition(Point(pos));
+//	this->addChild(m_hero);
 }
 void SpriteCatherine::stop_rf()
 {
-	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
-	m_hero = Sprite::createWithSpriteFrameName("snow1_0.png");
+//	auto pos = m_hero->getPosition();
 	actionManager->removeAllActionsFromTarget(this->m_hero);
-	free(actionManager);
+	m_hero->setTexture("snow1_0.png");
+	m_hero->setTextureRect(CCRectMake(0, 0, 100, 100));
+	//free(actionManager);
+//	m_hero->setPosition(Point(pos));
+//	this->addChild(m_hero);
 }
 void SpriteCatherine::stop_rb()
 {
-	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
-	m_hero = Sprite::createWithSpriteFrameName("snow2_0.png");
+	//auto pos = m_hero->getPosition();
 	actionManager->removeAllActionsFromTarget(this->m_hero);
-	free(actionManager);
+	//m_hero = Sprite::createWithSpriteFrameName("snow2_0.png");
+	m_hero->setTexture("snow2_0.png");
+	m_hero->setTextureRect(CCRectMake(0, 0, 100, 100));
+	//free(actionManager);
+	//m_hero->setPosition(Point(pos));
+//	this->addChild(m_hero);
 }
 void SpriteCatherine::stop_lb()
 {
-	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
+//	auto pos = m_hero->getPosition();
 	actionManager->removeAllActionsFromTarget(this->m_hero);
-	m_hero = Sprite::createWithSpriteFrameName("snow3_0.png");
-	free (actionManager);
+	//m_hero = Sprite::createWithSpriteFrameName("snow3_0.png");
+	m_hero->setTexture("snow3_0.png");
+	m_hero->setTextureRect(CCRectMake(0, 0, 100, 100));
+//	free (actionManager);
+	//m_hero->setPosition(Point(pos));
+//	this->addChild(m_hero);
+}
+
+
+void SpriteCatherine::move()
+{
+	if (pos.x = -1)
+	{
+		m_hero->setPosition(pos);
+		old_pos = pos;
+		return;
+	}
+	else if (pos == old_pos)
+	{
+		return;
+	}
+	else if (pos != old_pos)
+	{
+		old_pos = pos;;
+		m_hero->setPosition(pos);
+	}
 }

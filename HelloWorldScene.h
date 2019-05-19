@@ -36,6 +36,10 @@ public:
     virtual bool init();
 	void onKeyPressed(EventKeyboard::KeyCode, Event*);
 	void onKeyReleased(EventKeyboard::KeyCode, Event*);
+	void onMouseDown(Event *event);
+	void onMouseUp(Event *event);
+	void onMouseMove(Event *event);
+	void onMouseScroll(Event *event);
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     // implement the "static create()" method manually

@@ -40,16 +40,94 @@ Scene* HelloWorld::createScene()
 
 void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	//log("Key with keycode %d pressed", keyCode);
-	Catherine->stop_lb();
+	//Catherine->stop_rb();
+	//Catherine->move_rb();
+	//this->addChild(Catherine);
+	//Catherine->setPosition(Point(Vec2(100, 200)));
+	if (keyCode == EventKeyboard::KeyCode::KEY_W)
+	{
+		Catherine->move_rb();
+	}
+	else if (keyCode == EventKeyboard::KeyCode::KEY_A)
+	{
+		Catherine->move_lb();
+	}
+	else if (keyCode == EventKeyboard::KeyCode::KEY_S)
+	{
+		Catherine->move_lf();
+	}
+	else if (keyCode == EventKeyboard::KeyCode::KEY_D)
+	{
+		Catherine->move_rf();
+	}
 
 }
+
 
 void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	//log("Key with keycode %d released", keyCode);
-//	Catherine->move_lb(); 
+	//Catherine->stop_lf();
+	//this->addChild(Catherine);
+	if (keyCode == EventKeyboard::KeyCode::KEY_W)
+	{
+		Catherine->stop_rb();
+	}
+	else if (keyCode == EventKeyboard::KeyCode::KEY_A)
+	{
+		Catherine->stop_lb();
+	}
+	else if (keyCode == EventKeyboard::KeyCode::KEY_S)
+	{
+		Catherine->stop_lf();
+	}
+	else if (keyCode == EventKeyboard::KeyCode::KEY_D)
+	{
+		Catherine->stop_rf();
+	}
+
 }
+
+void HelloWorld::onMouseDown(Event *event)
+{
+	// to illustrate the event....
+	EventMouse* e = (EventMouse*)event;
+	//string str = "Mouse Down detected, Key: ";
+	//str += tostr(e->getMouseButton());
+	Catherine->pos = e->getLocation();
+	Catherine->move();
+}
+
+void HelloWorld::onMouseUp(Event *event)
+{
+	// to illustrate the event....
+	EventMouse* e = (EventMouse*)event;
+	//string str = "Mouse Up detected, Key: ";
+	//str += tostr(e->getMouseButton());
+	Catherine->pos = e->getLocation();
+}
+
+void HelloWorld::onMouseMove(Event *event)
+{
+	// to illustrate the event....
+	EventMouse* e = (EventMouse*)event;
+	//string str = "MousePosition X:";
+	//str = str + tostr(e->getCursorX()) + " Y:" + tostr(e->getCursorY());
+	Catherine->pos = e->getLocation();
+}
+
+void HelloWorld::onMouseScroll(Event *event)
+{
+	// to illustrate the event....
+	EventMouse* e = (EventMouse*)event;
+	//string str = "Mouse Scroll detected, X: ";
+	//str = str + tostr(e->getScrollX()) + " Y: " + tostr(e->getScrollY());
+	Catherine->pos = e->getLocation();
+}
+
+
+
+
 
 
 
@@ -84,13 +162,25 @@ bool HelloWorld::init()
 	edgeSp->setPosition(0,0);//位置设置在屏幕中央
 	edgeSp->setPhysicsBody(boundBody);//将精灵容纳的刚体设置为boundbody。注意这里不能确定刚体和精灵是不是父子节点的关系。有兴趣的朋友请自行研究。
 	addChild(edgeSp);//加入渲染树
-/*
+
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(HelloWorld::onKeyPressed, this);
 	listener->onKeyReleased = CC_CALLBACK_2(HelloWorld::onKeyReleased, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-*/
+
+	auto _mouseListener = EventListenerMouse::create();
+	_mouseListener->onMouseMove = CC_CALLBACK_1(HelloWorld::onMouseMove, this);
+	_mouseListener->onMouseUp = CC_CALLBACK_1(HelloWorld::onMouseUp, this);
+	_mouseListener->onMouseDown = CC_CALLBACK_1(HelloWorld::onMouseDown, this);
+	_mouseListener->onMouseScroll = CC_CALLBACK_1(HelloWorld::onMouseScroll, this);
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
+
+
+
+
+
 
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -149,12 +239,10 @@ bool HelloWorld::init()
 	//m_hero->setPosition(Point(winSize.width / 2, winSize.height*0.8));
 	//this->addChild(m_hero);
 	
-	
 
-
-	auto Catherine = SpriteCatherine::create();
-	Catherine->move_lf();
-	Catherine->setPosition(Point(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height*0.8)));
+	//auto Catherine = SpriteCatherine::create();
+	//Catherine->move_lf();
+//	Catherine->setPosition(Point(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height*0.8)));
 	this->addChild(Catherine);
 
 	
