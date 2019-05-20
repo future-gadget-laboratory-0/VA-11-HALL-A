@@ -88,6 +88,25 @@ void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 
 }
 
+bool HelloWorld::onTouchBegan(Touch* touch, Event* event)
+{
+	Catherine->pos= touch->getLocation();	
+	Catherine->move();
+	return true;
+}
+void HelloWorld::onTouchMoved(Touch* touch, Event* event)
+{
+//	Catherine->pos = touch->getLocation();
+}
+void HelloWorld::onTouchEnded(Touch* touch, Event* event)
+{
+//	Catherine->pos = touch->getLocation();
+
+}
+
+
+
+/*
 void HelloWorld::onMouseDown(Event *event)
 {
 	// to illustrate the event....
@@ -95,8 +114,11 @@ void HelloWorld::onMouseDown(Event *event)
 	//string str = "Mouse Down detected, Key: ";
 	//str += tostr(e->getMouseButton());
 	Catherine->pos = e->getLocation();
+	//Catherine->pos = convertToNodeSpace(Catherine->pos);
 	Catherine->move();
 }
+
+
 
 void HelloWorld::onMouseUp(Event *event)
 {
@@ -104,7 +126,7 @@ void HelloWorld::onMouseUp(Event *event)
 	EventMouse* e = (EventMouse*)event;
 	//string str = "Mouse Up detected, Key: ";
 	//str += tostr(e->getMouseButton());
-	Catherine->pos = e->getLocation();
+//	Catherine->pos = e->getLocation();
 }
 
 void HelloWorld::onMouseMove(Event *event)
@@ -113,7 +135,7 @@ void HelloWorld::onMouseMove(Event *event)
 	EventMouse* e = (EventMouse*)event;
 	//string str = "MousePosition X:";
 	//str = str + tostr(e->getCursorX()) + " Y:" + tostr(e->getCursorY());
-	Catherine->pos = e->getLocation();
+//	Catherine->pos = e->getLocation();
 }
 
 void HelloWorld::onMouseScroll(Event *event)
@@ -122,10 +144,10 @@ void HelloWorld::onMouseScroll(Event *event)
 	EventMouse* e = (EventMouse*)event;
 	//string str = "Mouse Scroll detected, X: ";
 	//str = str + tostr(e->getScrollX()) + " Y: " + tostr(e->getScrollY());
-	Catherine->pos = e->getLocation();
+//	Catherine->pos = e->getLocation();
 }
 
-
+*/
 
 
 
@@ -169,14 +191,21 @@ bool HelloWorld::init()
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-	auto _mouseListener = EventListenerMouse::create();
+/*	auto _mouseListener = EventListenerMouse::create();
 	_mouseListener->onMouseMove = CC_CALLBACK_1(HelloWorld::onMouseMove, this);
 	_mouseListener->onMouseUp = CC_CALLBACK_1(HelloWorld::onMouseUp, this);
 	_mouseListener->onMouseDown = CC_CALLBACK_1(HelloWorld::onMouseDown, this);
 	_mouseListener->onMouseScroll = CC_CALLBACK_1(HelloWorld::onMouseScroll, this);
 
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
-
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);*///error
+	//this->setTouchEnabled(true);
+	auto listener1 = EventListenerTouchOneByOne::create();
+	listener1->setSwallowTouches(true);
+	listener1->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
+	listener1->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
+	listener1->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
+	//listener1->onTouchCancelled = CC_CALLBACK_2(HelloWorld::onTouchesCancelled, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
 
 
 

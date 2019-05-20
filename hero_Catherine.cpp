@@ -188,19 +188,42 @@ void SpriteCatherine::stop_lb()
 
 void SpriteCatherine::move()
 {
-	if (pos.x = -1)
+	/*if (old_pos == Vec2(-1,-1))
 	{
-		m_hero->setPosition(pos);
+		//m_hero->setPosition(pos);
 		old_pos = pos;
 		return;
 	}
-	else if (pos == old_pos)
+	else*/ if (pos == old_pos)
 	{
 		return;
 	}
-	else if (pos != old_pos)
+	else if (pos.x > old_pos.x&&pos.y > old_pos.y)
 	{
-		old_pos = pos;;
-		m_hero->setPosition(pos);
+		old_pos = pos;//pos
+		m_hero->setPosition(pos.x, pos.y+ m_hero->getContentSize().height*1.5);
+	//	m_hero->setAnchorPoint(Vec2(0,0));
+		stop_rb();
+	}
+	else if (pos.x > old_pos.x&&pos.y < old_pos.y)
+	{
+		old_pos = pos;//pos
+		m_hero->setPosition(pos.x, pos.y + m_hero->getContentSize().height*1.5);
+		//	m_hero->setAnchorPoint(Vec2(0,0));
+		stop_rf();
+	}
+	else if (pos.x < old_pos.x&&pos.y > old_pos.y)
+	{
+		old_pos = pos;//pos
+		m_hero->setPosition(pos.x, pos.y + m_hero->getContentSize().height*1.5);
+		//	m_hero->setAnchorPoint(Vec2(0,0));
+		stop_lb();
+	}
+	else if (pos.x < old_pos.x&&pos.y < old_pos.y)
+	{
+		old_pos = pos;//pos
+		m_hero->setPosition(pos.x, pos.y + m_hero->getContentSize().height*1.5);
+		//	m_hero->setAnchorPoint(Vec2(0,0));
+		stop_lf();
 	}
 }
