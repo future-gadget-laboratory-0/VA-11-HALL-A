@@ -32,11 +32,20 @@ bool SpriteCatherine::init()
 	Animation* animation1 = Anima::createWithSingleFrameName("snow1_", 0.1f, -1);
 	Animation* animation2 = Anima::createWithSingleFrameName("snow2_", 0.1f, -1);
 	Animation* animation3 = Anima::createWithSingleFrameName("snow3_", 0.1f, -1);
+	Animation* animation4 = Anima::createWithSingleFrameName("magicusing0_", 0.1f, -1);
+	Animation* animation5 = Anima::createWithSingleFrameName("magicusing1_", 0.1f, -1);
+	Animation* animation6 = Anima::createWithSingleFrameName("magicusing2_", 0.1f, -1);
+	Animation* animation7 = Anima::createWithSingleFrameName("magicusing3_", 0.1f, -1); 
+	Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
 	AnimationCache::getInstance()->addAnimation(animation0, "snow_lf");
 	AnimationCache::getInstance()->addAnimation(animation1, "snow_rf");
 	AnimationCache::getInstance()->addAnimation(animation2, "snow_rb");
 	AnimationCache::getInstance()->addAnimation(animation3, "snow_lb");
-
+	AnimationCache::getInstance()->addAnimation(animation4, "snow_st");
+	AnimationCache::getInstance()->addAnimation(animation5, "snow_nd");
+	AnimationCache::getInstance()->addAnimation(animation6, "snow_rd");
+	AnimationCache::getInstance()->addAnimation(animation7, "snow_th");
+	AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
 	m_hero = Sprite::createWithSpriteFrameName("snow0_0.png");
 	/*srand((int)time(0));
 	Animate* animate;
@@ -325,6 +334,25 @@ void SpriteCatherine::move(float)
 	}
 }
 
-
+void SpriteCatherine::skillst()
+{
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
+	m_hero->runAction(Repeat::create(animate, 1));
+}
+void SpriteCatherine::skillnd()
+{
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_nd"));
+	m_hero->runAction(Repeat::create(animate, 1));
+}
+void SpriteCatherine::skillrd()
+{
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rd"));
+	m_hero->runAction(Repeat::create(animate, 1));
+}
+void SpriteCatherine::skillth()
+{
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_th"));
+	m_hero->runAction(Repeat::create(animate,1));
+}
 
 
