@@ -20,6 +20,7 @@ public:
 	int consumeSTA(const int&);
 	bool changeproperty(const int&, const __String&);
 	void Recover(const int&, const int&, const __String&);//return HP
+	actor_property get();
 
 	CREATE_FUNC(UnitsSprite);
 protected:

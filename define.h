@@ -1,3 +1,5 @@
+#include <math.h>
+
 struct actor_property
 {
 	int HP;//Actor's Health
@@ -20,3 +22,7 @@ struct actor_property
 	int RDR;//Actor's reduction ratio
 	int	BP;	//Battering rate
 };
+
+
+#define move_rate 1000;
+#define deviation 5;

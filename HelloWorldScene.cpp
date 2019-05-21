@@ -91,15 +91,19 @@ void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 bool HelloWorld::onTouchBegan(Touch* touch, Event* event)
 {
 	Catherine->pos= touch->getLocation();	
-	Catherine->move();
+	//Catherine->move();
 	return true;
 }
 void HelloWorld::onTouchMoved(Touch* touch, Event* event)
 {
+	//Catherine->move();
 //	Catherine->pos = touch->getLocation();
 }
 void HelloWorld::onTouchEnded(Touch* touch, Event* event)
 {
+	//Catherine->pos = touch->getLocation();
+	
+	
 //	Catherine->pos = touch->getLocation();
 
 }

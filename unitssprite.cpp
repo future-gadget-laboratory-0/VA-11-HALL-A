@@ -151,6 +151,11 @@ void UnitsSprite::Recover(const int& val, const int& time, const __String& name)
 	m_property.MP += m_property.RMP;
 	m_property.STA += m_property.RSTA;
 }
+actor_property UnitsSprite::get()
+{
+	actor_property my = m_property;
+	return my;
+}
 
 UnitsSprite* UnitsSprite::getInstance()
 {

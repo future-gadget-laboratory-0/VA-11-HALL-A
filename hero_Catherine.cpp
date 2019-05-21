@@ -95,8 +95,9 @@ bool SpriteCatherine::init()
 	//birdbody->setCollisionBitmask(-1);
 	//birdbody->setContactTestBitmask(-1);
 	//m_bird->setPhysicsBody(birdbody);
+	
 	this->addChild(m_hero);
-
+	this->schedule(schedule_selector(SpriteCatherine::move), 0.01f, kRepeatForever, 0);
 
 
 	return true;
@@ -185,16 +186,10 @@ void SpriteCatherine::stop_lb()
 //	this->addChild(m_hero);
 }
 
-
-void SpriteCatherine::move()
+/*
+void SpriteCatherine::flash()
 {
-	/*if (old_pos == Vec2(-1,-1))
-	{
-		//m_hero->setPosition(pos);
-		old_pos = pos;
-		return;
-	}
-	else*/ if (pos == old_pos)
+	 if (pos == old_pos)
 	{
 		return;
 	}
@@ -226,4 +221,66 @@ void SpriteCatherine::move()
 		//	m_hero->setAnchorPoint(Vec2(0,0));
 		stop_lf();
 	}
+}*/
+
+void SpriteCatherine::move(float)
+{
+	int devia=deviation;
+	Vec2 move_vec;
+	Vec2 true_vec;
+	//int sped = get().SPE;
+	int sped =300;
+	true_vec.y = pos.y + m_hero->getContentSize().height*1.5;
+	true_vec.x = pos.x;
+	double denominator = sqrt(pow((true_vec.y - old_pos.y), 2) + pow(true_vec.x - old_pos.x, 2));
+	move_vec.y = (true_vec.y-old_pos.y) * sped/ denominator /move_rate;
+	move_vec.x = (true_vec.x - old_pos.x) * sped / denominator /move_rate;
+	if (old_pos == Point(-100, -100))
+	{
+		old_pos = m_hero->getPosition();
+	}
+	else if ((true_vec == old_pos)||
+		((((true_vec.x + devia) > old_pos.x)&&((true_vec.y + devia )> old_pos.y) && ((true_vec.x - devia) < old_pos.x) && ((true_vec.y - devia) < old_pos.y))))
+		//||(((true_vec.x - devia) > old_pos.x) && ((true_vec.y - devia) > old_pos.y) && ((true_vec.y + devia) < old_pos.y) && ((true_vec.y + devia) < old_pos.y)) ||
+		//(((true_vec.x - devia) > old_pos.x) && ((true_vec.y + devia) < old_pos.y) && ((true_vec.y + devia) < old_pos.y) && ((true_vec.y + devia) < old_pos.y)) ||
+		//(((true_vec.x + devia) < old_pos.x) && ((true_vec.y - devia) > old_pos.y) && ((true_vec.y + devia) < old_pos.y) && ((true_vec.y + devia) < old_pos.y))
+	{
+		return;
+	}
+	else if (true_vec.x > old_pos.x&&true_vec.y > old_pos.y)
+	{
+		old_pos.x = old_pos.x + move_vec.x;//pos
+		old_pos.y = old_pos.y + move_vec.y;//pos
+	//	CCSpawn::create(CCAnimate::create(AnimationCache::getInstance()->getAnimation("snow_lf")),CCMoveBy::create(20.28f, true_vec), NULL),
+		m_hero->setPosition(old_pos);
+		//	m_hero->setAnchorPoint(Vec2(0,0));
+		stop_rb();
+	}
+	else if (true_vec.x > old_pos.x&&true_vec.y < old_pos.y)
+	{
+		old_pos.x = old_pos.x + move_vec.x;//pos
+		old_pos.y = old_pos.y + move_vec.y;//pos
+		m_hero->setPosition(old_pos);
+		//	m_hero->setAnchorPoint(Vec2(0,0));
+		stop_rf();
+	}
+	else if (true_vec.x < old_pos.x&&true_vec.y > old_pos.y)
+	{
+		old_pos.x = old_pos.x + move_vec.x;//pos
+		old_pos.y = old_pos.y + move_vec.y;//pos
+		m_hero->setPosition(old_pos);
+		//	m_hero->setAnchorPoint(Vec2(0,0));
+		stop_lb();
+	}
+	else if (true_vec.x < old_pos.x&&true_vec.y < old_pos.y)
+	{
+		old_pos.x = old_pos.x + move_vec.x;//pos
+		old_pos.y = old_pos.y + move_vec.y;//pos
+		m_hero->setPosition(old_pos);
+		//	m_hero->setAnchorPoint(Vec2(0,0));
+		stop_lf();
+	}
 }
+
+
+
