@@ -225,26 +225,48 @@ void SpriteCatherine::flash()
 
 void SpriteCatherine::move(float)
 {
-	int devia=deviation;
+	int devia = deviation;
 	Vec2 move_vec;
 	Vec2 true_vec;
 	//int sped = get().SPE;
-	int sped =300;
+	int sped = 300;
 	true_vec.y = pos.y + m_hero->getContentSize().height*1.5;
 	true_vec.x = pos.x;
 	double denominator = sqrt(pow((true_vec.y - old_pos.y), 2) + pow(true_vec.x - old_pos.x, 2));
-	move_vec.y = (true_vec.y-old_pos.y) * sped/ denominator /move_rate;
-	move_vec.x = (true_vec.x - old_pos.x) * sped / denominator /move_rate;
+	move_vec.y = (true_vec.y - old_pos.y) * sped / denominator / move_rate;
+	move_vec.x = (true_vec.x - old_pos.x) * sped / denominator / move_rate;
+	if (pos != touch_pos)
+	{
+		touch_pos = pos;
+		touch_judge = true;	actionManager->removeAllActionsFromTarget(this->m_hero);
+	}
+	else
+	{
+		touch_judge = false;
+	}
 	if (old_pos == Point(-100, -100))
 	{
 		old_pos = m_hero->getPosition();
 	}
-	else if ((true_vec == old_pos)||
-		((((true_vec.x + devia) > old_pos.x)&&((true_vec.y + devia )> old_pos.y) && ((true_vec.x - devia) < old_pos.x) && ((true_vec.y - devia) < old_pos.y))))
-		//||(((true_vec.x - devia) > old_pos.x) && ((true_vec.y - devia) > old_pos.y) && ((true_vec.y + devia) < old_pos.y) && ((true_vec.y + devia) < old_pos.y)) ||
-		//(((true_vec.x - devia) > old_pos.x) && ((true_vec.y + devia) < old_pos.y) && ((true_vec.y + devia) < old_pos.y) && ((true_vec.y + devia) < old_pos.y)) ||
-		//(((true_vec.x + devia) < old_pos.x) && ((true_vec.y - devia) > old_pos.y) && ((true_vec.y + devia) < old_pos.y) && ((true_vec.y + devia) < old_pos.y))
+	else if ((true_vec == old_pos) ||
+		((((true_vec.x + devia) > old_pos.x) && ((true_vec.y + devia) > old_pos.y) && ((true_vec.x - devia) < old_pos.x) && ((true_vec.y - devia) < old_pos.y))))
 	{
+		if (move_judge == 1)
+		{
+			stop_rb();
+		}
+		if (move_judge == 2)
+		{
+			stop_rf();
+		}
+		if (move_judge == 3)
+		{
+			stop_lb();
+		}
+		if (move_judge == 4)
+		{
+			stop_lf();
+		}
 		return;
 	}
 	else if (true_vec.x > old_pos.x&&true_vec.y > old_pos.y)
@@ -254,7 +276,13 @@ void SpriteCatherine::move(float)
 	//	CCSpawn::create(CCAnimate::create(AnimationCache::getInstance()->getAnimation("snow_lf")),CCMoveBy::create(20.28f, true_vec), NULL),
 		m_hero->setPosition(old_pos);
 		//	m_hero->setAnchorPoint(Vec2(0,0));
-		stop_rb();
+		//stop_rb();
+
+		if (touch_judge == true)
+		{
+			move_judge = 1;
+			move_rb();
+		}
 	}
 	else if (true_vec.x > old_pos.x&&true_vec.y < old_pos.y)
 	{
@@ -262,7 +290,12 @@ void SpriteCatherine::move(float)
 		old_pos.y = old_pos.y + move_vec.y;//pos
 		m_hero->setPosition(old_pos);
 		//	m_hero->setAnchorPoint(Vec2(0,0));
-		stop_rf();
+		//stop_rf();
+		if (touch_judge == true)
+		{
+			move_judge = 2;
+			move_rf();
+		}
 	}
 	else if (true_vec.x < old_pos.x&&true_vec.y > old_pos.y)
 	{
@@ -270,7 +303,12 @@ void SpriteCatherine::move(float)
 		old_pos.y = old_pos.y + move_vec.y;//pos
 		m_hero->setPosition(old_pos);
 		//	m_hero->setAnchorPoint(Vec2(0,0));
-		stop_lb();
+		//stop_lb();
+		if (touch_judge == true)
+		{
+			move_judge = 3;
+			move_lb();	
+		}
 	}
 	else if (true_vec.x < old_pos.x&&true_vec.y < old_pos.y)
 	{
@@ -278,9 +316,15 @@ void SpriteCatherine::move(float)
 		old_pos.y = old_pos.y + move_vec.y;//pos
 		m_hero->setPosition(old_pos);
 		//	m_hero->setAnchorPoint(Vec2(0,0));
-		stop_lf();
+		//stop_lf();
+		if (touch_judge == true)
+		{
+			move_judge = 4;
+			move_lf();
+		}
 	}
 }
+
 
 
 

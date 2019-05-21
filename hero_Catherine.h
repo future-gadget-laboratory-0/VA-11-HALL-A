@@ -28,6 +28,9 @@ private:
 	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
 	Sprite* m_hero;
 	Animate* animate;
+	int move_judge=0;
+	Vec2 touch_pos;
+	bool touch_judge = 0;
 };
 
 #endif
