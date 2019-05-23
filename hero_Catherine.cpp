@@ -27,15 +27,17 @@ bool SpriteCatherine::init()
 	auto winSize = Director::getInstance()->getWinSize();
 
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("snow.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magi.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magicusing.plist");
 
 	Animation* animation0 = Anima::createWithSingleFrameName("snow0_", 0.1f, -1);
 	Animation* animation1 = Anima::createWithSingleFrameName("snow1_", 0.1f, -1);
 	Animation* animation2 = Anima::createWithSingleFrameName("snow2_", 0.1f, -1);
 	Animation* animation3 = Anima::createWithSingleFrameName("snow3_", 0.1f, -1);
-	Animation* animation4 = Anima::createWithSingleFrameName("magicusing0_", 0.1f, -1);
-	Animation* animation5 = Anima::createWithSingleFrameName("magicusing1_", 0.1f, -1);
-	Animation* animation6 = Anima::createWithSingleFrameName("magicusing2_", 0.1f, -1);
-	Animation* animation7 = Anima::createWithSingleFrameName("magicusing3_", 0.1f, -1); 
+	Animation* animation4 = Anima::createWithSingleFrameName("magicusing0_", 0.1f, 1);
+	Animation* animation5 = Anima::createWithSingleFrameName("magicusing1_", 0.1f, 1);
+	Animation* animation6 = Anima::createWithSingleFrameName("magicusing2_", 0.1f, 1);
+	Animation* animation7 = Anima::createWithSingleFrameName("magicusing3_", 0.1f, 1); 
 	Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
 	AnimationCache::getInstance()->addAnimation(animation0, "snow_lf");
 	AnimationCache::getInstance()->addAnimation(animation1, "snow_rf");
@@ -107,8 +109,7 @@ bool SpriteCatherine::init()
 	
 	this->addChild(m_hero);
 	this->schedule(schedule_selector(SpriteCatherine::move), 0.01f, kRepeatForever, 0);
-
-
+	//this->schedule(schedule_selector(SpriteCatherine::shock), time, kRepeatForever, 0);
 	return true;
 }
 
@@ -158,6 +159,7 @@ void SpriteCatherine::stop_lf()
 	m_hero->setTexture("snow0_0.png");
 	//_rect.size = m_hero->getContentSize();
 	m_hero->setTextureRect(CCRectMake(0, 0, 100, 100));
+	move_judge = 0;
 	//free(actionManager);
 	//m_hero->setPosition(Point(pos));
 //	this->addChild(m_hero);
@@ -168,6 +170,7 @@ void SpriteCatherine::stop_rf()
 	actionManager->removeAllActionsFromTarget(this->m_hero);
 	m_hero->setTexture("snow1_0.png");
 	m_hero->setTextureRect(CCRectMake(0, 0, 100, 100));
+	move_judge = 0;
 	//free(actionManager);
 //	m_hero->setPosition(Point(pos));
 //	this->addChild(m_hero);
@@ -179,6 +182,7 @@ void SpriteCatherine::stop_rb()
 	//m_hero = Sprite::createWithSpriteFrameName("snow2_0.png");
 	m_hero->setTexture("snow2_0.png");
 	m_hero->setTextureRect(CCRectMake(0, 0, 100, 100));
+	move_judge = 0;
 	//free(actionManager);
 	//m_hero->setPosition(Point(pos));
 //	this->addChild(m_hero);
@@ -190,6 +194,7 @@ void SpriteCatherine::stop_lb()
 	//m_hero = Sprite::createWithSpriteFrameName("snow3_0.png");
 	m_hero->setTexture("snow3_0.png");
 	m_hero->setTextureRect(CCRectMake(0, 0, 100, 100));
+	move_judge = 0;
 //	free (actionManager);
 	//m_hero->setPosition(Point(pos));
 //	this->addChild(m_hero);
@@ -234,12 +239,13 @@ void SpriteCatherine::flash()
 
 void SpriteCatherine::move(float)
 {
+	stop_judge = 0;
 	int devia = deviation;
 	Vec2 move_vec;
 	Vec2 true_vec;
 	//int sped = get().SPE;
 	int sped = 300;
-	true_vec.y = pos.y + m_hero->getContentSize().height*1.5;
+	true_vec.y = pos.y+ m_hero->getContentSize().height*0.3;
 	true_vec.x = pos.x;
 	double denominator = sqrt(pow((true_vec.y - old_pos.y), 2) + pow(true_vec.x - old_pos.x, 2));
 	move_vec.y = (true_vec.y - old_pos.y) * sped / denominator / move_rate;
@@ -247,7 +253,8 @@ void SpriteCatherine::move(float)
 	if (pos != touch_pos)
 	{
 		touch_pos = pos;
-		touch_judge = true;	actionManager->removeAllActionsFromTarget(this->m_hero);
+		touch_judge = true;	
+		//actionManager->removeAllActionsFromTarget(this->m_hero);
 	}
 	else
 	{
@@ -260,99 +267,258 @@ void SpriteCatherine::move(float)
 	else if ((true_vec == old_pos) ||
 		((((true_vec.x + devia) > old_pos.x) && ((true_vec.y + devia) > old_pos.y) && ((true_vec.x - devia) < old_pos.x) && ((true_vec.y - devia) < old_pos.y))))
 	{
+		stop_judge = 1;
 		if (move_judge == 1)
 		{
 			stop_rb();
 		}
-		if (move_judge == 2)
+		else if (move_judge == 2)
 		{
 			stop_rf();
 		}
-		if (move_judge == 3)
+		else if (move_judge == 3)
 		{
 			stop_lb();
 		}
-		if (move_judge == 4)
+		else if (move_judge == 4)
 		{
 			stop_lf();
 		}
 		return;
 	}
-	else if (true_vec.x > old_pos.x&&true_vec.y > old_pos.y)
+	else if (true_vec.x >= old_pos.x&&true_vec.y >= old_pos.y)
 	{
-		old_pos.x = old_pos.x + move_vec.x;//pos
-		old_pos.y = old_pos.y + move_vec.y;//pos
-	//	CCSpawn::create(CCAnimate::create(AnimationCache::getInstance()->getAnimation("snow_lf")),CCMoveBy::create(20.28f, true_vec), NULL),
-		m_hero->setPosition(old_pos);
-		//	m_hero->setAnchorPoint(Vec2(0,0));
-		//stop_rb();
+	old_pos.x = old_pos.x + move_vec.x;//pos
+	old_pos.y = old_pos.y + move_vec.y;//pos
+//	CCSpawn::create(CCAnimate::create(AnimationCache::getInstance()->getAnimation("snow_lf")),CCMoveBy::create(20.28f, true_vec), NULL),
+	m_hero->setPosition(old_pos);
+	//m_hero->setAnchorPoint(Vec2(0,0));
+	//stop_rb();
 
-		if (touch_judge == true)
-		{
-			move_judge = 1;
-			move_rb();
-		}
-	}
-	else if (true_vec.x > old_pos.x&&true_vec.y < old_pos.y)
+	if (touch_judge == true && move_judge != 1)
 	{
-		old_pos.x = old_pos.x + move_vec.x;//pos
-		old_pos.y = old_pos.y + move_vec.y;//pos
-		m_hero->setPosition(old_pos);
-		//	m_hero->setAnchorPoint(Vec2(0,0));
-		//stop_rf();
-		if (touch_judge == true)
-		{
-			move_judge = 2;
-			move_rf();
-		}
+		actionManager->removeAllActionsFromTarget(this->m_hero);
+		move_judge = 1;
+		move_rb();
 	}
-	else if (true_vec.x < old_pos.x&&true_vec.y > old_pos.y)
+	}
+	else if (true_vec.x >= old_pos.x&&true_vec.y < old_pos.y)
 	{
-		old_pos.x = old_pos.x + move_vec.x;//pos
-		old_pos.y = old_pos.y + move_vec.y;//pos
-		m_hero->setPosition(old_pos);
-		//	m_hero->setAnchorPoint(Vec2(0,0));
-		//stop_lb();
-		if (touch_judge == true)
-		{
-			move_judge = 3;
-			move_lb();	
-		}
+	old_pos.x = old_pos.x + move_vec.x;//pos
+	old_pos.y = old_pos.y + move_vec.y;//pos
+	m_hero->setPosition(old_pos);
+	//	m_hero->setAnchorPoint(Vec2(0,0));
+	//stop_rf();
+	if (touch_judge == true && move_judge != 2)
+	{
+		actionManager->removeAllActionsFromTarget(this->m_hero);
+		move_judge = 2;
+		move_rf();
+	}
+	}
+	else if (true_vec.x < old_pos.x&&true_vec.y >= old_pos.y)
+	{
+	old_pos.x = old_pos.x + move_vec.x;//pos
+	old_pos.y = old_pos.y + move_vec.y;//pos
+	m_hero->setPosition(old_pos);
+	//	m_hero->setAnchorPoint(Vec2(0,0));
+	//stop_lb();
+	if (touch_judge == true && move_judge != 3)
+	{
+		actionManager->removeAllActionsFromTarget(this->m_hero);
+		move_judge = 3;
+		move_lb();
+	}
 	}
 	else if (true_vec.x < old_pos.x&&true_vec.y < old_pos.y)
 	{
-		old_pos.x = old_pos.x + move_vec.x;//pos
-		old_pos.y = old_pos.y + move_vec.y;//pos
-		m_hero->setPosition(old_pos);
-		//	m_hero->setAnchorPoint(Vec2(0,0));
-		//stop_lf();
-		if (touch_judge == true)
-		{
-			move_judge = 4;
-			move_lf();
-		}
+	old_pos.x = old_pos.x + move_vec.x;//pos
+	old_pos.y = old_pos.y + move_vec.y;//pos
+	m_hero->setPosition(old_pos);
+	//	m_hero->setAnchorPoint(Vec2(0,0));
+	//stop_lf();
+	if (touch_judge == true && move_judge != 4)
+	{
+		actionManager->removeAllActionsFromTarget(this->m_hero);
+		move_judge = 4;
+		move_lf();
+	}
 	}
 }
 
 void SpriteCatherine::skillst()
 {
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
-	m_hero->runAction(Repeat::create(animate, 1));
+	if (stop_judge == 0)
+	{
+		actionManager->removeAllActionsFromTarget(this->m_hero);
+		if (move_judge == 1)//rbrflblf
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rb"));
+		}
+		else if (move_judge == 2)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rf"));
+		}
+		else if (move_judge == 3)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lb"));
+		}
+		else if (move_judge == 4)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lf"));
+		}
+			m_hero->runAction(Sequence::create(Repeat::create(animate,1), Repeat::create(animate_one,1000),nullptr));
+		}
+	else
+		m_hero->runAction(Repeat::create(animate, 1));
+	//m_hero->runAction(Repeat::create(animate, 1));
+	//m_hero->scheduleOnce(schedule_selector(SpriteCatherine::judge_action), Repeat::create(animate, 1)->getDuration());
+//	m_hero->runAction(Repeat::create(animate, 1));
 }
 void SpriteCatherine::skillnd()
 {
+	//action_judge = 0;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_nd"));
-	m_hero->runAction(Repeat::create(animate, 1));
+	if (stop_judge == 0)
+	{
+		actionManager->removeAllActionsFromTarget(this->m_hero);
+		if (move_judge == 1)//rbrflblf
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rb"));
+		}
+		else if (move_judge == 2)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rf"));
+		}
+		else if (move_judge == 3)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lb"));
+		}
+		else if (move_judge == 4)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lf"));
+		}
+		m_hero->runAction(Sequence::create(Repeat::create(animate, 1), Repeat::create(animate_one, 1000), nullptr));
+	}
+	else
+		m_hero->runAction(Repeat::create(animate, 1));
+	//m_hero->runAction(RepeatForever::create(animate));
 }
 void SpriteCatherine::skillrd()
 {
+	//this->schedule(schedule_selector(SpriteCatherine::move), 0.01f, kRepeatForever, 0);
+	//action_judge = 2;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rd"));
-	m_hero->runAction(Repeat::create(animate, 1));
+	if (stop_judge == 0)
+	{
+		actionManager->removeAllActionsFromTarget(this->m_hero);
+		if (move_judge == 1)//rbrflblf
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rb"));
+		}
+		else if (move_judge == 2)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rf"));
+		}
+		else if (move_judge == 3)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lb"));
+		}
+		else if (move_judge == 4)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lf"));
+		}
+		m_hero->runAction(Sequence::create(Repeat::create(animate, 1), Repeat::create(animate_one, 1000), nullptr));
+	}
+	else
+		m_hero->runAction(Repeat::create(animate, 1));
+	//m_hero->runAction(RepeatForever::create(animate));
 }
 void SpriteCatherine::skillth()
 {
+	
+	//this->pauseTarget(schedule_selector(SpriteCatherine::move), true);
+	//this->unschedule(schedule_selector(SpriteCatherine::move));
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_th"));
-	m_hero->runAction(Repeat::create(animate,1));
+	if (stop_judge == 0)
+	{
+		actionManager->removeAllActionsFromTarget(this->m_hero);
+		if (move_judge == 1)//rbrflblf
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rb"));
+		}
+		else if (move_judge == 2)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rf"));
+		}
+		else if (move_judge == 3)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lb"));
+		}
+		else if (move_judge == 4)
+		{
+			animate_one = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lf"));
+		}
+		m_hero->runAction(Sequence::create(Repeat::create(animate, 1), Repeat::create(animate_one, 1000), nullptr));
+	}
+	else
+		m_hero->runAction(Repeat::create(animate, 1));
+	//schedule(CC_SCHEDULE_SELECTOR(HelloWorld::unpause), 3);
+	//m_hero->runAction(RepeatForever::create(animate));
 }
 
+void SpriteCatherine::skillst(float time)
+{
+	
+//	CCDelayTime* delayTime = CCDelayTime::create(time);
+//	CCCallFunc *callFunND = CCCallFun::create(CC_CALLBACK_1(callfunc_selector(SpriteCatherine::skill),this ));
+	shock(time);
+	pos.x = old_pos.x;
+	pos.y = old_pos.y - m_hero->getContentSize().height*0.3;
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
+	int times = time / Repeat::create(animate, 1)->getDuration();
+	m_hero->runAction(Repeat::create(animate, times));
+}
+void SpriteCatherine::skillnd(float time)
+{
+	shock(time);
+	pos.x = old_pos.x;
+	pos.y = old_pos.y - m_hero->getContentSize().height*0.3;
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
+	int times = time / Repeat::create(animate, 1)->getDuration();
+	m_hero->runAction(Repeat::create(animate, times));
+}
+void SpriteCatherine::skillrd(float time)
+{
+	shock(time);
+	pos.x = old_pos.x;
+	pos.y = old_pos.y - m_hero->getContentSize().height*0.3;
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
+	int times = time / Repeat::create(animate, 1)->getDuration();
+	m_hero->runAction(Repeat::create(animate, times));
+}
+void SpriteCatherine::skillth(float time)
+{
+	shock(time);
+	pos.x = old_pos.x;
+	pos.y = old_pos.y - m_hero->getContentSize().height*0.3;
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
+	int times=time/Repeat::create(animate, 1)->getDuration();
+	m_hero->runAction(Repeat::create(animate, times));
+}
+
+void SpriteCatherine::shock(float time)
+{
+	if(move_judge!=0)
+		actionManager->removeAllActionsFromTarget(this->m_hero);
+	this->unschedule(schedule_selector(SpriteCatherine::move));
+	this->schedule(schedule_selector(SpriteCatherine::shock_remove),time, 1, 0);
+}
+
+void SpriteCatherine::shock_remove(float time)
+{
+	this->schedule(schedule_selector(SpriteCatherine::move), 0.01f, kRepeatForever, 0);
+	this->unschedule(schedule_selector(SpriteCatherine::shock_remove));
+}
 

@@ -25,6 +25,10 @@ public:
 	void skillnd();
 	void skillrd();
 	void skillth();
+	void skillst(float);
+	void skillnd(float);
+	void skillrd(float);
+	void skillth(float);
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	SpriteCatherine();
@@ -32,9 +36,14 @@ private:
 	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
 	Sprite* m_hero;
 	Animate* animate;
+	Animate* animate_one;
 	int move_judge=0;
 	Vec2 touch_pos;
 	bool touch_judge = 0;
+	bool stop_judge = 0;
+	void shock(float);
+	void shock_remove(float);
+//	void skill(Ref* pSender);
 };
 
 #endif
