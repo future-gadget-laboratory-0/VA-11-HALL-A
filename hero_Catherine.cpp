@@ -1,5 +1,6 @@
 #include "hero_Catherine.h"
-#include "anima.h"
+
+
 
 SpriteCatherine* SpriteCatherine::instance = NULL;
 
@@ -27,7 +28,7 @@ bool SpriteCatherine::init()
 	auto winSize = Director::getInstance()->getWinSize();
 
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("snow.plist");
-	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magi.plist");
+	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magi.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magicusing.plist");
 
 	Animation* animation0 = Anima::createWithSingleFrameName("snow0_", 0.1f, -1);
@@ -38,7 +39,7 @@ bool SpriteCatherine::init()
 	Animation* animation5 = Anima::createWithSingleFrameName("magicusing1_", 0.1f, 1);
 	Animation* animation6 = Anima::createWithSingleFrameName("magicusing2_", 0.1f, 1);
 	Animation* animation7 = Anima::createWithSingleFrameName("magicusing3_", 0.1f, 1); 
-	Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
+	//Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
 	AnimationCache::getInstance()->addAnimation(animation0, "snow_lf");
 	AnimationCache::getInstance()->addAnimation(animation1, "snow_rf");
 	AnimationCache::getInstance()->addAnimation(animation2, "snow_rb");
@@ -47,8 +48,9 @@ bool SpriteCatherine::init()
 	AnimationCache::getInstance()->addAnimation(animation5, "snow_nd");
 	AnimationCache::getInstance()->addAnimation(animation6, "snow_rd");
 	AnimationCache::getInstance()->addAnimation(animation7, "snow_th");
-	AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
+	//AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
 	m_hero = Sprite::createWithSpriteFrameName("snow0_0.png");
+	m_hero->setTag(1000001);
 	/*srand((int)time(0));
 	Animate* animate;
 	
@@ -77,9 +79,16 @@ bool SpriteCatherine::init()
 	default:
 		break;
 	}*/
-
-
-
+	bullet0->setanimation("magi0_0.png", "fly_one");
+	//bullet1->setanimation("magi0_0.png", "fly_one");
+	//bullet2->setanimation("magi0_0.png", "fly_one");
+	//bullet3->setanimation("magi0_0.png", "fly_one");
+	//bullet4->setanimation("magi0_0.png", "fly_one");
+	this->addChild(bullet0);
+	//this->addChild(bullet1);
+	//this->addChild(bullet2);
+	//this->addChild(bullet3);
+	//this->addChild(bullet4);
 
 	m_hero->setPosition(Point(winSize.width / 2, winSize.height*0.8));
 	auto CaBody = PhysicsBody::createBox(m_hero->getContentSize(),PHYSICSBODY_MATERIAL_DEFAULT);
@@ -485,16 +494,19 @@ void SpriteCatherine::skillnd(float time)
 	shock(time);
 	pos.x = old_pos.x;
 	pos.y = old_pos.y - m_hero->getContentSize().height*0.3;
-	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_nd"));
 	int times = time / Repeat::create(animate, 1)->getDuration();
 	m_hero->runAction(Repeat::create(animate, times));
+
+	bullet0->Fixed(Vec2(m_hero->getPosition().x,m_hero->getPosition().y + m_hero->getContentSize().height*0.5), Vec2(mouse_pos.x,mouse_pos.y+ m_hero->getContentSize().height));
+
 }
 void SpriteCatherine::skillrd(float time)
 {
 	shock(time);
 	pos.x = old_pos.x;
 	pos.y = old_pos.y - m_hero->getContentSize().height*0.3;
-	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_ed"));
 	int times = time / Repeat::create(animate, 1)->getDuration();
 	m_hero->runAction(Repeat::create(animate, times));
 }
@@ -503,7 +515,7 @@ void SpriteCatherine::skillth(float time)
 	shock(time);
 	pos.x = old_pos.x;
 	pos.y = old_pos.y - m_hero->getContentSize().height*0.3;
-	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_th"));
 	int times=time/Repeat::create(animate, 1)->getDuration();
 	m_hero->runAction(Repeat::create(animate, times));
 }

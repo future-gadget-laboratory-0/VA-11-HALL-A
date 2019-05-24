@@ -2,6 +2,8 @@
 #define _HERO_CATHERINE_H_
 #include "cocos2d.h"
 #include "unitssprite.h"
+#include "bullets.h"
+//#include "anima.h"
 USING_NS_CC;
 class SpriteCatherine :public UnitsSprite
 {
@@ -20,6 +22,7 @@ public:
 	CREATE_FUNC(SpriteCatherine);
 	Vec2 pos;
 	Vec2 old_pos=Point(-100,-100);
+	Vec2 mouse_pos;
 	void move(float);
 	void skillst();
 	void skillnd();
@@ -43,6 +46,12 @@ private:
 	bool stop_judge = 0;
 	void shock(float);
 	void shock_remove(float);
+	BulletSprite* bullet0 = BulletSprite::create();
+	BulletSprite* bullet1 = BulletSprite::create();
+	BulletSprite* bullet2 = BulletSprite::create();
+	BulletSprite* bullet3 = BulletSprite::create();
+	BulletSprite* bullet4 = BulletSprite::create();
+	BulletSprite* bullet5 = BulletSprite::create();
 //	void skill(Ref* pSender);
 };
 
