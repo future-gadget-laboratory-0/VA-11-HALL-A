@@ -68,16 +68,16 @@ bool BulletSprite::init()
 
 
 
-
+	m_bullet->setAnchorPoint(Point(0.5, 0.5));
 	//m_bullet->setPosition(Point(winSize.width / 2, winSize.height*0.8));
-	auto CaBody = PhysicsBody::createBox(m_bullet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	//auto CaBody = PhysicsBody::createBox(m_bullet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	//m_hero->setPhysicsBody(CaBody);
 	//CaBody->setContactTestBitmask(0xFFFFFFFF);
-	CaBody->setRotationEnable(false);
-	CaBody->setCategoryBitmask(1);
-	CaBody->setCollisionBitmask(1);
-	CaBody->setContactTestBitmask(1);
-	this->setPhysicsBody(CaBody);
+	//CaBody->setRotationEnable(false);
+	//CaBody->setCategoryBitmask(1);
+	//CaBody->setCollisionBitmask(1);
+	//CaBody->setContactTestBitmask(1);
+	//this->setPhysicsBody(CaBody);
 
 	//m_hero = Sprite::createWithSpriteFrameName("snow0_0.png");
 	//animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lf"));
@@ -125,21 +125,25 @@ void BulletSprite::setanimation(__String name, __String aniname)
 }
 
 
-void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended)
+void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length)
 {
 	double denominator = sqrt(pow((pos_ended.y - pos_started.y), 2) + pow(pos_ended.x - pos_started.x, 2));
+	Vec2 pos_true;
+	pos_true = (pos_ended - pos_started) / denominator * Length;
 	int sped = bulletspeed;
-	double time = denominator / sped;
+	double time = Length / sped;
 	m_bullet->setPosition(pos_started);
-	auto moveto=MoveTo::create(time,pos_ended);
-	m_bullet->runAction(moveto);
+	auto moveby=MoveBy::create(time, pos_true);
+	m_bullet->runAction(moveby);
 }
 
-void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int sped)
+void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length, int sped)
 {
 	double denominator = sqrt(pow((pos_ended.y - pos_started.y), 2) + pow(pos_ended.x - pos_started.x, 2));
-	double time = denominator / sped;
+	Vec2 pos_true;
+	pos_true = (pos_ended - pos_started) / denominator * Length;
+	double time = Length / sped;
 	m_bullet->setPosition(pos_started);
-	auto moveto = MoveTo::create(time, pos_ended);
-	m_bullet->runAction(moveto);
+	auto moveby = MoveBy::create(time, pos_true);
+	m_bullet->runAction(moveby);
 }

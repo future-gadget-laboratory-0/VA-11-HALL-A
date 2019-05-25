@@ -115,11 +115,16 @@ bool SpriteCatherine::init()
 	//birdbody->setCollisionBitmask(-1);
 	//birdbody->setContactTestBitmask(-1);
 	//m_bird->setPhysicsBody(birdbody);
-	
+	m_hero->setAnchorPoint(Point(0.5, 0.5));
 	this->addChild(m_hero);
 	this->schedule(schedule_selector(SpriteCatherine::move), 0.01f, kRepeatForever, 0);
 	//this->schedule(schedule_selector(SpriteCatherine::shock), time, kRepeatForever, 0);
 	return true;
+}
+
+void SpriteCatherine::setPosition(Vec2 loc)
+{
+	m_hero->setPosition(loc);
 }
 
 
@@ -254,7 +259,8 @@ void SpriteCatherine::move(float)
 	Vec2 true_vec;
 	//int sped = get().SPE;
 	int sped = 300;
-	true_vec.y = pos.y+ m_hero->getContentSize().height*0.3;
+	//true_vec.y = pos.y+ m_hero->getContentSize().height*0.3;
+	true_vec.y = pos.y ;
 	true_vec.x = pos.x;
 	double denominator = sqrt(pow((true_vec.y - old_pos.y), 2) + pow(true_vec.x - old_pos.x, 2));
 	move_vec.y = (true_vec.y - old_pos.y) * sped / denominator / move_rate;
@@ -498,8 +504,8 @@ void SpriteCatherine::skillnd(float time)
 	int times = time / Repeat::create(animate, 1)->getDuration();
 	m_hero->runAction(Repeat::create(animate, times));
 
-	bullet0->Fixed(Vec2(m_hero->getPosition().x,m_hero->getPosition().y + m_hero->getContentSize().height*0.5), Vec2(mouse_pos.x,mouse_pos.y+ m_hero->getContentSize().height));
-
+	//bullet0->Fixed(Vec2(m_hero->getPosition().x,m_hero->getPosition().y + m_hero->getContentSize().height*0.5), Vec2(mouse_pos.x,mouse_pos.y+ m_hero->getContentSize().height));
+	bullet0->Fixed(m_hero->getPosition(), mouse_pos,100);
 }
 void SpriteCatherine::skillrd(float time)
 {

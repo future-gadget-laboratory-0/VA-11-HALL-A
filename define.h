@@ -21,8 +21,10 @@ struct actor_property
 	int RES;//Actor's spell defence
 	int RDR;//Actor's reduction ratio
 	int	BP;	//Battering rate
+	int	ATR;//Attack range;
 };
-
+//1000000 mouse; 1000001 Catherine
 
 #define move_rate 1000;
 #define deviation 5;
+#define bulletspeed 50;

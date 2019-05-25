@@ -26,6 +26,7 @@ protected:
 	static m_controller* instance;
 	SpriteCatherine* Catherine = SpriteCatherine::create();
 	Sprite* mouse_sprite = Sprite::create("mouse.png");
+	SpriteCatherine* Catherine_test = SpriteCatherine::create();
 };
 
 #endif

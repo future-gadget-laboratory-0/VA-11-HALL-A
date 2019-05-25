@@ -170,12 +170,13 @@ bool m_controller::init()
 
 
 	//mouse_sprite->setScale(0.5f);
-	ShowCursor(FALSE);
+	//ShowCursor(FALSE);
 	//mouse_sprite->setAnchorPoint(Point(mouse_sprite->getContentSize().width,mouse_sprite->getContentSize().height));
-	mouse_sprite->setAnchorPoint(Point(0, -1.1));
+	mouse_sprite->setAnchorPoint(Point(0,1));
 	this->addChild(mouse_sprite, 2);
 	this->addChild(Catherine, 1);
-
+	this->addChild(Catherine_test, 1);
+	Catherine_test->setPosition(Vec2(visibleSize.width / 2, visibleSize.height*0.3));
 	return true;
 }
 

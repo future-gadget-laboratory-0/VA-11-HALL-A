@@ -12,8 +12,8 @@ public:
 	//这个类对象的访问接口，通过它来实例化对象
 	static BulletSprite* getInstance();
 	void setanimation(__String,__String);
-	void Fixed(Vec2,Vec2);
-	void Fixed(Vec2, Vec2,int);
+	void Fixed(Vec2,Vec2,int);
+	void Fixed(Vec2, Vec2,int,int);
 	void Followed(int, int);
 	CREATE_FUNC(BulletSprite);
 	

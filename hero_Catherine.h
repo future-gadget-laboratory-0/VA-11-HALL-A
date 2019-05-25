@@ -11,6 +11,7 @@ public:
 	virtual bool init();
 	//这个类对象的访问接口，通过它来实例化对象
 	static SpriteCatherine* getInstance();
+	void setPosition(Vec2);
 	void move_lf();
 	void move_rf();
 	void move_rb();
