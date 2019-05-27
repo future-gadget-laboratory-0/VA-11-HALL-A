@@ -70,14 +70,14 @@ bool BulletSprite::init()
 
 	m_bullet->setAnchorPoint(Point(0.5, 0.5));
 	//m_bullet->setPosition(Point(winSize.width / 2, winSize.height*0.8));
-	//auto CaBody = PhysicsBody::createBox(m_bullet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	auto CaBody = PhysicsBody::createBox(m_bullet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	//m_hero->setPhysicsBody(CaBody);
 	//CaBody->setContactTestBitmask(0xFFFFFFFF);
 	//CaBody->setRotationEnable(false);
-	//CaBody->setCategoryBitmask(1);
-	//CaBody->setCollisionBitmask(1);
-	//CaBody->setContactTestBitmask(1);
-	//this->setPhysicsBody(CaBody);
+	CaBody->setCategoryBitmask(0xFFFFFFFF);
+	CaBody->setCollisionBitmask(0x00000000);
+	CaBody->setContactTestBitmask(1);
+	this->setPhysicsBody(CaBody);
 
 	//m_hero = Sprite::createWithSpriteFrameName("snow0_0.png");
 	//animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lf"));
@@ -147,3 +147,13 @@ void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length, int sped)
 	auto moveby = MoveBy::create(time, pos_true);
 	m_bullet->runAction(moveby);
 }
+
+void BulletSprite::Followed(Sprite* target, int sped)
+{
+	
+}
+/*
+void BulletSprite::collision(Sprite* target, Sprite* bullet)
+{
+	if(target)
+}*/

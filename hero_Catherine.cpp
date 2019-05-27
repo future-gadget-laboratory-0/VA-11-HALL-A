@@ -51,6 +51,7 @@ bool SpriteCatherine::init()
 	//AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
 	m_hero = Sprite::createWithSpriteFrameName("snow0_0.png");
 	m_hero->setTag(1000001);
+	
 	/*srand((int)time(0));
 	Animate* animate;
 	
@@ -96,7 +97,7 @@ bool SpriteCatherine::init()
 	//CaBody->setContactTestBitmask(0xFFFFFFFF);
 	CaBody->setRotationEnable(false);
 	CaBody->setCategoryBitmask(1);
-	CaBody->setCollisionBitmask(1);
+	CaBody->setCollisionBitmask(0x00000000);
 	CaBody->setContactTestBitmask(1);
 	this->setPhysicsBody(CaBody);
 
@@ -115,9 +116,10 @@ bool SpriteCatherine::init()
 	//birdbody->setCollisionBitmask(-1);
 	//birdbody->setContactTestBitmask(-1);
 	//m_bird->setPhysicsBody(birdbody);
-	m_hero->setAnchorPoint(Point(0.5, 0.5));
+	m_hero->setAnchorPoint(Point(0.5, 0.2));
 	this->addChild(m_hero);
 	this->schedule(schedule_selector(SpriteCatherine::move), 0.01f, kRepeatForever, 0);
+	this->schedule(schedule_selector(SpriteCatherine::death), 0.01f, kRepeatForever, 0);
 	//this->schedule(schedule_selector(SpriteCatherine::shock), time, kRepeatForever, 0);
 	return true;
 }
@@ -540,3 +542,21 @@ void SpriteCatherine::shock_remove(float time)
 	this->unschedule(schedule_selector(SpriteCatherine::shock_remove));
 }
 
+void SpriteCatherine::death(float time)
+{
+	if (get().HP <= 0)
+	{
+		changeproperty(500, "RET");
+		this->unschedule(schedule_selector(SpriteCatherine::death));
+		if (get().RET != 0)
+			this->schedule(schedule_selector(SpriteCatherine::revive), get().RET, 1, 0);
+		else
+			this->schedule(schedule_selector(SpriteCatherine::revive),10, 1, 0);
+	}
+}
+
+void SpriteCatherine::revive(float time)
+{
+	this->schedule(schedule_selector(SpriteCatherine::death), 0.01f, kRepeatForever, 0);
+	this->unschedule(schedule_selector(SpriteCatherine::revive));
+}

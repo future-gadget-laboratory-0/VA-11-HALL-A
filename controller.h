@@ -19,6 +19,7 @@ public:
 	bool onTouchBegan(Touch* touch, Event* event);
 	void onTouchMoved(Touch* touch, Event* event);
 	void onTouchEnded(Touch* touch, Event* event);
+	bool onContactBegin(PhysicsContact& contact);
 	CREATE_FUNC(m_controller);
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
@@ -27,6 +28,9 @@ protected:
 	SpriteCatherine* Catherine = SpriteCatherine::create();
 	Sprite* mouse_sprite = Sprite::create("mouse.png");
 	SpriteCatherine* Catherine_test = SpriteCatherine::create();
+	//Vector<int> SPS;//store Sprites's tag;
+	int m_STag;
+	//void lockon();
 };
 
 #endif

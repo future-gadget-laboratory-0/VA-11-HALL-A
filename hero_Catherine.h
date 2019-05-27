@@ -33,6 +33,7 @@ public:
 	void skillnd(float);
 	void skillrd(float);
 	void skillth(float);
+	void death(float);
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	SpriteCatherine();
@@ -47,6 +48,7 @@ private:
 	bool stop_judge = 0;
 	void shock(float);
 	void shock_remove(float);
+	void revive(float);
 	BulletSprite* bullet0 = BulletSprite::create();
 	BulletSprite* bullet1 = BulletSprite::create();
 	BulletSprite* bullet2 = BulletSprite::create();

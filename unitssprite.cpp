@@ -141,7 +141,12 @@ bool UnitsSprite::changeproperty(const int& val, const __String& name)
 		m_property.RDR = val;
 	else if (str == "BP")
 		m_property.BP = val;
-	else
+	else if (str == "ATR")
+		m_property.ATR = val;
+	else if (str == "RET")
+		m_property.RET = val;
+	else if (str == "TYPE")
+		m_property.TYPE = val;
 		return FALSE;
 	return TRUE;
 }	
@@ -151,11 +156,14 @@ void UnitsSprite::Recover(const int& val, const int& time, const __String& name)
 	m_property.MP += m_property.RMP;
 	m_property.STA += m_property.RSTA;
 }
+
 actor_property UnitsSprite::get()
 {
 	actor_property my = m_property;
 	return my;
 }
+
+
 
 UnitsSprite* UnitsSprite::getInstance()
 {

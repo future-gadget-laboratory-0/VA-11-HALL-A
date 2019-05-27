@@ -14,7 +14,8 @@ public:
 	void setanimation(__String,__String);
 	void Fixed(Vec2,Vec2,int);
 	void Fixed(Vec2, Vec2,int,int);
-	void Followed(int, int);
+	void Followed(Sprite*, int);
+	void collision(Sprite*, Sprite*);//former is target ,the other is bullet
 	CREATE_FUNC(BulletSprite);
 	
 private:

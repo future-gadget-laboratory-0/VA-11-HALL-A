@@ -123,8 +123,32 @@ void m_controller::onMouseScroll(Event *event)
 //	Catherine->pos = e->getLocation();
 }
 
-m_controller* m_controller::instance = NULL;
 
+bool m_controller::onContactBegin (PhysicsContact& contact) {
+	auto bodyA = (Sprite*)(contact.getShapeA()->getBody()->getNode());
+	auto bodyB = (Sprite*)(contact.getShapeB()->getBody()->getNode());
+	if (!bodyA || !bodyB)
+		return false;
+	int tagA = bodyA->getTag();
+	int tagB = bodyB->getTag();
+	if (tagA == tagB && tagA == 100001)
+		return false ;
+	if (tagA == 100001)
+	{
+		//contact.getShapeA->get();
+		bodyA->removeFromParentAndCleanup(true);
+	}
+	if (tagB == 100001)
+	{
+		bodyB->removeFromParentAndCleanup(true);
+	}
+
+	return true;
+}
+
+
+
+m_controller* m_controller::instance = NULL;
 m_controller::m_controller()
 {
 
@@ -169,6 +193,11 @@ bool m_controller::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
 
 
+
+	EventListenerPhysicsContact* evContact = EventListenerPhysicsContact::create();
+	evContact->onContactBegin = CC_CALLBACK_1(m_controller::onContactBegin, this);
+	evContact->onContactSeparate= [](PhysicsContact& contact){return true;  };
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(evContact, this);
 	//mouse_sprite->setScale(0.5f);
 	//ShowCursor(FALSE);
 	//mouse_sprite->setAnchorPoint(Point(mouse_sprite->getContentSize().width,mouse_sprite->getContentSize().height));
@@ -179,4 +208,8 @@ bool m_controller::init()
 	Catherine_test->setPosition(Vec2(visibleSize.width / 2, visibleSize.height*0.3));
 	return true;
 }
+/*
+void m_controller::clockon()
+{
 
+}*/
