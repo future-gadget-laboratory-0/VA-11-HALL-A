@@ -9,6 +9,7 @@ class UnitsSprite :public Sprite
 public:
 	virtual bool init();
 	//这个类对象的访问接口，通过它来实例化对象
+	static UnitsSprite * create(const char *pszFileName);
 	static UnitsSprite* getInstance();
 	bool setproperty(const actor_property&);
 	bool bpdamage();
@@ -22,7 +23,7 @@ public:
 	void Recover(const int&, const int&, const __String&);//return HP
 	actor_property get();
 
-	CREATE_FUNC(UnitsSprite);
+	//CREATE_FUNC(UnitsSprite);
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	UnitsSprite();

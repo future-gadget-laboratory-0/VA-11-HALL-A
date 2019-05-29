@@ -10,8 +10,12 @@ class SpriteCatherine :public UnitsSprite
 public:
 	virtual bool init();
 	//这个类对象的访问接口，通过它来实例化对象
+	static SpriteCatherine * create(const char *pszFileName);
+	static SpriteCatherine *createWithSpriteFrameName(const char *pszFileName);
 	static SpriteCatherine* getInstance();
-	void setPosition(Vec2);
+	//void setPosition(Vec2);
+	void settag(int);
+	void setbody(int,int,int);
 	void move_lf();
 	void move_rf();
 	void move_rb();
@@ -39,9 +43,10 @@ private:
 	SpriteCatherine();
 	static SpriteCatherine* instance;
 	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
-	Sprite* m_hero;
+	//Sprite* m_hero;
 	Animate* animate;
 	Animate* animate_one;
+	PhysicsBody* CaBody;
 	int move_judge=0;
 	Vec2 touch_pos;
 	bool touch_judge = 0;
@@ -49,12 +54,13 @@ private:
 	void shock(float);
 	void shock_remove(float);
 	void revive(float);
-	BulletSprite* bullet0 = BulletSprite::create();
+/*	BulletSprite* bullet0 = BulletSprite::create();
 	BulletSprite* bullet1 = BulletSprite::create();
 	BulletSprite* bullet2 = BulletSprite::create();
 	BulletSprite* bullet3 = BulletSprite::create();
 	BulletSprite* bullet4 = BulletSprite::create();
-	BulletSprite* bullet5 = BulletSprite::create();
+	BulletSprite* bullet5 = BulletSprite::create();*/
+	BulletSprite* bullet0 = BulletSprite::getInstance();
 //	void skill(Ref* pSender);
 };
 

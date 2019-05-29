@@ -31,8 +31,11 @@ bool BulletSprite::init()
 	Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
 
 	AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
-	m_bullet = Sprite::createWithSpriteFrameName("magi0_0.png");
-	m_bullet->setTag(100001);
+	this->setTexture("magi0_0.png");
+//	this->setTexture("snow0_0.png");
+	//m_bullet = Sprite::createWithSpriteFrameName("magi0_0.png");
+	//m_bullet->setTag(100001);
+	//this->setTag(100001);
 	//animate = Animate::create(AnimationCache::getInstance()->getAnimation("fly_one"));
 	//m_bullet->runAction(RepeatForever::create(animate));
 	//animate = Animate::create(AnimationCache::getInstance()->getAnimation("fly_one"));
@@ -68,15 +71,18 @@ bool BulletSprite::init()
 
 
 
-	m_bullet->setAnchorPoint(Point(0.5, 0.5));
-	//m_bullet->setPosition(Point(winSize.width / 2, winSize.height*0.8));
-	auto CaBody = PhysicsBody::createBox(m_bullet->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	this->setAnchorPoint(Point(0.5, 0.5));
+	//this->setPosition(Point(winSize.width / 2, winSize.height*0.8));
+	auto CaBody = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	//m_hero->setPhysicsBody(CaBody);
 	//CaBody->setContactTestBitmask(0xFFFFFFFF);
 	//CaBody->setRotationEnable(false);
-	CaBody->setCategoryBitmask(0xFFFFFFFF);
-	CaBody->setCollisionBitmask(0x00000000);
-	CaBody->setContactTestBitmask(1);
+	//CaBody->setCategoryBitmask(0xFFFFFFFF);
+	CaBody->setCategoryBitmask(0x01);
+	CaBody->setCollisionBitmask(0x00000010);
+	//CaBody->getShape(0)->setRestitution(0);
+//	CaBody->setCollisionBitmask(0x01);
+	CaBody->setContactTestBitmask(0x01);
 	this->setPhysicsBody(CaBody);
 
 	//m_hero = Sprite::createWithSpriteFrameName("snow0_0.png");
@@ -95,7 +101,7 @@ bool BulletSprite::init()
 	//birdbody->setContactTestBitmask(-1);
 	//m_bird->setPhysicsBody(birdbody);
 
-	this->addChild(m_bullet);
+	//this->addChild(this);
 	//this->schedule(schedule_selector(m_bullet::move), 0.01f, kRepeatForever, 0);
 	//this->schedule(schedule_selector(SpriteCatherine::shock), time, kRepeatForever, 0);
 	return true;
@@ -107,7 +113,7 @@ void BulletSprite::setanimation(__String name, __String aniname)
 	const std::string anistr = aniname.getCString();
 	if (str != " ")
 	{
-		m_bullet->setTexture(str);
+		this->setTexture(str);
 	}
 	try {
 		if (anistr == " ")
@@ -116,12 +122,12 @@ void BulletSprite::setanimation(__String name, __String aniname)
 	catch (int d) { return; }
 	
 	try {	
-		if (actionManager->getNumberOfRunningActionsInTarget(m_bullet) !=0)	
+		if (actionManager->getNumberOfRunningActionsInTarget(this) !=0)	
 			throw - 1.00;
 		}
-		catch (float f) {m_bullet->stopAllActions();}
+		catch (float f) { this->stopAllActions();}
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation(anistr));
-		m_bullet->runAction(RepeatForever::create(animate));
+		this->runAction(RepeatForever::create(animate));
 }
 
 
@@ -132,9 +138,10 @@ void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length)
 	pos_true = (pos_ended - pos_started) / denominator * Length;
 	int sped = bulletspeed;
 	double time = Length / sped;
-	m_bullet->setPosition(pos_started);
+//	this->setPosition(pos_started);
+	this->setPosition(Vec2(50,30));
 	auto moveby=MoveBy::create(time, pos_true);
-	m_bullet->runAction(moveby);
+	this->runAction(moveby);
 }
 
 void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length, int sped)
@@ -143,9 +150,10 @@ void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length, int sped)
 	Vec2 pos_true;
 	pos_true = (pos_ended - pos_started) / denominator * Length;
 	double time = Length / sped;
-	m_bullet->setPosition(pos_started);
+	//this->setPosition(pos_started);
+	this->setPosition(Vec2(50, 30));
 	auto moveby = MoveBy::create(time, pos_true);
-	m_bullet->runAction(moveby);
+	this->runAction(moveby);
 }
 
 void BulletSprite::Followed(Sprite* target, int sped)
@@ -155,5 +163,5 @@ void BulletSprite::Followed(Sprite* target, int sped)
 /*
 void BulletSprite::collision(Sprite* target, Sprite* bullet)
 {
-	if(target)
+	target->get();
 }*/

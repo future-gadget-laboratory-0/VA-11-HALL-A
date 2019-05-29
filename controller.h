@@ -25,9 +25,12 @@ protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	m_controller();
 	static m_controller* instance;
-	SpriteCatherine* Catherine = SpriteCatherine::create();
+	//SpriteCatherine* Catherine = SpriteCatherine::createWithSpriteFrameName("snow0_0.png");
+	SpriteCatherine* Catherine = SpriteCatherine::getInstance();
+	//auto Catherine = SpriteCatherine::createWithSpriteFrameName("snow0_0.png");
+	//SpriteCatherine* Catherine = SpriteCatherine::create();
 	Sprite* mouse_sprite = Sprite::create("mouse.png");
-	SpriteCatherine* Catherine_test = SpriteCatherine::create();
+	//SpriteCatherine* Catherine_test = SpriteCatherine::create();
 	//Vector<int> SPS;//store Sprites's tag;
 	int m_STag;
 	//void lockon();

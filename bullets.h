@@ -23,7 +23,7 @@ private:
 	BulletSprite();
 	static BulletSprite* instance;
 	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
-	Sprite* m_bullet;
+//	Sprite* m_bullet;
 	Animate* animate;
 	Animate* animate_one;
 

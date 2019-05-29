@@ -10,6 +10,20 @@ UnitsSprite::UnitsSprite()
 	
 }
 
+
+
+UnitsSprite * UnitsSprite::create(const char *filename)
+{
+	UnitsSprite *sprite = new UnitsSprite();
+	if (sprite && sprite->initWithFile(filename))
+	{
+		sprite->autorelease();
+		return sprite;
+	}
+	CC_SAFE_DELETE(sprite);
+	return nullptr;
+}
+
 bool UnitsSprite::setproperty(const actor_property& acp) 
 {
 	m_property = acp;
