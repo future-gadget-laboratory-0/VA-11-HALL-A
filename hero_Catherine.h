@@ -38,6 +38,8 @@ public:
 	void skillrd(float);
 	void skillth(float);
 	void death(float);
+	//float isexecute(int);//if int ==1, spell_judge=1,==0,=0,else won't change anything
+	//void reexecute();
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	SpriteCatherine();
@@ -50,10 +52,29 @@ private:
 	int move_judge=0;
 	Vec2 touch_pos;
 	bool touch_judge = 0;
-	bool stop_judge = 0;
+	float stop_judge = 0;//0 is down;1 is doing move execute;other the time of stand excute
+	
 	void shock(float);
 	void shock_remove(float);
 	void revive(float);
+	//functionstate
+	bool state_estimation(int,int,int);
+	//functionshake
+	//bool executeshake=0;
+	bool Back_shake();
+	void Bs_reset(float);
+	float spell_judge = 0;
+	//functionspell
+	bool Spell_cooldown();
+	void Sc_reset1(float);
+	void Sc_reset2(float);
+	void Sc_reset3(float);
+	void Sc_reset4(float);
+	int cooldowning1=0;
+	int cooldowning2 = 0;
+	int cooldowning3 = 0;
+	int cooldowning4 = 0;
+	int cooldowning_compare = 0;
 /*	BulletSprite* bullet0 = BulletSprite::create();
 	BulletSprite* bullet1 = BulletSprite::create();
 	BulletSprite* bullet2 = BulletSprite::create();

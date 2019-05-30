@@ -5,6 +5,42 @@ USING_NS_CC;
 
 
 // Implementation of the keyboard event callback function prototype
+void m_controller::reexecute(float)
+{
+	sptime = 0;
+	this->unschedule(schedule_selector(m_controller::reexecute));
+}
+
+bool m_controller::PreventRepeated()
+{
+//	float spt = Catherine->isexecute(-1);
+	/*
+	 if(sptime == 0)
+	 {
+		 float spt= Catherine->isexecute(-1);
+		 if (spt == 1)
+		 {
+			 float interval = Castinterval;
+			 sptime=1;
+			 Catherine->schedule(schedule_selector(m_controller::reexecute), interval, 1, 0);
+			 return false;
+		 }
+		 else if(spt!=0)
+		 {
+			 sptime = 1;
+			 Catherine->scheduleOnce(schedule_selector(m_controller::reexecute), spt);
+			 return false;
+		 } 
+		 else
+			 return true;
+	 }
+	 else if (sptime == 1)
+	 {
+		 return false;
+	 }*/
+	return true;
+}
+
 
 void m_controller::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
@@ -12,6 +48,9 @@ void m_controller::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	//Catherine->move_rb();
 	//this->addChild(Catherine);
 	//Catherine->setPosition(Point(Vec2(100, 200)));
+	if (PreventRepeated())
+	{ 
+	
 	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
 	{
 		//Catherine->move_rb();
@@ -32,12 +71,29 @@ void m_controller::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		//Catherine->move_rf();
 		Catherine->skillth();
 	}
-
+	}
 }
 
 
 void m_controller::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
+
+
+	if (!PreventRepeated())
+		return;
+	/*
+	float sptime = Catherine->isexecute(-1);
+	if (sptime == 1)
+	{
+		float interval = Castinterval;
+		this->schedule(schedule_selector(m_controller::reexecute), interval, 1, 0);
+		return;
+	}
+	else if (sptime != 0)
+	{
+		this->schedule(schedule_selector(m_controller::reexecute), sptime, 1, 0);
+		return;
+	}*/
 	//log("Key with keycode %d released", keyCode);
 	//Catherine->stop_lf();
 	//this->addChild(Catherine);
@@ -62,6 +118,9 @@ void m_controller::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 
 bool m_controller::onTouchBegan(Touch* touch, Event* event)
 {
+	
+	if (!PreventRepeated())
+		return true;
 	Catherine->pos = touch->getLocation();
 	//Catherine->move();
 	return true;
@@ -83,6 +142,8 @@ void m_controller::onTouchEnded(Touch* touch, Event* event)
 
 void m_controller::onMouseDown(Event *event)
 {
+	if (!PreventRepeated())
+		return;
 	// to illustrate the event....
 	EventMouse* e = (EventMouse*)event;
 	//string str = "Mouse Down detected, Key: ";
@@ -140,14 +201,14 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 
 		//contact.getShapeA->get();
 	//	bodyA->removeFromParentAndCleanup(true);
-	//	bodyA->removeFromParent();
+		bodyA->removeFromParent();
 		
 		
 	}
 	if (tagB == 100001)
 	{
 	//	bodyB->removeFromParentAndCleanup(true);
-	//	bodyB->removeFromParent();
+		bodyB->removeFromParent();
 	}
 
 	return true;

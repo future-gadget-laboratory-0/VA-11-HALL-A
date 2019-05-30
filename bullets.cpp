@@ -35,7 +35,7 @@ bool BulletSprite::init()
 //	this->setTexture("snow0_0.png");
 	//m_bullet = Sprite::createWithSpriteFrameName("magi0_0.png");
 	//m_bullet->setTag(100001);
-	//this->setTag(100001);
+	this->setTag(100001);
 	//animate = Animate::create(AnimationCache::getInstance()->getAnimation("fly_one"));
 	//m_bullet->runAction(RepeatForever::create(animate));
 	//animate = Animate::create(AnimationCache::getInstance()->getAnimation("fly_one"));

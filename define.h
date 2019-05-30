@@ -24,12 +24,18 @@ struct actor_property
 	int	ATR;//Attack range;
 	int RET;//Actor's Resurrection time
 	int TYPE;//Actor's type
+	float CDS;//Actor's st skill cool down
+	float CDN;//Actor's nd skill cool down
+	float CDR;//Actor's rd skill cool down
+	float CDF;//Actor's fo skill cool down
+	float CDA;//Actor's fo Attack cool down
 };
-//1000000 mouse; 1000001 Catherine ;100001 bullet
-
+//1000000 mouse;100001 bullet of Player one;200001 player one
+//1000001 Catherine//deleted
 #define move_rate 1000;
 #define deviation 5;
-#define bulletspeed 50;
+#define bulletspeed 100;
+#define Castinterval 0.1;
 
 enum class Player{
 	one = 1,
@@ -55,4 +61,17 @@ enum class Character {
 	eight = 8,
 	nine = 9,
 	ten = 10
+};
+
+enum class BULLET {
+	one = 100001,
+	two = 100002,
+	three = 100003,
+	four = 100004,
+	five = 100005,
+	six = 100006,
+	seven = 100007,
+	eight = 100008,
+	nine = 100009,
+	ten = 100010
 };

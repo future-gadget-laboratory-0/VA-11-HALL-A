@@ -25,6 +25,10 @@ protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	m_controller();
 	static m_controller* instance;
+	void reexecute(float);
+	bool PreventRepeated();//is revising
+	bool sptime=0;//is revising
+	bool execute = 0;//is revising
 	//SpriteCatherine* Catherine = SpriteCatherine::createWithSpriteFrameName("snow0_0.png");
 	SpriteCatherine* Catherine = SpriteCatherine::getInstance();
 	//auto Catherine = SpriteCatherine::createWithSpriteFrameName("snow0_0.png");

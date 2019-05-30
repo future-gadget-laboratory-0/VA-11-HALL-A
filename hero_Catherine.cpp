@@ -42,10 +42,21 @@ SpriteCatherine *  SpriteCatherine::createWithSpriteFrameName(const char *filena
 	CC_SAFE_DELETE(sprite);
 	return nullptr;
 }
+/*
+float SpriteCatherine::isexecute(int change)
+{
+	if (change == 1)
+		spell_judge = 1;
+	else if (change == 0)
+		spell_judge = 0;
+	return spell_judge;
+}
 
-
-
-
+void SpriteCatherine::reexecute()
+{	
+		spell_judge = 0;
+}
+*/
 
 bool SpriteCatherine::init()
 {
@@ -77,6 +88,39 @@ bool SpriteCatherine::init()
 	AnimationCache::getInstance()->addAnimation(animation6, "snow_rd");
 	AnimationCache::getInstance()->addAnimation(animation7, "snow_th");
 	this->setTexture("snow0_0.png");
+
+
+	actor_property my_propertystruct;
+	my_propertystruct.HP = 800;
+	my_propertystruct.MP = 800;
+	my_propertystruct.STA = 800;
+	my_propertystruct.MHP = 800;
+	my_propertystruct.MMP = 800;
+	my_propertystruct.MSTA = 800;
+	my_propertystruct.RHP = 2;
+	my_propertystruct.RMP = 2;
+	my_propertystruct.RSTA = 2;
+	my_propertystruct.EVA = 0;
+	my_propertystruct.SPE = 395;
+	my_propertystruct.ACC = 0;
+	my_propertystruct.ATK = 35;
+	my_propertystruct.ATKM = 10;
+	my_propertystruct.ATKS = 0;
+	my_propertystruct.DEF = 5;
+	my_propertystruct.RES = 0;
+	my_propertystruct.RDR = 0;
+	my_propertystruct.BP = 0;
+	my_propertystruct.ATR = 400;
+	my_propertystruct.RET = 10;
+	my_propertystruct.TYPE = 1;
+	my_propertystruct.CDS = 7;
+	my_propertystruct.CDN= 6;
+	my_propertystruct.CDR = 10;
+	my_propertystruct.CDF = 60;
+	my_propertystruct.CDA = 0.5;
+	setproperty(my_propertystruct);
+
+
 	//AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
 	//this ->SpriteCatherine::createWithSpriteFrameName("snow0_0.png"); //::createWithSpriteFrameName("snow0_0.png");
 	//this->setTag(1000001);
@@ -406,6 +450,11 @@ void SpriteCatherine::move(float)
 
 void SpriteCatherine::skillst()
 {
+	cooldowning_compare = 1;
+	if (!state_estimation(1, 0, 1))
+		return;
+	cooldowning1 = 1;
+	spell_judge = 1;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
 	if (stop_judge == 0)
 	{
@@ -436,6 +485,11 @@ void SpriteCatherine::skillst()
 }
 void SpriteCatherine::skillnd()
 {
+	cooldowning_compare = 2;
+	if (!state_estimation(1, 0, 1))
+		return;
+	cooldowning2 = 1;
+	spell_judge = 1;
 	//action_judge = 0;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_nd"));
 	if (stop_judge == 0)
@@ -465,6 +519,11 @@ void SpriteCatherine::skillnd()
 }
 void SpriteCatherine::skillrd()
 {
+	cooldowning_compare = 3;
+	if (!state_estimation(1, 0, 1))
+		return;
+	cooldowning3 = 1;
+	spell_judge = 1;
 	//this->schedule(schedule_selector(SpriteCatherine::move), 0.01f, kRepeatForever, 0);
 	//action_judge = 2;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_rd"));
@@ -495,7 +554,11 @@ void SpriteCatherine::skillrd()
 }
 void SpriteCatherine::skillth()
 {
-	
+	cooldowning_compare = 4;
+	if (!state_estimation(1, 0, 1))
+		return;
+	cooldowning4 = 1;
+	spell_judge = 1;
 	//this->pauseTarget(schedule_selector(SpriteCatherine::move), true);
 	//this->unschedule(schedule_selector(SpriteCatherine::move));
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_th"));
@@ -528,21 +591,30 @@ void SpriteCatherine::skillth()
 
 void SpriteCatherine::skillst(float time)
 {
-	
+	cooldowning_compare = 1;
+	if (!state_estimation(0, 0, 1))
+		return;
+	cooldowning1 = 1;
+	spell_judge = time;
 //	CCDelayTime* delayTime = CCDelayTime::create(time);
 //	CCCallFunc *callFunND = CCCallFun::create(CC_CALLBACK_1(callfunc_selector(SpriteCatherine::skill),this ));
 	shock(time);
 	pos.x = old_pos.x;
-	pos.y = old_pos.y - this->getContentSize().height*0.3;
+	pos.y = old_pos.y;//- this->getContentSize().height*0.3;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
 	int times = time / Repeat::create(animate, 1)->getDuration();
 	this->runAction(Repeat::create(animate, times));
 }
 void SpriteCatherine::skillnd(float time)
 {
+	cooldowning_compare = 2;
+	if (!state_estimation(0, 0, 1))
+		return;
+	cooldowning2 = 1;
+	spell_judge = time;
 	shock(time);
 	pos.x = old_pos.x;
-	pos.y = old_pos.y - this->getContentSize().height*0.3;
+	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_nd"));
 	int times = time / Repeat::create(animate, 1)->getDuration();
 	this->runAction(Repeat::create(animate, times));
@@ -552,18 +624,28 @@ void SpriteCatherine::skillnd(float time)
 }
 void SpriteCatherine::skillrd(float time)
 {
+	cooldowning_compare = 3;
+	if (!state_estimation(0, 0, 1))
+		return;
+	cooldowning3 = 1;
+	spell_judge = time;
 	shock(time);
 	pos.x = old_pos.x;
-	pos.y = old_pos.y - this->getContentSize().height*0.3;
+	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_ed"));
 	int times = time / Repeat::create(animate, 1)->getDuration();
 	this->runAction(Repeat::create(animate, times));
 }
 void SpriteCatherine::skillth(float time)
 {
+	cooldowning_compare = 4;
+	if (!state_estimation(0, 0, 1))
+		return;
+	cooldowning4 = 1;
+	spell_judge = time;
 	shock(time);
 	pos.x = old_pos.x;
-	pos.y = old_pos.y - this->getContentSize().height*0.3;
+	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_th"));
 	int times=time/Repeat::create(animate, 1)->getDuration();
 	this->runAction(Repeat::create(animate, times));
@@ -571,6 +653,7 @@ void SpriteCatherine::skillth(float time)
 
 void SpriteCatherine::shock(float time)
 {
+	spell_judge = time;
 	if(move_judge!=0)
 		actionManager->removeAllActionsFromTarget(this);
 	this->unschedule(schedule_selector(SpriteCatherine::move));
@@ -587,9 +670,9 @@ void SpriteCatherine::death(float time)
 {
 	if (get().HP <= 0)
 	{
-		changeproperty(500, "RET");
+		//changeproperty(500, "RET");
 		this->unschedule(schedule_selector(SpriteCatherine::death));
-		if (get().RET != 0)
+		if (get().RET >= 0)
 			this->schedule(schedule_selector(SpriteCatherine::revive), get().RET, 1, 0);
 		else
 			this->schedule(schedule_selector(SpriteCatherine::revive),10, 1, 0);
@@ -600,4 +683,138 @@ void SpriteCatherine::revive(float time)
 {
 	this->schedule(schedule_selector(SpriteCatherine::death), 0.01f, kRepeatForever, 0);
 	this->unschedule(schedule_selector(SpriteCatherine::revive));
+}/*
+bool SpriteCatherine::Back_shake()
+{
+	if (executeshake == 0)
+	{
+		if (spell_judge == 1)
+		{
+			float interval = Castinterval;
+			executeshake = 1;
+			this->schedule(schedule_selector(SpriteCatherine::Bs_reset), interval, 1, 0);
+			return false;
+		}
+		else if (spell_judge != 0)
+		{
+			executeshake = 1;
+			this->schedule(schedule_selector(SpriteCatherine::Bs_reset), spell_judge, 1, 0);
+			return false;
+		}
+		else
+			return true;
+	}
+	else if (executeshake == 1)
+	{
+		return false;
+	}
+}
+void SpriteCatherine::Bs_reset(float)
+{
+	if(executeshake ==1)
+	{ 
+		touch_pos = old_pos;
+		executeshake = 0;
+		spell_judge = 0;
+	}
+}
+*/
+bool SpriteCatherine::Back_shake()
+{
+		if (spell_judge == 1)
+		{
+			float interval = Castinterval;
+			spell_judge = -1;
+			this->schedule(schedule_selector(SpriteCatherine::Bs_reset), interval, 1, 0);
+			return false;
+		}
+		else if(spell_judge==-1)
+			return false;
+		else if (spell_judge != 0)
+		{
+			this->schedule(schedule_selector(SpriteCatherine::Bs_reset), spell_judge, 1, 0);
+			spell_judge = -1;
+			return false;
+		}
+		else
+			return true;
+
+}
+void SpriteCatherine::Bs_reset(float)
+{
+		spell_judge = 0;
+	//	pos.x = old_pos.x;
+	//	pos.y = old_pos.y+1;
+}
+
+
+bool SpriteCatherine::Spell_cooldown()
+{
+	if (cooldowning1 == 1 && cooldowning_compare == 1)
+	{
+		cooldowning1 = -1;
+		this->schedule(schedule_selector(SpriteCatherine::Sc_reset1), get().CDS, 1, 0);
+		return false;
+	}
+	if (cooldowning2 == 1 && cooldowning_compare == 2)
+	{
+		cooldowning2 = -1;
+		this->schedule(schedule_selector(SpriteCatherine::Sc_reset2), get().CDN, 1, 0);
+		return false;
+	}
+	if (cooldowning3 == 1 && cooldowning_compare == 3)
+	{
+		cooldowning3 = -1;
+		this->schedule(schedule_selector(SpriteCatherine::Sc_reset3), get().CDR, 1, 0);
+		return false;
+	}
+	if (cooldowning4 == 1 && cooldowning_compare == 4)
+	{
+		cooldowning4 = -1;
+		this->schedule(schedule_selector(SpriteCatherine::Sc_reset4), get().CDF, 1, 0);
+		return false;
+	}
+	else if (cooldowning1 == -1 && cooldowning_compare == 1)
+		return false;
+	else if (cooldowning2 == -1 && cooldowning_compare == 2)
+		return false;
+	else if (cooldowning3 == -1 && cooldowning_compare == 3)
+		return false;
+	else if (cooldowning4 == -1 && cooldowning_compare == 4)
+		return false;
+	else
+		return true;
+
+}
+void SpriteCatherine::Sc_reset1(float)
+{
+	cooldowning1 = 0;
+}
+void SpriteCatherine::Sc_reset2(float)
+{
+	cooldowning2 = 0;
+}
+void SpriteCatherine::Sc_reset3(float)
+{
+	cooldowning3 = 0;
+}
+void SpriteCatherine::Sc_reset4(float)
+{
+	cooldowning4 = 0;
+}
+
+
+bool SpriteCatherine::state_estimation(int shake, int shock, int spell)
+{
+	if (shake == 1)
+		if (!Back_shake())
+			return false;
+	if (shock == 1)
+		shock = 1;
+	if (spell == 1)
+		if (!Spell_cooldown())
+			return false;
+		
+	return true;
+	
 }
