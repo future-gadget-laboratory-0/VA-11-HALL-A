@@ -34,12 +34,24 @@ protected:
 	SpriteCatherine* Catherine = SpriteCatherine::getInstance();
 	//SpriteCatherine* Playerone = SpriteCatherine::getInstance();
 	//SpriteCatherine* Catherine_two = SpriteCatherine::getInstance();
-	//auto Catherine = SpriteCatherine::createWithSpriteFrameName("snow0_0.png");
-	//SpriteCatherine* Catherine = SpriteCatherine::create();
+	//SpriteCatherine* Catherine_two = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
+	//SpriteCatherine* Catherine_two = SpriteCatherine::create();
 	Sprite* mouse_sprite = Sprite::create("mouse.png");
 	//SpriteCatherine* Catherine_test = SpriteCatherine::create();
 	//Vector<int> SPS;//store Sprites's tag;
-	int m_STag;
+	//int m_STag;
+	int player1_tag;
+	int player2_tag;
+	int player3_tag;
+	int player4_tag;
+	int player5_tag;
+	int player6_tag;
+	int player7_tag;
+	int player8_tag;
+	int player9_tag;
+	int player10_tag;
+	//int player = 1; 
+	//int character=1;
 	//void lockon();
 };
 

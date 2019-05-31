@@ -43,7 +43,16 @@ public:
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	SpriteCatherine();
-	static SpriteCatherine* instance;
+	static SpriteCatherine* instance1;
+	static SpriteCatherine* instance2;
+	static SpriteCatherine* instance3;
+	static SpriteCatherine* instance4;
+	static SpriteCatherine* instance5;
+	static SpriteCatherine* instance6;
+	static SpriteCatherine* instance7; 
+	static SpriteCatherine* instance8;
+	static SpriteCatherine* instance9;
+	static SpriteCatherine* instance10; 
 	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
 	//Sprite* m_hero;
 	Animate* animate;

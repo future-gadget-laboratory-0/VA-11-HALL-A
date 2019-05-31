@@ -2,13 +2,22 @@
 
 
 
-SpriteCatherine* SpriteCatherine::instance = NULL;
+SpriteCatherine* SpriteCatherine::instance1 = NULL;
+SpriteCatherine* SpriteCatherine::instance2 = NULL;
+SpriteCatherine* SpriteCatherine::instance3 = NULL;
+SpriteCatherine* SpriteCatherine::instance4 = NULL;
+SpriteCatherine* SpriteCatherine::instance5 = NULL;
+SpriteCatherine* SpriteCatherine::instance6 = NULL;
+SpriteCatherine* SpriteCatherine::instance7 = NULL;
+SpriteCatherine* SpriteCatherine::instance8 = NULL; 
+SpriteCatherine* SpriteCatherine::instance9 = NULL;
+SpriteCatherine* SpriteCatherine::instance10 = NULL;
 
 SpriteCatherine::SpriteCatherine()
 {
 
 }
-
+/*
 SpriteCatherine* SpriteCatherine::getInstance()
 {
 	if (instance == NULL)
@@ -18,6 +27,76 @@ SpriteCatherine* SpriteCatherine::getInstance()
 	}
 	return instance;
 }
+*/
+SpriteCatherine* SpriteCatherine::getInstance()
+{
+	if (instance1 == NULL)
+	{
+		instance1 = new SpriteCatherine();
+		instance1->init();
+		return instance1;
+	}
+	if (instance2 == NULL)
+	{
+		instance2 = new SpriteCatherine();
+		instance2->init();
+		return instance2;
+	}
+	if (instance3 == NULL)
+	{
+		instance3 = new SpriteCatherine();
+		instance3->init();
+		return instance3;
+	}
+	if (instance4 == NULL)
+	{
+		instance4 = new SpriteCatherine();
+		instance4->init();
+		return instance4;
+	}
+	if (instance5 == NULL)
+	{
+		instance5 = new SpriteCatherine();
+		instance5->init();
+		return instance5;
+	}
+	if (instance6 == NULL)
+	{
+		instance6 = new SpriteCatherine();
+		instance6->init();
+		return instance6;
+	}
+	if (instance7 == NULL)
+	{
+		instance7 = new SpriteCatherine();
+		instance7->init();
+		return instance7;
+	}
+	if (instance8 == NULL)
+	{
+		instance8 = new SpriteCatherine();
+		instance8->init();
+		return instance8;
+	}
+	if (instance9 == NULL)
+	{
+		instance9 = new SpriteCatherine();
+		instance9->init();
+		return instance9;
+	}
+	if (instance10 == NULL)
+	{
+		instance10 = new SpriteCatherine();
+		instance10->init();
+		return instance10;
+	}
+}
+
+
+
+
+
+
 
 SpriteCatherine * SpriteCatherine::create(const char *filename)
 {

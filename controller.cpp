@@ -6,32 +6,46 @@ USING_NS_CC;
 
 void m_controller::chose_character(int player,int character)
 {
-	int tag = player*100+character;
+	int tag = player*10000+character*100;
 	//int condition = static_cast<int>(Player::one);
 
 		if (player==1)
 		{
+			player1_tag = tag;
 			if (character == 1)
 			{
+				//SpriteCatherine* Playerone = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
 				SpriteCatherine* Playerone = SpriteCatherine::getInstance();
+			//	Playerone->setPosition(Vec2(100, 100));
+			//	Playerone->setTag(tag);
 				this->addChild(Playerone);
 			}	
 			else if (character == 2)
 			{
+				//SpriteCatherine* Playerone = SpriteCatherine::createWithSpriteFrameName("snow20_0.png");
 				SpriteCatherine* Playerone = SpriteCatherine::getInstance();
+			//	Playerone->setPosition(Vec2(100, 100));
+				Playerone->setTag(tag);
 				this->addChild(Playerone);
 			}
 		}
 		else if (player == 2)
 		{
+			player2_tag = tag;
 			if (character == 1)
 			{
+				//SpriteCatherine* Playertwo = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
 				SpriteCatherine* Playertwo = SpriteCatherine::getInstance();
+			//	Playertwo->setPosition(Vec2(100, 100));
+				Playertwo->setTag(tag);
 				this->addChild(Playertwo);
 			}
 			else if (character == 2)
 			{
+				//SpriteCatherine* Playertwo = SpriteCatherine::createWithSpriteFrameName("snow20_0.png");
 				SpriteCatherine* Playertwo = SpriteCatherine::getInstance();
+			//	Playertwo->setPosition(Vec2(100, 100));
+				Playertwo->setTag(tag);
 				this->addChild(Playertwo);
 			}
 		}
@@ -319,7 +333,11 @@ bool m_controller::init()
 	
 //	Catherine_test->setPosition(Vec2(visibleSize.width / 2, visibleSize.height*0.3));
 //	Catherine_test->pos = Vec2(120, 120);
-//	this->addChild(Catherine_test, 1);
+//	this->addChild(Catherine_two, 1);
+
+
+	chose_character(1,1);
+	
 	return true;
 
 }
