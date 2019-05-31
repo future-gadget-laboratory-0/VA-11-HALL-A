@@ -4,6 +4,46 @@
 USING_NS_CC;
 
 
+void m_controller::chose_character(int player,int character)
+{
+	int tag = player*100+character;
+	//int condition = static_cast<int>(Player::one);
+
+		if (player==1)
+		{
+			if (character == 1)
+			{
+				SpriteCatherine* Playerone = SpriteCatherine::getInstance();
+				this->addChild(Playerone);
+			}	
+			else if (character == 2)
+			{
+				SpriteCatherine* Playerone = SpriteCatherine::getInstance();
+				this->addChild(Playerone);
+			}
+		}
+		else if (player == 2)
+		{
+			if (character == 1)
+			{
+				SpriteCatherine* Playertwo = SpriteCatherine::getInstance();
+				this->addChild(Playertwo);
+			}
+			else if (character == 2)
+			{
+				SpriteCatherine* Playertwo = SpriteCatherine::getInstance();
+				this->addChild(Playertwo);
+			}
+		}
+}
+
+
+
+
+
+
+
+
 // Implementation of the keyboard event callback function prototype
 void m_controller::reexecute(float)
 {
@@ -202,6 +242,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		//contact.getShapeA->get();
 	//	bodyA->removeFromParentAndCleanup(true);
 		bodyA->removeFromParent();
+	//	bodyA->setVisible(false);
 		
 		
 	}
@@ -209,8 +250,10 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	{
 	//	bodyB->removeFromParentAndCleanup(true);
 		bodyB->removeFromParent();
+		//bodyB->setVisible(false);
+		
 	}
-
+	
 	return true;
 }
 
