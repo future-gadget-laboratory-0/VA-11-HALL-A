@@ -4,7 +4,7 @@
 USING_NS_CC;
 
 
-void m_controller::chose_character(int player,int character)
+auto m_controller::chose_character(int player,int character)
 {
 	int tag = player*10000+character*100;
 	//int condition = static_cast<int>(Player::one);
@@ -19,6 +19,7 @@ void m_controller::chose_character(int player,int character)
 			//	Playerone->setPosition(Vec2(100, 100));
 			//	Playerone->setTag(tag);
 				this->addChild(Playerone);
+				return Playerone;
 			}	
 			else if (character == 2)
 			{
@@ -27,6 +28,7 @@ void m_controller::chose_character(int player,int character)
 			//	Playerone->setPosition(Vec2(100, 100));
 				Playerone->setTag(tag);
 				this->addChild(Playerone);
+				return Playerone;
 			}
 		}
 		else if (player == 2)
@@ -39,6 +41,7 @@ void m_controller::chose_character(int player,int character)
 			//	Playertwo->setPosition(Vec2(100, 100));
 				Playertwo->setTag(tag);
 				this->addChild(Playertwo);
+				return Playertwo;
 			}
 			else if (character == 2)
 			{
@@ -47,6 +50,7 @@ void m_controller::chose_character(int player,int character)
 			//	Playertwo->setPosition(Vec2(100, 100));
 				Playertwo->setTag(tag);
 				this->addChild(Playertwo);
+				return Playertwo;
 			}
 		}
 }
@@ -102,13 +106,18 @@ void m_controller::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	//Catherine->move_rb();
 	//this->addChild(Catherine);
 	//Catherine->setPosition(Point(Vec2(100, 200)));
+//	if(player1_tag==10100)
+//		auto m_sprite = this->getChildByTag(player1_tag);
+
 	if (PreventRepeated())
 	{ 
 	
 	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
 	{
-		//Catherine->move_rb();
 		Catherine->skillst();
+	//	m_sprite->skillst();
+		//Catherine->move_rb();
+		//Catherine->skillst();
 	}
 	else if (keyCode == EventKeyboard::KeyCode::KEY_W)
 	{
@@ -242,29 +251,29 @@ void m_controller::onMouseScroll(Event *event)
 bool m_controller::onContactBegin (PhysicsContact& contact) 
 {
 
-	auto bodyA = (Sprite*)(contact.getShapeA()->getBody()->getNode());
-	auto bodyB = (Sprite*)(contact.getShapeB()->getBody()->getNode());
+	auto bodyA = (UnitsSprite*)(contact.getShapeA()->getBody()->getNode());
+	auto bodyB = (UnitsSprite*)(contact.getShapeB()->getBody()->getNode());
 	if (!bodyA || !bodyB)
 		return false;
 	int tagA = bodyA->getTag();
 	int tagB = bodyB->getTag();
 	if (tagA == tagB && tagA == 100001)
 		return false ;
-	if (tagA == 100001)
+	if (tagA == 100001&&tagB!= 10100)
 	{
-
+		if(tagB==20100)
+		bodyB->changeproperty(bodyB->get().HP-700,"HP");
 		//contact.getShapeA->get();
 	//	bodyA->removeFromParentAndCleanup(true);
-		bodyA->removeFromParent();
-	//	bodyA->setVisible(false);
-		
-		
+	//	bodyA->removeFromParent();
+		bodyA->setVisible(true);
 	}
-	if (tagB == 100001)
+	if (tagB == 100001&&tagA!=10100)
 	{
 	//	bodyB->removeFromParentAndCleanup(true);
-		bodyB->removeFromParent();
-		//bodyB->setVisible(false);
+		//bodyB->removeFromParent();
+		bodyA->get().HP - 700;
+		bodyB->setVisible(false);
 		
 	}
 	
@@ -328,16 +337,22 @@ bool m_controller::init()
 	//mouse_sprite->setAnchorPoint(Point(mouse_sprite->getContentSize().width,mouse_sprite->getContentSize().height));
 	mouse_sprite->setAnchorPoint(Point(0,1));
 	this->addChild(mouse_sprite, 2);
-	Catherine->setPosition(80, 80);
-	this->addChild(Catherine, 1);
+	//Catherine->setPosition(80, 80);
+	//this->addChild(Catherine, 1);
 	
 //	Catherine_test->setPosition(Vec2(visibleSize.width / 2, visibleSize.height*0.3));
 //	Catherine_test->pos = Vec2(120, 120);
 //	this->addChild(Catherine_two, 1);
 
 
-	chose_character(1,1);
-	
+	//static auto m_sprite = chose_character(1, 1);
+	Catherine = chose_character(1, 1);
+	Catherine2 = chose_character(2, 1);
+	Catherine->setPosition(80, 80);
+	Catherine2->setPosition(260, 160);
+	Catherine2->pos=Vec2(80, 80);
+
+
 	return true;
 
 }

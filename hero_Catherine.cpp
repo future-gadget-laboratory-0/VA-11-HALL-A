@@ -749,6 +749,8 @@ void SpriteCatherine::death(float time)
 {
 	if (get().HP <= 0)
 	{
+		this->actionManager->removeAllActionsFromTarget(this);
+		this->setTexture("death.png");
 		//changeproperty(500, "RET");
 		this->unschedule(schedule_selector(SpriteCatherine::death));
 		if (get().RET >= 0)
@@ -760,6 +762,8 @@ void SpriteCatherine::death(float time)
 
 void SpriteCatherine::revive(float time)
 {
+	this->changeproperty(get().MHP, "HP");
+	this->setTexture("snow0_0.png");
 	this->schedule(schedule_selector(SpriteCatherine::death), 0.01f, kRepeatForever, 0);
 	this->unschedule(schedule_selector(SpriteCatherine::revive));
 }/*
@@ -893,7 +897,6 @@ bool SpriteCatherine::state_estimation(int shake, int shock, int spell)
 	if (spell == 1)
 		if (!Spell_cooldown())
 			return false;
-		
 	return true;
 	
 }

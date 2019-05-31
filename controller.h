@@ -20,18 +20,29 @@ public:
 	void onTouchMoved(Touch* touch, Event* event);
 	void onTouchEnded(Touch* touch, Event* event);
 	bool onContactBegin(PhysicsContact& contact);
-	void chose_character(int,int);
+	auto chose_character(int,int);
 	CREATE_FUNC(m_controller);
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	m_controller();
 	static m_controller* instance;
+	//Sprite*m_sprite = NULL;
 	void reexecute(float);
 	bool PreventRepeated();//is revising
 	bool sptime=0;//is revising
 	bool execute = 0;//is revising
 	//SpriteCatherine* Catherine = SpriteCatherine::createWithSpriteFrameName("snow0_0.png");
-	SpriteCatherine* Catherine = SpriteCatherine::getInstance();
+	//SpriteCatherine* Catherine = SpriteCatherine::getInstance();
+	SpriteCatherine* Catherine = NULL;
+	SpriteCatherine* Catherine2 = NULL;
+	SpriteCatherine* Catherine3 = NULL;
+	SpriteCatherine* Catherine4 = NULL;
+	SpriteCatherine* Catherine5 = NULL;
+	SpriteCatherine* Catherine6 = NULL;
+	SpriteCatherine* Catherine7 = NULL;
+	SpriteCatherine* Catherine8 = NULL;
+	SpriteCatherine* Catherine9 = NULL;
+	SpriteCatherine* Catherine10 = NULL;
 	//SpriteCatherine* Playerone = SpriteCatherine::getInstance();
 	//SpriteCatherine* Catherine_two = SpriteCatherine::getInstance();
 	//SpriteCatherine* Catherine_two = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
