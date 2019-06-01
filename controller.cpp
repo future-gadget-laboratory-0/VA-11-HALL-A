@@ -250,7 +250,6 @@ void m_controller::onMouseScroll(Event *event)
 
 bool m_controller::onContactBegin (PhysicsContact& contact) 
 {
-
 	auto bodyA = (UnitsSprite*)(contact.getShapeA()->getBody()->getNode());
 	auto bodyB = (UnitsSprite*)(contact.getShapeB()->getBody()->getNode());
 	if (!bodyA || !bodyB)
@@ -262,21 +261,94 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	if (tagA == 100001&&tagB!= 10100)
 	{
 		if(tagB==20100)
-		bodyB->changeproperty(bodyB->get().HP-700,"HP");
+		{ 
+			bodyB->changeproperty(bodyB->get().HP-700,"HP");
+			if (tagB == m_lockTag&& bodyB->get().HP<=0)
+				mouse_sprite->setTexture("mouse.png");
 		//contact.getShapeA->get();
 	//	bodyA->removeFromParentAndCleanup(true);
 	//	bodyA->removeFromParent();
-		bodyA->setVisible(true);
+			bodyA->setVisible(true);
+		}
 	}
-	if (tagB == 100001&&tagA!=10100)
+/*
+	if (tagA == 100001&& (tagB == 20100 || tagB == 20200))
+	{
+	//	bodyB->removeFromParentAndCleanup(true);
+		//bodyB->removeFromParent();
+		bodyB->get().HP - 700;
+			if(tagB== m_lockTag && bodyB->get().HP <= 0)
+				mouse_sprite->setTexture("mouse.png");
+		bodyA->setVisible(true);
+		
+	}*/
+
+
+	if (tagB == 100001&& (tagA == 20100 || tagA == 20200))
 	{
 	//	bodyB->removeFromParentAndCleanup(true);
 		//bodyB->removeFromParent();
 		bodyA->get().HP - 700;
+			if(tagA== m_lockTag && bodyA->get().HP <= 0)
+				mouse_sprite->setTexture("mouse.png");
 		bodyB->setVisible(false);
 		
 	}
+	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200))
+	{
+		if (bodyB->get().HP > 0)
+		{
+			m_lockTag == tagA;
+			mouse_sprite->setTexture("mouse_attack.png");
+		}
+	}
+	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200))
+	{
+		if (bodyA->get().HP > 0)
+		{
+			m_lockTag == tagA;
+			mouse_sprite->setTexture("mouse_attack.png");
+		}
+	}
 	
+	return true;
+}
+/*
+bool m_controller::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve)
+{
+	auto bodyA = (UnitsSprite*)(contact.getShapeA()->getBody()->getNode());
+	auto bodyB = (UnitsSprite*)(contact.getShapeB()->getBody()->getNode());
+	int tagA = bodyA->getTag();
+	int tagB = bodyB->getTag();
+	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200))
+	{
+		if(bodyB->get().HP<=0)
+			mouse_sprite->setTexture("mouse.png");
+	}
+	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200))
+	{
+		if (bodyA->get().HP <= 0)
+			mouse_sprite->setTexture("mouse.png");
+	}
+	return true;
+}*/
+
+
+
+bool m_controller::onContactSeparate(PhysicsContact& contact)
+{
+	auto bodyA = (UnitsSprite*)(contact.getShapeA()->getBody()->getNode());
+	auto bodyB = (UnitsSprite*)(contact.getShapeB()->getBody()->getNode());
+	int tagA = bodyA->getTag();
+	int tagB = bodyB->getTag();
+	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200))
+	{
+		mouse_sprite->setTexture("mouse.png");
+	}
+	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200))
+	{
+		mouse_sprite->setTexture("mouse.png");
+	}
 	return true;
 }
 
@@ -331,12 +403,24 @@ bool m_controller::init()
 	EventListenerPhysicsContact* evContact = EventListenerPhysicsContact::create();
 	evContact->onContactBegin = CC_CALLBACK_1(m_controller::onContactBegin, this);
 	//evContact->onContactSeparate= [](PhysicsContact& contact){return true;  };
+	//evContact->onContactPreSolve = CC_CALLBACK_2(m_controller::onContactPreSolve, this);
+	evContact->onContactSeparate = CC_CALLBACK_1(m_controller::onContactSeparate, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(evContact, this);
 	//mouse_sprite->setScale(0.5f);
 	//ShowCursor(FALSE);
 	//mouse_sprite->setAnchorPoint(Point(mouse_sprite->getContentSize().width,mouse_sprite->getContentSize().height));
 	mouse_sprite->setAnchorPoint(Point(0,1));
 	this->addChild(mouse_sprite, 2);
+	
+	auto mouse_Body = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	//m_hero->setPhysicsBody(CaBody);
+	//CaBody->setContactTestBitmask(0xFFFFFFFF);
+	mouse_Body->setRotationEnable(false);
+	mouse_Body->setCategoryBitmask(0x01);
+	mouse_Body->setCollisionBitmask(0x00000000);
+	mouse_Body->setContactTestBitmask(0x01);
+	mouse_sprite->setPhysicsBody(mouse_Body);
+	mouse_sprite->setTag(1000000);
 	//Catherine->setPosition(80, 80);
 	//this->addChild(Catherine, 1);
 	

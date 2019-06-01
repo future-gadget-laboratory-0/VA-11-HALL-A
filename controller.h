@@ -20,6 +20,8 @@ public:
 	void onTouchMoved(Touch* touch, Event* event);
 	void onTouchEnded(Touch* touch, Event* event);
 	bool onContactBegin(PhysicsContact& contact);
+	//bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve);
+	bool onContactSeparate(PhysicsContact& contact);
 	auto chose_character(int,int);
 	CREATE_FUNC(m_controller);
 protected:
@@ -50,7 +52,7 @@ protected:
 	Sprite* mouse_sprite = Sprite::create("mouse.png");
 	//SpriteCatherine* Catherine_test = SpriteCatherine::create();
 	//Vector<int> SPS;//store Sprites's tag;
-	//int m_STag;
+	int m_lockTag;
 	int player1_tag;
 	int player2_tag;
 	int player3_tag;
