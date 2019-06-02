@@ -92,9 +92,132 @@ SpriteCatherine* SpriteCatherine::getInstance()
 	}
 }
 
+/*
+BulletSprite* SpriteCatherine::bulletmaking(int number,int kind)
+{
+	if (number == 0)
+	{
+		if(bpdamage())
+			bullet0->changeproperty(2*createdamage(0),"ATK");
+		else
+			bullet0->changeproperty(createdamage(0), "ATK");
+		if(!this->getChildByName("bullet0"))
+			this->addChild(bullet0);
+	}
+	else if (number == 1)
+	{
+		if (bpdamage())
+			bullet1->changeproperty(2 * createdamage(0), "ATK");
+		else
+			bullet1->changeproperty(createdamage(0), "ATK");
+		if (!this->getChildByName("bullet1"))
+			this->addChild(bullet1);
+	}
+	else if (number == 2)
+	{
+		if (bpdamage())
+			bullet2->changeproperty(2 * createdamage(0), "ATK");
+		else
+			bullet2->changeproperty(createdamage(0), "ATK");
+		if (!this->getChildByName("bullet2"))
+			this->addChild(bullet2);
+	}		
+}*/
 
-
-
+BulletSprite* SpriteCatherine::bulletmaking(int kind)
+{
+	if (!this->getChildByName("bullet0"))
+	{	
+		if (kind == 0)
+		{	
+			if (bpdamage())
+				bullet0->changeproperty(2 * createdamage(0), "ATK");
+			else
+				bullet0->changeproperty(createdamage(0), "ATK");
+		}
+		else if (kind == 1)
+		{
+			bullet0->changeproperty(createdamage(1), "ATKM");
+		}
+		else
+			bullet0->changeproperty(createdamage(2), "ATKS");
+			this->addChild(bullet0);
+			return bullet0;
+	}
+	else if (!this->getChildByName("bullet1"))
+	{
+		if (kind == 0)
+		{
+			if (bpdamage())
+				bullet1->changeproperty(2 * createdamage(0), "ATK");
+			else
+				bullet1->changeproperty(createdamage(0), "ATK");
+		}
+		else if (kind == 1)
+		{
+			bullet1->changeproperty(createdamage(1), "ATKM");
+		}
+		else
+			bullet1->changeproperty(createdamage(2), "ATKS");
+			this->addChild(bullet1);
+			return bullet1;
+	}
+	else if (!this->getChildByName("bullet2"))
+	{
+		if (kind == 0)
+		{
+			if (bpdamage())
+				bullet2->changeproperty(2 * createdamage(0), "ATK");
+			else
+				bullet2->changeproperty(createdamage(0), "ATK");
+		}
+		else if (kind == 1)
+		{
+			bullet2->changeproperty(createdamage(1), "ATKM");
+		}
+		else
+			bullet2->changeproperty(createdamage(2), "ATKS");
+			this->addChild(bullet2);
+			return bullet3;
+	}
+	else if (!this->getChildByName("bullet3"))
+	{
+		if (kind == 0)
+		{
+			if (bpdamage())
+				bullet3->changeproperty(2 * createdamage(0), "ATK");
+			else
+				bullet3->changeproperty(createdamage(0), "ATK");
+		}
+		else if (kind == 1)
+		{
+			bullet3->changeproperty(createdamage(1), "ATKM");
+		}
+		else
+			bullet3->changeproperty(createdamage(2), "ATKS");
+			this->addChild(bullet3);
+			return bullet4;
+	}
+	else if (!this->getChildByName("bullet4"))
+	{
+		if (kind == 0)
+		{
+			if (bpdamage())
+				bullet4->changeproperty(2 * createdamage(0), "ATK");
+			else
+				bullet4->changeproperty(createdamage(0), "ATK");
+		}
+		else if (kind == 1)
+		{
+			bullet4->changeproperty(createdamage(1), "ATKM");
+		}
+		else
+			bullet4->changeproperty(createdamage(2), "ATKS");
+			this->addChild(bullet4);
+			return bullet5;
+	}
+	else return NULL;
+}
 
 
 
@@ -237,11 +360,22 @@ bool SpriteCatherine::init()
 	//bullet2->setanimation("magi0_0.png", "fly_one");
 	//bullet3->setanimation("magi0_0.png", "fly_one");
 	//bullet4->setanimation("magi0_0.png", "fly_one");
-	this->addChild(bullet0);
+	//this->addChild(bullet0);
 	//this->addChild(bullet1);
 	//this->addChild(bullet2);
 	//this->addChild(bullet3);
 	//this->addChild(bullet4);
+	bullet0->setName("bullet0");
+	bullet1->setName("bullet1");
+	bullet2->setName("bullet2");
+	bullet3->setName("bullet3");
+	bullet4->setName("bullet4");
+	bullet5->setName("bullet5"); 
+	bullet6->setName("bullet6");
+	bullet7->setName("bullet7"); 
+	bullet8->setName("bullet8");
+	bullet9->setName("bullet9");
+	//bullett->setName("bullet10");
 
 	this->setPosition(Point(winSize.width / 2, winSize.height*0.8));
 	CaBody = PhysicsBody::createBox(this->getContentSize(),PHYSICSBODY_MATERIAL_DEFAULT);
@@ -631,7 +765,7 @@ void SpriteCatherine::skillrd()
 		this->runAction(Repeat::create(animate, 1));
 	//m_hero->runAction(RepeatForever::create(animate));
 }
-void SpriteCatherine::skillth()
+void SpriteCatherine::skillth(Sprite* target)
 {
 	cooldowning_compare = 4;
 	if (!state_estimation(1, 0, 1))
@@ -664,6 +798,9 @@ void SpriteCatherine::skillth()
 	}
 	else
 		this->runAction(Repeat::create(animate, 1));
+	auto bullet = bulletmaking(1);
+	bullet->setanimation("magi0_", "fly_one");
+	bullet->Followed(target, 200);
 	//schedule(CC_SCHEDULE_SELECTOR(HelloWorld::unpause), 3);
 	//m_hero->runAction(RepeatForever::create(animate));
 }
@@ -697,9 +834,11 @@ void SpriteCatherine::skillnd(float time)
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_nd"));
 	int times = time / Repeat::create(animate, 1)->getDuration();
 	this->runAction(Repeat::create(animate, times));
-
+	auto bullet = bulletmaking(0);
+	bullet->setanimation("magi0_", "fly_one");
+	bullet->Fixed(this->getPosition(), mouse_pos, 200);
 	//bullet0->Fixed(Vec2(m_hero->getPosition().x,m_hero->getPosition().y + m_hero->getContentSize().height*0.5), Vec2(mouse_pos.x,mouse_pos.y+ m_hero->getContentSize().height));
-	bullet0->Fixed(this->getPosition(), mouse_pos,200);
+//	bullet0->Fixed(this->getPosition(), mouse_pos,200);
 }
 void SpriteCatherine::skillrd(float time)
 {

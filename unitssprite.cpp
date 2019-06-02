@@ -74,14 +74,14 @@ int UnitsSprite::receivedamage(const int& damage, const int& defenceval, const i
 	int rate = 100 - m_property.RDR ;
 	if (type == 0)
 	{
-		rate -= (m_property.DEF + defenceval)*0.06 / (1 + defenceval * 0.06 + m_property.DEF*0.06);
+		rate = (100-(m_property.DEF + defenceval)*0.06 / (1 + defenceval * 0.06 + m_property.DEF*0.06))*rate/100;
 		dam = damage * rate / 100;
 		m_property.HP -= dam;
 		return dam;
 	}
 	if (type == 1)
 	{
-		rate -= (m_property.RES + defenceval)*0.06 / (1 + defenceval * 0.06 + m_property.RES*0.06);
+		rate = (100-(m_property.RES + defenceval)*0.06 / (1 + defenceval * 0.06 + m_property.RES*0.06))*rate/100;
 		dam = damage * rate / 100;
 		m_property.HP -= dam;
 		return dam;
@@ -94,19 +94,46 @@ int UnitsSprite::receivedamage(const int& damage, const int& defenceval, const i
 	int rate=100-m_property.RDR- Reductionrate;
 	if (type == 0)
 	{
-		rate -= (m_property.DEF + defenceval)*0.06 / (1 + defenceval * 0.06 + m_property.DEF*0.06);
+		rate = (100-(m_property.DEF + defenceval)*0.06 / (1 + defenceval * 0.06 + m_property.DEF*0.06))*rate/100;
 		dam = damage * rate / 100;
 		m_property.HP -= dam;
 		return dam;
 	}	
 	if (type == 1)
 	{
-		rate -= (m_property.RES + defenceval)*0.06 / (1 + defenceval * 0.06 + m_property.RES*0.06);
+		rate = (100-(m_property.RES + defenceval)*0.06 / (1 + defenceval * 0.06 + m_property.RES*0.06))*rate/100;
 		dam = damage * rate / 100;
 		m_property.HP -= dam;
 		return dam;
 	}
 }
+
+
+
+int UnitsSprite::receivetotaldamage(const actor_property& property, const int& situation, const int&	addtional_DEF,const int& addtional_RES, const int& Reductionrate)
+{
+	int totaldamage;
+	int rate = 100 - m_property.RDR - Reductionrate;
+	int rate_physic= (m_property.DEF + addtional_DEF)*0.06 / (1 + addtional_DEF * 0.06 + m_property.DEF*0.06);
+	int rate_magic= (m_property.RES + addtional_RES)*0.06 / (1 + addtional_RES * 0.06 + m_property.RES*0.06); 
+	rate_physic = (100 - rate_physic)*rate / 100;
+	rate_magic =  (100 - rate_magic)*rate / 100;
+	totaldamage= (property.ATK * rate_physic / 100)+ (property.ATKM*rate_magic/100+ property.ATKS);
+	if (situation != 0)
+	{
+		m_property.HP -= totaldamage;
+		return totaldamage;
+	}
+	else
+		return totaldamage;
+	
+}
+
+
+
+
+
+
 int UnitsSprite::consumeSTA(const int& val)
 {
 	m_property.STA -= val;

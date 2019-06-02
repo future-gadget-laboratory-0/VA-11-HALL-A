@@ -166,6 +166,22 @@ BulletSprite* BulletSprite::getInstance()
 	}
 }
 
+/*
+BulletSprite* BulletSprite::getInstance()
+{
+		BulletSprite* instances = NULL;
+		instances= new BulletSprite();
+		instances->init();	
+		instancev.pushBack(instances);
+		return instances;
+}
+
+*/
+
+
+
+
+
 bool BulletSprite::init()
 {
 	if (!UnitsSprite::init())
@@ -259,7 +275,7 @@ void BulletSprite::setanimation(__String name, __String aniname)
 {
 	const std::string str = name.getCString();
 	const std::string anistr = aniname.getCString();
-	if (str != " ")
+	/*if (str != " ")
 	{
 		this->setTexture(str);
 	}
@@ -273,11 +289,19 @@ void BulletSprite::setanimation(__String name, __String aniname)
 		if (actionManager->getNumberOfRunningActionsInTarget(this) !=0)	
 			throw - 1.00;
 		}
-		catch (float f) { this->stopAllActions();}
+		catch (float f) { this->stopAllActions();}*/
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation(anistr));
 		this->runAction(RepeatForever::create(animate));
 }
 
+
+void BulletSprite::bulletclear(float)
+{
+	if (this->getParent())
+		this->removeFromParentAndCleanup(true);
+	//if(!this->getParent())
+	//	this->getParent()->removeFromParentAndCleanup(this);
+}
 
 void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length)
 {
@@ -290,6 +314,7 @@ void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length)
 	this->setPosition(Vec2(50,30));
 	auto moveby=MoveBy::create(time, pos_true);
 	this->runAction(moveby);
+	this->schedule(schedule_selector(BulletSprite::bulletclear), moveby->getDuration(), 1, 0);
 }
 
 void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length, int sped)
@@ -302,11 +327,23 @@ void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length, int sped)
 	this->setPosition(Vec2(50, 30));
 	auto moveby = MoveBy::create(time, pos_true);
 	this->runAction(moveby);
+	this->schedule(schedule_selector(BulletSprite::bulletclear), moveby->getDuration(), 1, 0);
 }
 
 void BulletSprite::Followed(Sprite* target, int sped)
 {
-	
+	m_target = target;
+	m_sped = sped;
+	schedule(schedule_selector(BulletSprite::Followed),0.5f, kRepeatForever, 0);
+}
+
+void BulletSprite::Followed(float)
+{
+	double denominator = sqrt(pow((m_target->getPosition().y - this->getPosition().y), 2) + pow(m_target->getPosition().x - this->getPosition().x, 2));
+	double time = denominator / m_sped;
+	auto moveto = MoveTo::create(8, m_target->getPosition()- this->getParent()->getPosition());
+	this->stopAllActions();
+	this->runAction(moveto);
 }
 /*
 void BulletSprite::collision(Sprite* target, Sprite* bullet)

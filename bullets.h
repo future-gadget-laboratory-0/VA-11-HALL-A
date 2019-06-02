@@ -15,12 +15,18 @@ public:
 	void Fixed(Vec2,Vec2,int);
 	void Fixed(Vec2, Vec2,int,int);
 	void Followed(Sprite*, int);
+	
 	void collision(Sprite*, Sprite*);//former is target ,the other is bullet
 	CREATE_FUNC(BulletSprite);
 	
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	BulletSprite();
+	void bulletclear(float);
+	void Followed(float);
+	Sprite* m_target=NULL;
+	int m_sped=bulletspeed;
+	//static Vector<BulletSprite*> instancev;
 	static BulletSprite* instance;
 	static BulletSprite* instance1;
 	static BulletSprite* instance2;

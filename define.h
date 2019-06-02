@@ -32,7 +32,7 @@ struct actor_property
 };
 //1000000 mouse;100001 bullet of Player one;200001 player one
 //1000001 Catherine//deleted
-#define move_rate 1000;
+#define move_rate 600;
 #define deviation 5;
 #define bulletspeed 100;
 #define Castinterval 0.1;

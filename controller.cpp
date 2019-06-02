@@ -132,7 +132,8 @@ void m_controller::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	else if (keyCode == EventKeyboard::KeyCode::KEY_R)
 	{
 		//Catherine->move_rf();
-		Catherine->skillth();
+		Sprite* target = (Sprite*)getChildByTag(m_lockTag);
+		Catherine->skillth(target);
 	}
 	}
 }
@@ -262,13 +263,18 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	{
 		if(tagB==20100)
 		{ 
-			bodyB->changeproperty(bodyB->get().HP-700,"HP");
-			if (tagB == m_lockTag&& bodyB->get().HP<=0)
+			int Hp = bodyB->get().HP ;
+			if (Hp <= 0)
+			{
 				mouse_sprite->setTexture("mouse.png");
-		//contact.getShapeA->get();
-	//	bodyA->removeFromParentAndCleanup(true);
-	//	bodyA->removeFromParent();
-			bodyA->setVisible(true);
+				return false;
+			}
+			int dam = bodyB->receivetotaldamage(bodyA->get(), 0, 0, 0,0);
+			bodyB->changeproperty(Hp-dam,"HP");
+			if (/* tagB == m_lockTag&&*/ Hp <=dam)
+				mouse_sprite->setTexture("mouse.png");
+			bodyA->removeFromParentAndCleanup(true);
+		//bodyA->setVisible(true);
 		}
 	}
 /*
@@ -286,19 +292,23 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 
 	if (tagB == 100001&& (tagA == 20100 || tagA == 20200))
 	{
-	//	bodyB->removeFromParentAndCleanup(true);
-		//bodyB->removeFromParent();
-		bodyA->get().HP - 700;
-			if(tagA== m_lockTag && bodyA->get().HP <= 0)
-				mouse_sprite->setTexture("mouse.png");
-		bodyB->setVisible(false);
-		
+		int Hp = bodyA->get().HP; 
+		if (Hp <= 0)
+		{
+			mouse_sprite->setTexture("mouse.png");
+			return false;
+		}	CCLOG("%d", bodyA->get().ATK);
+		int dam = bodyA->receivetotaldamage(bodyB->get(),0,0,0, 0);
+		bodyA->changeproperty(Hp - dam, "HP");
+		if (/* tagB == m_lockTag&&*/ Hp <= dam)
+			mouse_sprite->setTexture("mouse.png");
+		bodyB->removeFromParentAndCleanup(true);
 	}
 	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200))
 	{
 		if (bodyB->get().HP > 0)
 		{
-			m_lockTag == tagA;
+			m_lockTag = tagB;
 			mouse_sprite->setTexture("mouse_attack.png");
 		}
 	}
@@ -306,11 +316,12 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	{
 		if (bodyA->get().HP > 0)
 		{
-			m_lockTag == tagA;
+			m_lockTag = tagA;
 			mouse_sprite->setTexture("mouse_attack.png");
 		}
 	}
-	
+	//CCLOG("%d", bodyA->getPosition().x);
+	//CCLOG("%d", bodyB->getPosition().x);
 	return true;
 }
 /*

@@ -32,12 +32,13 @@ public:
 	void skillst();
 	void skillnd();
 	void skillrd();
-	void skillth();
+	void skillth(Sprite*);
 	void skillst(float);
 	void skillnd(float);
 	void skillrd(float);
 	void skillth(float);
 	void death(float);
+	BulletSprite* bulletmaking(int);
 	//float isexecute(int);//if int ==1, spell_judge=1,==0,=0,else won't change anything
 	//void reexecute();
 private:
@@ -90,7 +91,17 @@ private:
 	BulletSprite* bullet3 = BulletSprite::create();
 	BulletSprite* bullet4 = BulletSprite::create();
 	BulletSprite* bullet5 = BulletSprite::create();*/
-	BulletSprite* bullet0 = BulletSprite::getInstance();
+	BulletSprite* bullet0 = BulletSprite::getInstance();	
+	BulletSprite* bullet1 = BulletSprite::getInstance();
+	BulletSprite* bullet2 = BulletSprite::getInstance();
+	BulletSprite* bullet3 = BulletSprite::getInstance();
+	BulletSprite* bullet4 = BulletSprite::getInstance();
+	BulletSprite* bullet5 = BulletSprite::getInstance();
+	BulletSprite* bullet6 = BulletSprite::getInstance();
+	BulletSprite* bullet7 = BulletSprite::getInstance();
+	BulletSprite* bullet8 = BulletSprite::getInstance();
+	BulletSprite* bullet9 = BulletSprite::getInstance();
+	//BulletSprite* bullett = BulletSprite::getInstance();
 //	void skill(Ref* pSender);
 };
 
