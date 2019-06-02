@@ -2,33 +2,33 @@
 
 struct actor_property
 {
-	int HP;//Actor's Health
-	int MP;//Actor's Magic
-	int STA;//Actor's endurance
-	int MHP;//Actor's MaxHP
-	int MMP;//Actor's MaxMP
-	int MSTA;//Actor's MAXendurance
-	int RHP;//Actor's Regeneration;
-	int RMP;//Actor's Regeneration;
-	int RSTA;//Actor's Regeneration;
-	int EVA;//Actor's evation
-	int SPE;//Actor's Speend
-	int ACC;//Actor's additional accuracy
-	int ATK;//Actor's attack
-	int ATKM;//Actor's spell attack
-	int ATKS;//Actor's Sacred injury
-	int DEF;//Actor's defence
-	int RES;//Actor's spell defence
-	int RDR;//Actor's reduction ratio
-	int	BP;	//Battering rate
-	int	ATR;//Attack range;
-	int RET;//Actor's Resurrection time
-	int TYPE;//Actor's type
-	float CDS;//Actor's st skill cool down
-	float CDN;//Actor's nd skill cool down
-	float CDR;//Actor's rd skill cool down
-	float CDF;//Actor's fo skill cool down
-	float CDA;//Actor's fo Attack cool down
+	int HP=0;//Actor's Health
+	int MP=0;//Actor's Magic
+	int STA=0;//Actor's endurance
+	int MHP=0;//Actor's MaxHP
+	int MMP=0;//Actor's MaxMP
+	int MSTA=0;//Actor's MAXendurance
+	int RHP=0;//Actor's Regeneration;
+	int RMP=0;//Actor's Regeneration;
+	int RSTA=0;//Actor's Regeneration;
+	int EVA=0;//Actor's evation
+	int SPE=0;//Actor's Speend
+	int ACC=0;//Actor's additional accuracy
+	int ATK=0;//Actor's attack
+	int ATKM=0;//Actor's spell attack
+	int ATKS=0;//Actor's Sacred injury
+	int DEF=0;//Actor's defence
+	int RES=0;//Actor's spell defence
+	int RDR=0;//Actor's reduction ratio
+	int	BP=0;	//Battering rate
+	int	ATR=0;//Attack range;
+	int RET=0;//Actor's Resurrection time
+	int TYPE=0;//Actor's type
+	float CDS=0;//Actor's st skill cool down
+	float CDN=0;//Actor's nd skill cool down
+	float CDR=0;//Actor's rd skill cool down
+	float CDF=0;//Actor's fo skill cool down
+	float CDA=0;//Actor's fo Attack cool down
 };
 //1000000 mouse;100001 bullet of Player one;200001 player one
 //1000001 Catherine//deleted
