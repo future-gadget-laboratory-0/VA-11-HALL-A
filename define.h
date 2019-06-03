@@ -29,13 +29,21 @@ struct actor_property
 	float CDR=0;//Actor's rd skill cool down
 	float CDF=0;//Actor's fo skill cool down
 	float CDA=0;//Actor's fo Attack cool down
+	int LEVEL = 1;
+	int EXP = 0;
 };
 //1000000 mouse;100001 bullet of Player one;200001 player one
 //1000001 Catherine//deleted
 #define move_rate 600;
 #define deviation 5;
 #define bulletspeed 100;
-#define Castinterval 0.1;
+#define Castinterval 0.2;
+
+
+
+
+
+
 
 enum class Player{
 	one = 1,

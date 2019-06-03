@@ -815,7 +815,7 @@ void SpriteCatherine::skillst(float time)
 	if (!state_estimation(0, 0, 1))
 		return;
 	cooldowning1 = 1;
-	spell_judge = time;
+//	spell_judge = time;
 //	CCDelayTime* delayTime = CCDelayTime::create(time);
 //	CCCallFunc *callFunND = CCCallFun::create(CC_CALLBACK_1(callfunc_selector(SpriteCatherine::skill),this ));
 	shock(time);
@@ -831,7 +831,7 @@ void SpriteCatherine::skillnd(float time)
 	if (!state_estimation(0, 0, 1))
 		return;
 	cooldowning2 = 1;
-	spell_judge = time;
+//	spell_judge = time;
 	shock(time);
 	pos.x = old_pos.x;
 	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
@@ -850,7 +850,7 @@ void SpriteCatherine::skillrd(float time)
 	if (!state_estimation(0, 0, 1))
 		return;
 	cooldowning3 = 1;
-	spell_judge = time;
+//	spell_judge = time;
 	shock(time);
 	pos.x = old_pos.x;
 	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
@@ -864,7 +864,7 @@ void SpriteCatherine::skillth(float time)
 	if (!state_estimation(0, 0, 1))
 		return;
 	cooldowning4 = 1;
-	spell_judge = time;
+//	spell_judge = time;
 	shock(time);
 	pos.x = old_pos.x;
 	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
@@ -916,7 +916,6 @@ void SpriteCatherine::revive(float time)
 void SpriteCatherine::restore(float time)
 {
 	int Hp = this->get().HP;
-	CCLOG("%d", Hp);
 	int Mp = this->get().MP;
 	if (Hp > 0&&this->get().MHP>Hp)
 	{
@@ -1072,12 +1071,20 @@ bool SpriteCatherine::state_estimation(int shake, int shock, int spell)
 {
 	if (shake == 1)
 		if (!Back_shake())
+		{
+			CCLOG("backdef");
 			return false;
+		}
+			//return false;
 	if (shock == 1)
 		shock = 1;
 	if (spell == 1)
 		if (!Spell_cooldown())
+		{
+			CCLOG("coodef");
 			return false;
+		}
+	//	return false;
 	return true;
 	
 }
