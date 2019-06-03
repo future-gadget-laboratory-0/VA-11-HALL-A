@@ -130,10 +130,6 @@ int UnitsSprite::receivetotaldamage(const actor_property& property, const int& s
 }
 
 
-
-
-
-
 int UnitsSprite::consumeSTA(const int& val)
 {
 	m_property.STA -= val;
@@ -197,6 +193,50 @@ void UnitsSprite::Recover(const int& val, const int& time, const __String& name)
 	m_property.MP += m_property.RMP;
 	m_property.STA += m_property.RSTA;
 }
+
+int UnitsSprite::consumeEXP(const int& Level, const int& Exp)//return Level
+{
+	m_property.LEVEL += Level;
+	m_property.EXP += Level;
+	int Exp_Required = m_property.LEVEL*m_property.LEVEL * 10+500;
+	while (Exp_Required <= m_property.EXP&&m_property.LEVEL<=19)
+	{
+		levelup();
+		m_property.EXP -= Exp_Required;
+		m_property.LEVEL += 1;
+		Exp_Required = m_property.LEVEL*m_property.LEVEL * 10 + 500;
+	}
+	return m_property.LEVEL;
+}
+
+void UnitsSprite::levelup()
+{
+	
+	m_property.HP += 100;
+	m_property.MP += 100;
+	m_property.STA += 50;
+	m_property.MHP += 100;
+	m_property.MMP += 100;
+	m_property.MSTA += 50;
+	m_property.RHP += 1;
+	m_property.RMP += 1;
+	m_property.RSTA += 1;
+	m_property.EVA += 0;
+	m_property.SPE += 0;
+	m_property.ACC += 0;
+	m_property.ATK += 7;
+	m_property.ATKM += 5;
+	m_property.ATKS += 0;
+	m_property.DEF += 2;
+	m_property.RES += 2;
+	m_property.RDR += 0;
+	m_property.BP += 0;
+	m_property.ATR += 5;
+	m_property.RET += 5;
+	m_property.CDA -= 0.01;
+}
+
+
 
 actor_property UnitsSprite::get()
 {

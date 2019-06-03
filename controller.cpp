@@ -133,7 +133,8 @@ void m_controller::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	{
 		//Catherine->move_rf();
 		Sprite* target = (Sprite*)getChildByTag(m_lockTag);
-		Catherine->skillth(target);
+		if(target!=NULL)
+			Catherine->skillth(target);
 	}
 	}
 }

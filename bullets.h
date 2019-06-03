@@ -26,6 +26,7 @@ private:
 	void Followed(float);
 	Sprite* m_target=NULL;
 	int m_sped=bulletspeed;
+	Vec2 old_pos=Vec2(-100,-100);
 	//static Vector<BulletSprite*> instancev;
 	static BulletSprite* instance;
 	static BulletSprite* instance1;

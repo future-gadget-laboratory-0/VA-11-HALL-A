@@ -334,9 +334,9 @@ void BulletSprite::Followed(Sprite* target, int sped)
 {
 	m_target = target;
 	m_sped = sped;
-	schedule(schedule_selector(BulletSprite::Followed),0.5f, kRepeatForever, 0);
+	schedule(schedule_selector(BulletSprite::Followed),0.01f, kRepeatForever, 0);
 }
-
+/*
 void BulletSprite::Followed(float)
 {
 	double denominator = sqrt(pow((m_target->getPosition().y - this->getPosition().y), 2) + pow(m_target->getPosition().x - this->getPosition().x, 2));
@@ -344,9 +344,26 @@ void BulletSprite::Followed(float)
 	auto moveto = MoveTo::create(8, m_target->getPosition()- this->getParent()->getPosition());
 	this->stopAllActions();
 	this->runAction(moveto);
-}
+}*/
 /*
 void BulletSprite::collision(Sprite* target, Sprite* bullet)
 {
 	target->get();
 }*/
+
+void BulletSprite::Followed(float)
+{
+	Vec2 true_vec;
+	true_vec.x = m_target->getPosition().x;
+	true_vec.y = m_target->getPosition().y;
+	if (old_pos == Vec2(-100, -100))
+		old_pos = this->getParent()->getPosition();
+	double denominator = sqrt(pow((true_vec.y - old_pos.y), 2) + pow(true_vec.x - old_pos.x, 2));
+	//double time = denominator / m_sped;
+	Vec2 move_vec;
+	move_vec.y = (true_vec.y - old_pos.y) * m_sped / denominator / move_rate;
+	move_vec.x = (true_vec.x - old_pos.x) * m_sped / denominator / move_rate;
+	old_pos.x += move_vec.x;
+	old_pos.y += move_vec.y;
+	this->setPosition(old_pos.x - this->getParent()->getPosition().x, old_pos.y - this->getParent()->getPosition().y);
+}

@@ -293,14 +293,14 @@ bool SpriteCatherine::init()
 
 
 	actor_property my_propertystruct;
-	my_propertystruct.HP = 800;
-	my_propertystruct.MP = 800;
-	my_propertystruct.STA = 800;
-	my_propertystruct.MHP = 800;
-	my_propertystruct.MMP = 800;
-	my_propertystruct.MSTA = 800;
-	my_propertystruct.RHP = 2;
-	my_propertystruct.RMP = 2;
+	my_propertystruct.HP = 500;
+	my_propertystruct.MP = 200;
+	my_propertystruct.STA = 100;
+	my_propertystruct.MHP = 500;
+	my_propertystruct.MMP = 200;
+	my_propertystruct.MSTA = 100;
+	my_propertystruct.RHP = 1;
+	my_propertystruct.RMP = 1;
 	my_propertystruct.RSTA = 2;
 	my_propertystruct.EVA = 0;
 	my_propertystruct.SPE = 395;
@@ -320,6 +320,8 @@ bool SpriteCatherine::init()
 	my_propertystruct.CDR = 10;
 	my_propertystruct.CDF = 60;
 	my_propertystruct.CDA = 0.5;
+	my_propertystruct.LEVEL = 1;
+	my_propertystruct.EXP = 0;
 	setproperty(my_propertystruct);
 
 
@@ -406,6 +408,8 @@ bool SpriteCatherine::init()
 //	this->addChild(m_hero);
 	this->schedule(schedule_selector(SpriteCatherine::move), 0.01f, kRepeatForever, 0);
 	this->schedule(schedule_selector(SpriteCatherine::death), 0.01f, kRepeatForever, 0);
+	this->schedule(schedule_selector(SpriteCatherine::restore), 1.0f, kRepeatForever, 0);
+	this->schedule(schedule_selector(SpriteCatherine::levelup), 1.0f, kRepeatForever, 0);
 	//this->schedule(schedule_selector(SpriteCatherine::shock), time, kRepeatForever, 0);
 	return true;
 }
@@ -888,6 +892,7 @@ void SpriteCatherine::death(float time)
 {
 	if (get().HP <= 0)
 	{
+		this->unschedule(schedule_selector(SpriteCatherine::restore));
 		this->actionManager->removeAllActionsFromTarget(this);
 		this->setTexture("death.png");
 		//changeproperty(500, "RET");
@@ -904,8 +909,45 @@ void SpriteCatherine::revive(float time)
 	this->changeproperty(get().MHP, "HP");
 	this->setTexture("snow0_0.png");
 	this->schedule(schedule_selector(SpriteCatherine::death), 0.01f, kRepeatForever, 0);
+	this->schedule(schedule_selector(SpriteCatherine::restore), 1.0f, kRepeatForever, 0);
 	this->unschedule(schedule_selector(SpriteCatherine::revive));
-}/*
+}
+
+void SpriteCatherine::restore(float time)
+{
+	int Hp = this->get().HP;
+	CCLOG("%d", Hp);
+	int Mp = this->get().MP;
+	if (Hp > 0&&this->get().MHP>Hp)
+	{
+		int Rhp = this->get().RHP;
+		if((Hp+Rhp)< this->get().MHP)
+			this->changeproperty((Rhp+Hp), "HP");
+		else
+			this->changeproperty(this->get().MHP, "HP");
+	}	
+	if (Mp > 0 && this->get().MMP > Mp)
+	{
+		int Rmp = this->get().RMP;
+		
+		if ((Mp + Rmp) < this->get().MMP)
+			this->changeproperty((Rmp + Mp), "MP");
+		else
+			this->changeproperty(this->get().MMP, "MP");
+	}
+}
+
+void SpriteCatherine::levelup(float time)
+{
+	
+	int level = this->consumeEXP(0, 5);
+	if (level==20)
+		this->unschedule(schedule_selector(SpriteCatherine::levelup));
+}
+
+
+
+/*
 bool SpriteCatherine::Back_shake()
 {
 	if (executeshake == 0)

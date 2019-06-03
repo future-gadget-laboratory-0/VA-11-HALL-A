@@ -63,10 +63,11 @@ private:
 	Vec2 touch_pos;
 	bool touch_judge = 0;
 	float stop_judge = 0;//0 is down;1 is doing move execute;other the time of stand excute
-	
 	void shock(float);
 	void shock_remove(float);
 	void revive(float);
+	void restore(float);
+	void levelup(float);
 	//functionstate
 	bool state_estimation(int,int,int);
 	//functionshake

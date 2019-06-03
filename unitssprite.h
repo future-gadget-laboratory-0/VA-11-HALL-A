@@ -22,14 +22,19 @@ public:
 	int consumeSTA(const int&);
 	bool changeproperty(const int&, const __String&);
 	void Recover(const int&, const int&, const __String&);//return HP
+	int consumeEXP(const int&, const int&);//the level and exp added
+	
 	actor_property get();
 
 	//CREATE_FUNC(UnitsSprite);
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	UnitsSprite();
+	
 	actor_property m_property;
 	static UnitsSprite* instance;
+private:
+	void levelup();
 };
 
 #endif
