@@ -12,10 +12,11 @@ public:
 	//这个类对象的访问接口，通过它来实例化对象
 	static BulletSprite* getInstance();
 	void setanimation(__String,__String);
+	void setanimation(__String, __String,int);
 	void Fixed(Vec2,Vec2,int);
 	void Fixed(Vec2, Vec2,int,int);
 	void Followed(Sprite*, int);
-	
+	void Durable(Vec2,Vec2, int,int,int);//1 is firing 2 is laser
 	void collision(Sprite*, Sprite*);//former is target ,the other is bullet
 	CREATE_FUNC(BulletSprite);
 	
@@ -25,6 +26,7 @@ private:
 	void bulletclear(float);
 	void Followed(float);
 	Sprite* m_target=NULL;
+
 	int m_sped=bulletspeed;
 	Vec2 old_pos=Vec2(-100,-100);
 	//static Vector<BulletSprite*> instancev;

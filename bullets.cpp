@@ -191,12 +191,16 @@ bool BulletSprite::init()
 	auto winSize = Director::getInstance()->getWinSize();
 
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magi.plist");
-
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("MagicCircle.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("laser.plist");
 	Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
-
+	Animation* animation9 = Anima::createWithSingleFrameName("MagicCircle0_", 0.1f, -1);
+	Animation* animation10 = Anima::createWithSingleFrameName("laser0_", 0.1f, -1);
 	AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
+	AnimationCache::getInstance()->addAnimation(animation9, "firing_one");
+	AnimationCache::getInstance()->addAnimation(animation10, "laser_one");
 	this->setTexture("magi0_0.png");
-//	this->setTexture("snow0_0.png");
+//	this->setTexture("MagicCircle0_0.png");
 	//m_bullet = Sprite::createWithSpriteFrameName("magi0_0.png");
 	//m_bullet->setTag(100001);
 	this->setTag(100001);
@@ -294,6 +298,14 @@ void BulletSprite::setanimation(__String name, __String aniname)
 		this->runAction(RepeatForever::create(animate));
 }
 
+void BulletSprite::setanimation(__String name, __String aniname,int times)
+{
+	const std::string str = name.getCString();
+	const std::string anistr = aniname.getCString();
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation(anistr));
+	this->runAction(Repeat::create(animate, times));
+}
+
 
 void BulletSprite::bulletclear(float)
 {
@@ -366,4 +378,37 @@ void BulletSprite::Followed(float)
 	old_pos.x += move_vec.x;
 	old_pos.y += move_vec.y;
 	this->setPosition(old_pos.x - this->getParent()->getPosition().x, old_pos.y - this->getParent()->getPosition().y);
+}
+
+
+void BulletSprite::Durable(Vec2 pos_started, Vec2 pos_ended, int Length,int time,int kind)
+{
+	double denominator = sqrt(pow((pos_ended.y - pos_started.y), 2) + pow(pos_ended.x - pos_started.x, 2));
+	Vec2 pos_true;
+	pos_true = (pos_ended - pos_started) / denominator * Length;
+	//this->setPosition(pos_started);
+	if (kind == 1)
+	{
+		this->setPosition(pos_true);
+		setanimation("MagicCircle0_0.png", "firing_one");
+		auto CaBody = PhysicsBody::createBox(this->getContentSize()/7*5, PHYSICSBODY_MATERIAL_DEFAULT);
+		CaBody->setRotationEnable(false);
+		CaBody->setCategoryBitmask(0x01);
+		CaBody->setCollisionBitmask(0x00000000);
+		CaBody->setContactTestBitmask(0x01);
+		this->setPhysicsBody(CaBody);
+		this->setTag(100002);
+	}
+	else
+	{
+		this->setPosition(Vec2(50, 30));
+		setanimation("laser0_0", "laser_one");
+		auto CaBody = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+		CaBody->setRotationEnable(false);
+		CaBody->setCategoryBitmask(0x01);
+		CaBody->setCollisionBitmask(0x00000000);
+		CaBody->setContactTestBitmask(0x01);
+		this->setPhysicsBody(CaBody);
+	}
+	this->schedule(schedule_selector(BulletSprite::bulletclear),time, 1, 0);
 }
