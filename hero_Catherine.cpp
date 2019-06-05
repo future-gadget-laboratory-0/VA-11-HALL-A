@@ -476,7 +476,7 @@ void SpriteCatherine::stop_lf()
 	actionManager->removeAllActionsFromTarget(this);
 	this->setTexture("snow0_0.png");
 	//_rect.size = m_hero->getContentSize();
-	this->setTextureRect(CCRectMake(0, 0, 100, 100));
+	this->setTextureRect(CCRectMake(0.5, 0.2, 100, 100));
 	move_judge = 0;
 	//free(actionManager);
 	//m_hero->setPosition(Point(pos));
@@ -487,7 +487,7 @@ void SpriteCatherine::stop_rf()
 //	auto pos = m_hero->getPosition();
 	actionManager->removeAllActionsFromTarget(this);
 	this->setTexture("snow1_0.png");
-	this->setTextureRect(CCRectMake(0, 0, 100, 100));
+	this->setTextureRect(CCRectMake(0.5, 0.2, 100, 100));
 	move_judge = 0;
 	//free(actionManager);
 //	m_hero->setPosition(Point(pos));
@@ -499,7 +499,7 @@ void SpriteCatherine::stop_rb()
 	actionManager->removeAllActionsFromTarget(this);
 	//m_hero = Sprite::createWithSpriteFrameName("snow2_0.png");
 	this->setTexture("snow2_0.png");
-	this->setTextureRect(CCRectMake(0, 0, 100, 100));
+	this->setTextureRect(CCRectMake(0.5, 0.2, 100, 100));
 	move_judge = 0;
 	//free(actionManager);
 	//m_hero->setPosition(Point(pos));
@@ -511,7 +511,7 @@ void SpriteCatherine::stop_lb()
 	actionManager->removeAllActionsFromTarget(this);
 	//m_hero = Sprite::createWithSpriteFrameName("snow3_0.png");
 	this->setTexture("snow3_0.png");
-	this->setTextureRect(CCRectMake(0, 0, 100, 100));
+	this->setTextureRect(CCRectMake(0.5, 0.2, 100, 100));
 	move_judge = 0;
 //	free (actionManager);
 	//m_hero->setPosition(Point(pos));

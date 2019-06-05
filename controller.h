@@ -22,6 +22,8 @@ public:
 	bool onContactBegin(PhysicsContact& contact);
 	//bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve);
 	bool onContactSeparate(PhysicsContact& contact);
+	Vec2 getmouseloc();
+	void setscale(float);//change character size;
 	auto chose_character(int,int);
 	CREATE_FUNC(m_controller);
 protected:

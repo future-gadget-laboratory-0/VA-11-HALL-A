@@ -364,6 +364,21 @@ bool m_controller::onContactSeparate(PhysicsContact& contact)
 	return true;
 }
 
+Vec2 m_controller::getmouseloc()
+{
+	return mouse_sprite->getPosition();
+}
+
+void m_controller::setscale(float size)
+{
+	Catherine->setScale(size);
+	Catherine2->setScale(size);
+}
+
+
+
+
+
 
 
 m_controller* m_controller::instance = NULL;
