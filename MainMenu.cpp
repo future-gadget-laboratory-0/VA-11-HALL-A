@@ -2,6 +2,7 @@
 #include "SimpleAudioEngine.h"
 #include "StoreLayer.h"
 #include "map.h"
+#include "UI.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -27,7 +28,7 @@ bool MainMenu::init()
 		return false;
 	}
 	auto audioengine = SimpleAudioEngine::getInstance();
-	audioengine->setEffectsVolume(1.0);
+	audioengine->setEffectsVolume(0.7);
 	audioengine->playBackgroundMusic("sounds/menu.mp3", true);
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -57,7 +58,6 @@ bool MainMenu::init()
 		//float y = origin.y + beginGame->getContentSize().height / 3;
 		beginGame->setPosition(Vec2(300, 800));
 	}
-
 	// create menu, it's an autorelease object
 	auto begin = Menu::create(beginGame, NULL);
 	begin->setPosition(Vec2::ZERO);
@@ -122,6 +122,7 @@ bool MainMenu::init()
 		// add the sprite as a child to this layer
 		this->addChild(sprite, 0);
 	}
+	
 	return true;
 }
 
@@ -129,7 +130,8 @@ bool MainMenu::init()
 void MainMenu::begin(Ref* pSender)
 {
 	Director::getInstance()->replaceScene(map::createScene());
-
+	//auto layer = StoreLayer::createScene();
+	//this->addChild(layer);
 }
 void MainMenu::menuCloseCallback(Ref* pSender)
 {
