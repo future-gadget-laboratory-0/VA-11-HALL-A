@@ -22,6 +22,7 @@ struct actor_property
 	int RDR=0;//Actor's reduction ratio
 	int	BP=0;	//Battering rate
 	int	ATR=0;//Attack range;
+	float ATS = 0;//Attack speed;
 	int RET=0;//Actor's Resurrection time
 	int TYPE=0;//Actor's type
 	float CDS=0;//Actor's st skill cool down
@@ -38,7 +39,8 @@ struct actor_property
 #define deviation 5;
 #define bulletspeed 100;
 #define Castinterval 0.2;
-#define mousemoverange 10;
+#define mousemoverange 1;
+#define attackspeed 1.5;
 
 enum class Player{
 	one = 1,
