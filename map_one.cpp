@@ -185,33 +185,33 @@ void MapScene::scene_move(Vec2 loc)
 
 	if (loc.x + range >= visibleSize.width&&loc.y + range <= visibleSize.height&&loc.y >= range)
 	{
-		if(_tileMap->getPosition().x - range>0)
+		if(_tileMap->getPosition().x - range>visibleSize.width -_tileMap->getContentSize().width)
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x - range, _tileMap->getPosition().y ));
 		else
-			_tileMap->setPosition(Vec2(0, _tileMap->getPosition().y));
+			_tileMap->setPosition(Vec2(visibleSize.width -_tileMap->getContentSize().width, _tileMap->getPosition().y));
 	}
 	else if (loc.y + range >= visibleSize.height&&loc.x + range <= visibleSize.width&&loc.x >= range)
 	{
-		if (_tileMap->getPosition().y + range < _tileMap->getContentSize().height)
+		if (_tileMap->getPosition().y + range < 0)
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x , _tileMap->getPosition().y+ range));
 		else
-			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, _tileMap->getContentSize().height));
+			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, 0));
 	}
 		
 	else if (loc.x <= range && loc.y + range <= visibleSize.height&&loc.y >= range)
 	{
-		if (_tileMap->getPosition().y + range < _tileMap->getContentSize().height)
+		if (_tileMap->getPosition().x + range < 0)
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x + range, _tileMap->getPosition().y));
 		else
-			_tileMap->setPosition(Vec2(_tileMap->getPosition().x + range, _tileMap->getPosition().y));
+			_tileMap->setPosition(Vec2(0,_tileMap->getPosition().y));
 	}
 		
 	else if (loc.y <= range && loc.x + range <= visibleSize.width&&loc.x >= range)
 	{
-		if (_tileMap->getPosition().y + range < _tileMap->getContentSize().height)
+		if (_tileMap->getPosition().y + range < visibleSize.height-_tileMap->getContentSize().height)
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, _tileMap->getPosition().y - range));
 		else
-			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, _tileMap->getPosition().y - range));
+			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, visibleSize.height -_tileMap->getContentSize().height));
 	}
 	
 
