@@ -28,6 +28,7 @@ public:
 	Vec2 pos;
 	Vec2 old_pos=Point(-100,-100);
 	Vec2 mouse_pos;
+	int m_tag=0;
 	void move(float);
 	void skillst();
 	void skillnd();
@@ -37,13 +38,18 @@ public:
 	void skillnd(float);
 	void skillrd(float);
 	void skillth(float);
+	void normal_attack(float);
 	void death(float);
 	BulletSprite* bulletmaking(int);
+	UnitsSprite* target;
 	//float isexecute(int);//if int ==1, spell_judge=1,==0,=0,else won't change anything
 	//void reexecute();
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	SpriteCatherine();
+	ProgressTimer * Hp_progress;
+	ProgressTimer * Mp_progress;
+	bool death_judge = false;
 	static SpriteCatherine* instance1;
 	static SpriteCatherine* instance2;
 	static SpriteCatherine* instance3;
@@ -63,6 +69,7 @@ private:
 	Vec2 touch_pos;
 	bool touch_judge = 0;
 	float stop_judge = 0;//0 is down;1 is doing move execute;other the time of stand excute
+	void property_refresh(float);
 	void shock(float);
 	void shock_remove(float);
 	void revive(float);
@@ -81,11 +88,17 @@ private:
 	void Sc_reset2(float);
 	void Sc_reset3(float);
 	void Sc_reset4(float);
+	void doattack(float);
 	int cooldowning1=0;
 	int cooldowning2 = 0;
 	int cooldowning3 = 0;
 	int cooldowning4 = 0;
+//	int cooldowning5 = 0;
 	int cooldowning_compare = 0;
+	int normal_attacked = 0;
+	Vec2 attack_pos = Vec2(0,0);
+	Sprite* HP_bar;
+	Sprite* MP_bar;
 /*	BulletSprite* bullet0 = BulletSprite::create();
 	BulletSprite* bullet1 = BulletSprite::create();
 	BulletSprite* bullet2 = BulletSprite::create();

@@ -22,10 +22,9 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-
 #include "HelloWorldScene.h"
+#include "MainMenu.h"
 #include "SimpleAudioEngine.h"
-
 
 USING_NS_CC;
 
@@ -33,132 +32,6 @@ Scene* HelloWorld::createScene()
 {
     return HelloWorld::create();
 }
-
-
-
-// Implementation of the keyboard event callback function prototype
-/*
-void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
-{
-	//Catherine->stop_rb();
-	//Catherine->move_rb();
-	//this->addChild(Catherine);
-	//Catherine->setPosition(Point(Vec2(100, 200)));
-	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
-	{
-		//Catherine->move_rb();
-		Catherine->skillst();
-	}
-	else if (keyCode == EventKeyboard::KeyCode::KEY_W)
-	{
-		//Catherine->move_lb();
-		Catherine->skillnd(2);
-	}
-	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
-	{
-		//Catherine->move_lf();
-		Catherine->skillrd();
-	}
-	else if (keyCode == EventKeyboard::KeyCode::KEY_R)
-	{
-		//Catherine->move_rf();
-		Catherine->skillth();
-	}
-
-}
-
-
-void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
-{
-	//log("Key with keycode %d released", keyCode);
-	//Catherine->stop_lf();
-	//this->addChild(Catherine);
-	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
-	{
-		//Catherine->stop_rb();
-	}
-	else if (keyCode == EventKeyboard::KeyCode::KEY_W)
-	{
-		//Catherine->stop_lb();
-	}
-	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
-	{
-		//Catherine->stop_lf();
-	}
-	else if (keyCode == EventKeyboard::KeyCode::KEY_R)
-	{
-		//Catherine->stop_rf();
-	}
-
-}
-
-bool HelloWorld::onTouchBegan(Touch* touch, Event* event)
-{
-	Catherine->pos= touch->getLocation();	
-	//Catherine->move();
-	return true;
-}
-void HelloWorld::onTouchMoved(Touch* touch, Event* event)
-{
-	//Catherine->move();
-//	Catherine->pos = touch->getLocation();
-}
-void HelloWorld::onTouchEnded(Touch* touch, Event* event)
-{
-	//Catherine->pos = touch->getLocation();
-//	Catherine->pos = touch->getLocation();
-
-}
-
-
-
-
-void HelloWorld::onMouseDown(Event *event)
-{
-	// to illustrate the event....
-	EventMouse* e = (EventMouse*)event;
-	//string str = "Mouse Down detected, Key: ";
-	//str += tostr(e->getMouseButton());
-//	Catherine->pos = e->getLocation();
-	//Catherine->pos = convertToNodeSpace(Catherine->pos);
-	//Catherine->move();
-}
-
-
-
-void HelloWorld::onMouseUp(Event *event)
-{
-	// to illustrate the event....
-	EventMouse* e = (EventMouse*)event;
-	//string str = "Mouse Up detected, Key: ";
-	//str += tostr(e->getMouseButton());
-//	Catherine->pos = e->getLocation();
-}
-
-void HelloWorld::onMouseMove(Event *event)
-{
-	// to illustrate the event....
-	EventMouse* e = (EventMouse*)event;
-	mouse_sprite->setPosition(e->getCursorX(), e->getCursorY());
-	//string str = "MousePosition X:";
-	//str = str + tostr(e->getCursorX()) + " Y:" + tostr(e->getCursorY());
-//	Catherine->pos = e->getLocation();
-}
-
-void HelloWorld::onMouseScroll(Event *event)
-{
-	// to illustrate the event....
-	EventMouse* e = (EventMouse*)event;
-	//string str = "Mouse Scroll detected, X: ";
-	//str = str + tostr(e->getScrollX()) + " Y: " + tostr(e->getScrollY());
-//	Catherine->pos = e->getLocation();
-}
-
-
-
-*/
-
-
 
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
@@ -180,70 +53,33 @@ bool HelloWorld::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-
-
-	Scene::initWithPhysics();
-	PhysicsWorld* world = getPhysicsWorld();
-	world->setGravity(Vec2(0, 0));
-	Sprite *edgeSp;
-	edgeSp = Sprite::create();//创建一个精灵
-	auto boundBody = PhysicsBody::createEdgeBox(visibleSize, PhysicsMaterial(0.0f, 1.0f, 0.0f), 3);//edgebox是不受刚体碰撞影响的一种刚体，我们用它来设置物理世界的边界
-	edgeSp->setPosition(0,0);//位置设置在屏幕中央
-	edgeSp->setPhysicsBody(boundBody);//将精灵容纳的刚体设置为boundbody。注意这里不能确定刚体和精灵是不是父子节点的关系。有兴趣的朋友请自行研究。
-	addChild(edgeSp);//加入渲染树
-	/*
-	auto listener = EventListenerKeyboard::create();
-	listener->onKeyPressed = CC_CALLBACK_2(HelloWorld::onKeyPressed, this);
-	listener->onKeyReleased = CC_CALLBACK_2(HelloWorld::onKeyReleased, this);
-
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-
-	auto _mouseListener = EventListenerMouse::create();
-	_mouseListener->onMouseMove = CC_CALLBACK_1(HelloWorld::onMouseMove, this);
-	_mouseListener->onMouseUp = CC_CALLBACK_1(HelloWorld::onMouseUp, this);
-	_mouseListener->onMouseDown = CC_CALLBACK_1(HelloWorld::onMouseDown, this);
-	_mouseListener->onMouseScroll = CC_CALLBACK_1(HelloWorld::onMouseScroll, this);
-
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
-	//this->setTouchEnabled(true);
-	auto listener1 = EventListenerTouchOneByOne::create();
-	listener1->setSwallowTouches(true);
-	listener1->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
-	listener1->onTouchMoved = CC_CALLBACK_2(HelloWorld::onTouchMoved, this);
-	listener1->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
-	//listener1->onTouchCancelled = CC_CALLBACK_2(HelloWorld::onTouchesCancelled, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
-
-
-*/
-
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+    //auto closeItem = MenuItemImage::create(
+                                           //"CloseNormal.png",
+                                          // "CloseSelected.png",
+                                           //CC_CALLBACK_1(HelloWorld::EnterSecondScene, this));
 
-    if (closeItem == nullptr ||
-        closeItem->getContentSize().width <= 0 ||
-        closeItem->getContentSize().height <= 0)
-    {
-        problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
-    }
-    else
-    {
-        float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
-        float y = origin.y + closeItem->getContentSize().height/2;
-        closeItem->setPosition(Vec2(x,y));
-    }
+    //if (closeItem == nullptr ||
+        //closeItem->getContentSize().width <= 0 ||
+        //closeItem->getContentSize().height <= 0)
+    //{
+        //problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
+    //}
+    //else
+    //{
+       // float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
+        //float y = origin.y + closeItem->getContentSize().height/2;
+        //closeItem->setPosition(Vec2(x,y));
+    //}
 
     // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+    //auto menu = Menu::create(closeItem, NULL);
+    //menu->setPosition(Vec2::ZERO);
+    //this->addChild(menu, 1);
 
     /////////////////////////////
     // 3. add your codes below...
@@ -251,7 +87,7 @@ bool HelloWorld::init()
     // add a label shows "Hello World"
     // create and initialize a label
 
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+    auto label = Label::createWithTTF("CYBERPUNK 2019", "fonts/Marker Felt.ttf", 24);
     if (label == nullptr)
     {
         problemLoading("'fonts/Marker Felt.ttf'");
@@ -266,37 +102,11 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 
-	//auto winSize = Director::getInstance()->getWinSize();
-	//Sprite*m_hero;
-	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("bird.plist");
-	//m_hero = Sprite::createWithSpriteFrameName("bird0_0.png");
-
-	//m_hero->setPosition(Point(winSize.width / 2, winSize.height*0.8));
-	//this->addChild(m_hero);
-	
-
-	//auto Catherine = SpriteCatherine::create();
-	//Catherine->move_lf();
-//	Catherine->setPosition(Point(Vec2(origin.x + visibleSize.width / 2, origin.y + visibleSize.height*0.8)));
-
-
-	//mouse_sprite->setScale(0.5f);
-	//ShowCursor(FALSE);
-	//mouse_sprite->setAnchorPoint(Point(mouse_sprite->getContentSize().width,mouse_sprite->getContentSize().height));
-	//mouse_sprite->setAnchorPoint(Point(0,-1.1));
-	//this->addChild(mouse_sprite,2);
-//	this->addChild(Catherine,1);
-	this->addChild(m_control, 1);
-
-	//BulletSprite* bullet10 = BulletSprite::create();
-	//this->addChild(bullet10, 3);
-	
-
     // add "HelloWorld" splash screen"
-   /* auto sprite = Sprite::create("HelloWorld.png");
+    auto sprite = Sprite::create("LAB.PNG");
     if (sprite == nullptr)
     {
-        problemLoading("'HelloWorld.png'");
+        problemLoading("'LAB.PNG'");
     }
     else
     {
@@ -305,10 +115,10 @@ bool HelloWorld::init()
 
         // add the sprite as a child to this layer
         this->addChild(sprite, 0);
-    }*/
+    }
+	this->scheduleOnce(schedule_selector(HelloWorld::changeScene), 2.0f);
     return true;
 }
-
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
@@ -322,4 +132,12 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 
 }
-
+void HelloWorld::EnterSecondScene(Ref *pSender)
+{
+	Director::getInstance()->replaceScene(MainMenu::createScene());
+}
+void HelloWorld::changeScene(float dt)
+{
+	auto load_scene = MainMenu::createScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(1, load_scene));
+}

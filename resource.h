@@ -22,41 +22,23 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MAP_ONE_H__
-#define __MAP_ONE_H__
+//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ generated include file.
+// Used by game.RC
+//
 
-#include "cocos2d.h"
-//#include "hero_Catherine.h"
-#include "controller.h"
-#include "UI.h"
+#define IDS_PROJNAME                100
+#define IDR_TESTJS    100
 
-class MapScene : public cocos2d::Scene
-{
-public:
-    static cocos2d::Scene* createScene();
+#define ID_FILE_NEW_WINDOW            32771
 
-    virtual bool init();
-	/*void onKeyPressed(EventKeyboard::KeyCode, Event*);
-	void onKeyReleased(EventKeyboard::KeyCode, Event*);*/
-	void onMouseDown(Event *event);
-	void onMouseUp(Event *event);
-	void onMouseMove(Event *event);
-	void onMouseScroll(Event *event);
-/*	bool onTouchBegan(Touch* touch, Event* event);
-	void onTouchMoved(Touch* touch, Event* event);
-	void onTouchEnded(Touch* touch, Event* event);
-	*/
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
-	actor_property propertyget(int);
-    // implement the "static create()" method manually
-	void update(float);
-    CREATE_FUNC(MapScene);
-private:
-	TMXTiledMap* _tileMap;
-	void scene_move(Vec2);
-	m_controller* m_control = m_controller::create();
-	UI* layer = UI::createLayer();
-};
-
-#endif // __HELLOWORLD_SCENE_H__
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE    201
+#define _APS_NEXT_CONTROL_VALUE        1000
+#define _APS_NEXT_SYMED_VALUE        101
+#define _APS_NEXT_COMMAND_VALUE        32775
+#endif
+#endif

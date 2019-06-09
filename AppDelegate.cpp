@@ -23,9 +23,7 @@
  ****************************************************************************/
 
 #include "AppDelegate.h"
-#include "map_one.h"
-
-
+#include "HelloWorldScene.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -44,10 +42,10 @@ using namespace CocosDenshion;
 
 USING_NS_CC;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(1920, 1024);
-static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
-static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
-static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
+static cocos2d::Size designResolutionSize = cocos2d::Size(1920,1080);
+static cocos2d::Size smallResolutionSize = cocos2d::Size(1920, 1080);
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(1920, 1080);
+static cocos2d::Size largeResolutionSize = cocos2d::Size(1920, 1080);
 
 AppDelegate::AppDelegate()
 {
@@ -85,13 +83,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("tjmoba", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+        glview = GLViewImpl::createWithRect("Cyber", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
 #else
-        glview = GLViewImpl::create("tjmoba");
+        glview = GLViewImpl::create("Cyber");
 #endif
         director->setOpenGLView(glview);
     }
-//	glview->setDesignResolutionSize(480, 320, kResolutionNoBorder);
+	director->setClearColor(cocos2d::Color4F(1.0f, 1.0f, 1.0f, 1.0f));
     // turn on display FPS
     director->setDisplayStats(true);
 
@@ -120,7 +118,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = MapScene::createScene();
+    auto scene = HelloWorld::createScene();
 
     // run
     director->runWithScene(scene);

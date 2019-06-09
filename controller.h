@@ -24,6 +24,7 @@ public:
 	bool onContactSeparate(PhysicsContact& contact);
 	Vec2 getmouseloc();
 	void setscale(float);//change character size;
+	actor_property getproperty(int);
 	auto chose_character(int,int);
 	CREATE_FUNC(m_controller);
 protected:
@@ -54,7 +55,8 @@ protected:
 	Sprite* mouse_sprite = Sprite::create("mouse.png");
 	//SpriteCatherine* Catherine_test = SpriteCatherine::create();
 	//Vector<int> SPS;//store Sprites's tag;
-	int m_lockTag;
+	int m_lockTag=0;
+	int m_lockTag_now=0;
 	int player1_tag;
 	int player2_tag;
 	int player3_tag;

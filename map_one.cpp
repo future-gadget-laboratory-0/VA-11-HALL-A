@@ -27,6 +27,7 @@
 #include "SimpleAudioEngine.h"
 
 
+
 USING_NS_CC;
 
 Scene* MapScene::createScene()
@@ -115,7 +116,7 @@ void HelloWorld::onTouchEnded(Touch* touch, Event* event)
 
 void MapScene::onMouseDown(Event *event)
 {
-	CCLOG("here");
+//	CCLOG("here");
 	// to illustrate the event....
 	EventMouse* e = (EventMouse*)event;
 	//string str = "Mouse Down detected, Key: ";
@@ -138,10 +139,11 @@ void MapScene::onMouseUp(Event *event)
 
 void MapScene::onMouseMove(Event *event)
 {
-	CCLOG("here");
+//	CCLOG("here");
 	// to illustrate the event....
 	EventMouse* e = (EventMouse*)event;
-	scene_move(Point(e->getCursorX(), e->getCursorY()));
+	//scene_move(Point(e->getCursorX(), e->getCursorY()));
+	scene_move(e->getLocation());
 	//string str = "MousePosition X:";
 	//str = str + tostr(e->getCursorX()) + " Y:" + tostr(e->getCursorY());
 //	Catherine->pos = e->getLocation();
@@ -159,6 +161,7 @@ void MapScene::onMouseScroll(Event *event)
 void MapScene::scene_move(Vec2 loc)
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	int range = mousemoverange;
 	/*if (loc.x + range >= visibleSize.width&&loc.x + range >= visibleSize.width)
 		_tileMap->setPosition(Vec2(_tileMap->getPosition().x- range,_tileMap->getPosition().y - range));
@@ -169,21 +172,56 @@ void MapScene::scene_move(Vec2 loc)
 	if (loc.x + range <= range &&loc.x + range <= range)
 		_tileMap->setPosition(Vec2(_tileMap->getPosition().x + range, _tileMap->getPosition().y + range));
 	//	_tileMap->setPosition(500,500);*/
-
+	/*
 	if (loc.x + range >= visibleSize.width&&loc.y + range <= visibleSize.height&&loc.y  >=range)
 		_tileMap->setPosition(Vec2(_tileMap->getPosition().x - range, _tileMap->getPosition().y ));
 	else if(loc.y + range >= visibleSize.height&&loc.x + range <= visibleSize.width&&loc.x  >=range)
 		_tileMap->setPosition(Vec2(_tileMap->getPosition().x , _tileMap->getPosition().y- range));
-	if (loc.x  >= range&&loc.y + range <= visibleSize.height&&loc.y >= range)
-		_tileMap->setPosition(Vec2(_tileMap->getPosition().x - range, _tileMap->getPosition().y));
+	else if (loc.x  >= range&&loc.y + range <= visibleSize.height&&loc.y >= range)
+		_tileMap->setPosition(Vec2(_tileMap->getPosition().x + range, _tileMap->getPosition().y));
 	else if (loc.y + range >= visibleSize.height&&loc.x + range <= visibleSize.width&&loc.x >= range)
-		_tileMap->setPosition(Vec2(_tileMap->getPosition().x, _tileMap->getPosition().y - range));
+		_tileMap->setPosition(Vec2(_tileMap->getPosition().x, _tileMap->getPosition().y + range));
+*/
 
+	if (loc.x + range >= visibleSize.width&&loc.y + range <= visibleSize.height&&loc.y >= range)
+	{
+		if(_tileMap->getPosition().x - range>0)
+			_tileMap->setPosition(Vec2(_tileMap->getPosition().x - range, _tileMap->getPosition().y ));
+		else
+			_tileMap->setPosition(Vec2(0, _tileMap->getPosition().y));
+	}
+	else if (loc.y + range >= visibleSize.height&&loc.x + range <= visibleSize.width&&loc.x >= range)
+	{
+		if (_tileMap->getPosition().y + range < _tileMap->getContentSize().height)
+			_tileMap->setPosition(Vec2(_tileMap->getPosition().x , _tileMap->getPosition().y+ range));
+		else
+			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, _tileMap->getContentSize().height));
+	}
+		
+	else if (loc.x <= range && loc.y + range <= visibleSize.height&&loc.y >= range)
+	{
+		if (_tileMap->getPosition().y + range < _tileMap->getContentSize().height)
+			_tileMap->setPosition(Vec2(_tileMap->getPosition().x + range, _tileMap->getPosition().y));
+		else
+			_tileMap->setPosition(Vec2(_tileMap->getPosition().x + range, _tileMap->getPosition().y));
+	}
+		
+	else if (loc.y <= range && loc.x + range <= visibleSize.width&&loc.x >= range)
+	{
+		if (_tileMap->getPosition().y + range < _tileMap->getContentSize().height)
+			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, _tileMap->getPosition().y - range));
+		else
+			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, _tileMap->getPosition().y - range));
+	}
+	
 
 
 }
 
-
+actor_property MapScene::propertyget(int playerid)
+{
+	return m_control->getproperty(1);
+}
 
 
 
@@ -207,16 +245,17 @@ bool MapScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	_tileMap = TMXTiledMap::create("map_new.tmx");
+	_tileMap = TMXTiledMap::create("map_2.tmx");
 	//_tileMap->setScale(7);
 	_tileMap->setPosition(0, 0);
-	addChild(_tileMap, -1);
+
+	this->addChild(_tileMap, -1);
 
 	Scene::initWithPhysics();
 	PhysicsWorld* world = getPhysicsWorld();
 	world->setGravity(Vec2(0, 0));
 	this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-	Sprite *edgeSp;
+/*	Sprite *edgeSp;
 	edgeSp = Sprite::create();//创建一个精灵
 	auto boundBody = PhysicsBody::createEdgeBox(visibleSize, PhysicsMaterial(0.0f, 1.0f, 0.0f), 3);//edgebox是不受刚体碰撞影响的一种刚体，我们用它来设置物理世界的边界
 	edgeSp->setPosition(visibleSize.width/2, visibleSize.height / 2);//位置设置在屏幕中央
@@ -248,7 +287,7 @@ bool MapScene::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener2, this);
 
 	*/
-	m_control->setscale(0.3);
+	m_control->setscale(1);
 
 
 
@@ -282,8 +321,11 @@ bool MapScene::init()
 	//this->addChild(mouse_sprite,2);
 //	this->addChild(Catherine,1);
 	_tileMap->addChild(m_control, 1);
-
-    return true;
+    
+	layer->init();
+	this->addChild(layer);
+	this->schedule(schedule_selector(MapScene::update), 0.01f, kRepeatForever, 0);
+	return true;
 }
 
 
@@ -293,4 +335,9 @@ void MapScene::menuCloseCallback(Ref* pSender)
     Director::getInstance()->end();
 
 }
-
+void MapScene::update(float)
+{
+	layer->giveHealth(propertyget(1).HP);
+	layer->giveMaxHealth(propertyget(1).MHP);
+	layer->scheduleBlood();
+}

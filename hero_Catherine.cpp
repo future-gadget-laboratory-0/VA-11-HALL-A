@@ -271,7 +271,7 @@ bool SpriteCatherine::init()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("snow.plist");
 	//SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magi.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magicusing.plist");
-
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("snowattack.plist");
 	Animation* animation0 = Anima::createWithSingleFrameName("snow0_", 0.1f, -1);
 	Animation* animation1 = Anima::createWithSingleFrameName("snow1_", 0.1f, -1);
 	Animation* animation2 = Anima::createWithSingleFrameName("snow2_", 0.1f, -1);
@@ -280,6 +280,7 @@ bool SpriteCatherine::init()
 	Animation* animation5 = Anima::createWithSingleFrameName("magicusing1_", 0.1f, 1);
 	Animation* animation6 = Anima::createWithSingleFrameName("magicusing2_", 0.1f, 1);
 	Animation* animation7 = Anima::createWithSingleFrameName("magicusing3_", 0.1f, 1); 
+	Animation* animation8 = Anima::createWithSingleFrameName("snowattack0_", 0.1f, 1);
 	//Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
 	AnimationCache::getInstance()->addAnimation(animation0, "snow_lf");
 	AnimationCache::getInstance()->addAnimation(animation1, "snow_rf");
@@ -289,9 +290,36 @@ bool SpriteCatherine::init()
 	AnimationCache::getInstance()->addAnimation(animation5, "snow_nd");
 	AnimationCache::getInstance()->addAnimation(animation6, "snow_rd");
 	AnimationCache::getInstance()->addAnimation(animation7, "snow_th");
+	AnimationCache::getInstance()->addAnimation(animation8, "snowattack");
 	this->setTexture("snow0_0.png");
-
-
+	HP_bar = Sprite::create("bar.png");
+	MP_bar = Sprite::create("bar.png");
+	HP_bar->setPosition(this->getPosition().x+this->getContentSize().width/2,this->getPosition().y+this->getContentSize().height+HP_bar->getContentSize().height*0.15);
+	MP_bar->setPosition(this->getPosition().x+this->getContentSize().width/2,this->getPosition().y + this->getContentSize().height);
+	HP_bar->setAnchorPoint(Vec2(0.5, 0.5));
+	MP_bar->setAnchorPoint(Vec2(0.5, 0.5));
+	auto hp_bar = Sprite::create("Hp.png");
+	auto mp_bar = Sprite::create("Mp.png");
+	 Hp_progress = ProgressTimer::create(hp_bar);
+	Hp_progress->setType(ProgressTimer::Type::BAR);
+	Hp_progress->setPosition(this->getPosition().x + this->getContentSize().width / 2, this->getPosition().y + this->getContentSize().height + HP_bar->getContentSize().height*0.15);
+	Hp_progress->setMidpoint(Point(0, 0.5));
+	Hp_progress->setBarChangeRate(Point(1, 0));
+	Hp_progress->setTag(1000000+m_tag);
+	Mp_progress = ProgressTimer::create(mp_bar);
+	Mp_progress->setType(ProgressTimer::Type::BAR);
+	Mp_progress->setPosition(this->getPosition().x + this->getContentSize().width / 2, this->getPosition().y + this->getContentSize().height);
+	Mp_progress->setMidpoint(Point(0, 0.5));
+	Mp_progress->setBarChangeRate(Point(1, 0));
+	Mp_progress->setTag(2000000+m_tag);	
+	HP_bar->setScale(0.15);
+	MP_bar->setScale(0.15);
+	Hp_progress->setScale(0.15);
+	Mp_progress->setScale(0.15);
+	this->addChild(Hp_progress, 1);
+	this->addChild(Mp_progress, 1);
+	this->addChild(HP_bar, 0);
+	this->addChild(MP_bar, 0);
 	actor_property my_propertystruct;
 	my_propertystruct.HP = 500;
 	my_propertystruct.MP = 200;
@@ -313,6 +341,7 @@ bool SpriteCatherine::init()
 	my_propertystruct.RDR = 0;
 	my_propertystruct.BP = 0;
 	my_propertystruct.ATR = 400;
+	my_propertystruct.ATS = 0.5;
 	my_propertystruct.RET = 10;
 	my_propertystruct.TYPE = 1;
 	my_propertystruct.CDS = 7;
@@ -410,6 +439,8 @@ bool SpriteCatherine::init()
 	this->schedule(schedule_selector(SpriteCatherine::death), 0.01f, kRepeatForever, 0);
 	this->schedule(schedule_selector(SpriteCatherine::restore), 1.0f, kRepeatForever, 0);
 	this->schedule(schedule_selector(SpriteCatherine::levelup), 1.0f, kRepeatForever, 0);
+	this->schedule(schedule_selector(SpriteCatherine::levelup), 1.0f, kRepeatForever, 0);
+	this->schedule(schedule_selector(SpriteCatherine::property_refresh), 0.01f, kRepeatForever, 0);
 	//this->schedule(schedule_selector(SpriteCatherine::shock), time, kRepeatForever, 0);
 	return true;
 }
@@ -822,7 +853,7 @@ void SpriteCatherine::skillst(float time)
 	pos.x = old_pos.x;
 	pos.y = old_pos.y;//- this->getContentSize().height*0.3;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_st"));
-	int times = time / Repeat::create(animate, 1)->getDuration();
+	int times = time / Repeat::create(animate, 1)->getDuration()+1;
 	this->runAction(Repeat::create(animate, times));
 }
 void SpriteCatherine::skillnd(float time)
@@ -836,7 +867,7 @@ void SpriteCatherine::skillnd(float time)
 	pos.x = old_pos.x;
 	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_nd"));
-	int times = time / Repeat::create(animate, 1)->getDuration();
+	int times = time / Repeat::create(animate, 1)->getDuration()+1;
 	this->runAction(Repeat::create(animate, times));
 	auto bullet = bulletmaking(0);
 	bullet->setanimation("magi0_", "fly_one");
@@ -855,7 +886,7 @@ void SpriteCatherine::skillrd(float time)
 	pos.x = old_pos.x;
 	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_ed"));
-	int times = time / Repeat::create(animate, 1)->getDuration();
+	int times = time / Repeat::create(animate, 1)->getDuration()+1;
 	this->runAction(Repeat::create(animate, times));
 }
 void SpriteCatherine::skillth(float time)
@@ -869,9 +900,51 @@ void SpriteCatherine::skillth(float time)
 	pos.x = old_pos.x;
 	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_th"));
-	int times=time/Repeat::create(animate, 1)->getDuration();
+	int times=time/Repeat::create(animate, 1)->getDuration()+1;
 	this->runAction(Repeat::create(animate, times));
 }
+void SpriteCatherine::normal_attack(float ats)
+{
+	if (ats == 0)
+		ats = this->get().ATS;
+	if (!state_estimation(1, 0, 0))
+		return;
+	if (normal_attacked == 0)
+	{
+		normal_attacked = 1;
+	}
+	if (normal_attacked == 1)
+	{
+		actionManager->removeAllActionsFromTarget(this);
+	}
+	float time = attackspeed;
+	time = time / ats;
+	this->schedule(schedule_selector(SpriteCatherine::doattack), time, 1, 0);
+	//if (!state_estimation(0, 0, 1))
+	//	return;
+//	cooldowning5 = 1;
+	//	spell_judge = time;
+	//shock(time);
+	pos.x = old_pos.x;
+	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
+	attack_pos = pos;
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snowattack"));
+	int times = time / Repeat::create(animate, 1)->getDuration();
+	this->runAction(Repeat::create(animate, times));
+}
+void SpriteCatherine::doattack(float)
+{
+	if (attack_pos != pos)
+		return;
+	normal_attacked = 0;
+	auto bullet = bulletmaking(1);
+	bullet->setanimation("magi0_", "fly_one");
+	bullet->Followed(target, 200);
+	actionManager->removeAllActionsFromTarget(this);
+	this->setTexture("snow0_0.png");
+}
+
+
 
 void SpriteCatherine::shock(float time)
 {
@@ -890,6 +963,7 @@ void SpriteCatherine::shock_remove(float time)
 
 void SpriteCatherine::death(float time)
 {
+	death_judge = true;
 	if (get().HP <= 0)
 	{
 		this->unschedule(schedule_selector(SpriteCatherine::restore));
@@ -906,6 +980,7 @@ void SpriteCatherine::death(float time)
 
 void SpriteCatherine::revive(float time)
 {
+	death_judge = false;
 	this->changeproperty(get().MHP, "HP");
 	this->setTexture("snow0_0.png");
 	this->schedule(schedule_selector(SpriteCatherine::death), 0.01f, kRepeatForever, 0);
@@ -1069,6 +1144,10 @@ void SpriteCatherine::Sc_reset4(float)
 
 bool SpriteCatherine::state_estimation(int shake, int shock, int spell)
 {
+	if (normal_attacked == 1)
+	{
+		this->unschedule(schedule_selector(SpriteCatherine::doattack));
+	}
 	if (shake == 1)
 		if (!Back_shake())
 		{
@@ -1087,4 +1166,12 @@ bool SpriteCatherine::state_estimation(int shake, int shock, int spell)
 	//	return false;
 	return true;
 	
+}
+
+
+
+void SpriteCatherine::SpriteCatherine::property_refresh(float)
+{
+	Hp_progress->setPercentage(((float)this->get().HP / this->get().MHP) * 100);
+	Mp_progress->setPercentage(((float)this->get().MP / this->get().MMP) * 100);
 }

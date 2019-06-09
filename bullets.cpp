@@ -346,6 +346,8 @@ void BulletSprite::Followed(Sprite* target, int sped)
 {
 	m_target = target;
 	m_sped = sped;
+	this->setPosition(Vec2(50, 30));
+	old_pos = this->getParent()->getPosition();
 	schedule(schedule_selector(BulletSprite::Followed),0.01f, kRepeatForever, 0);
 }
 /*
@@ -368,8 +370,8 @@ void BulletSprite::Followed(float)
 	Vec2 true_vec;
 	true_vec.x = m_target->getPosition().x;
 	true_vec.y = m_target->getPosition().y;
-	if (old_pos == Vec2(-100, -100))
-		old_pos = this->getParent()->getPosition();
+//	if (old_pos == Vec2(-100, -100))
+//		old_pos = this->getParent()->getPosition();
 	double denominator = sqrt(pow((true_vec.y - old_pos.y), 2) + pow(true_vec.x - old_pos.x, 2));
 	//double time = denominator / m_sped;
 	Vec2 move_vec;

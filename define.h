@@ -39,8 +39,8 @@ struct actor_property
 #define deviation 5;
 #define bulletspeed 100;
 #define Castinterval 0.2;
-#define mousemoverange 1;
-#define attackspeed 1.5;
+#define mousemoverange 20;
+#define attackspeed 1;
 
 enum class Player{
 	one = 1,

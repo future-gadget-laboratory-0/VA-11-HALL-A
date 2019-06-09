@@ -26,8 +26,6 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-//#include "hero_Catherine.h"
-#include "controller.h"
 
 class HelloWorld : public cocos2d::Scene
 {
@@ -35,24 +33,13 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-	/*void onKeyPressed(EventKeyboard::KeyCode, Event*);
-	void onKeyReleased(EventKeyboard::KeyCode, Event*);
-	void onMouseDown(Event *event);
-	void onMouseUp(Event *event);
-	void onMouseMove(Event *event);
-	void onMouseScroll(Event *event);
-	bool onTouchBegan(Touch* touch, Event* event);
-	void onTouchMoved(Touch* touch, Event* event);
-	void onTouchEnded(Touch* touch, Event* event);
-	*/
+    
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
+    void EnterSecondScene(Ref *pSender);
+	void changeScene(float dt);
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
-private:
-	//SpriteCatherine* Catherine = SpriteCatherine::create();
-	//Sprite* mouse_sprite = Sprite::create("mouse.png");
-	m_controller* m_control = m_controller::create();
+	
 };
-
 #endif // __HELLOWORLD_SCENE_H__

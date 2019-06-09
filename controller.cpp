@@ -207,10 +207,12 @@ void m_controller::onTouchEnded(Touch* touch, Event* event)
 
 void m_controller::onMouseDown(Event *event)
 {
-	if (!PreventRepeated())
-		return;
+//	if (!PreventRepeated())
+//		return;
 	// to illustrate the event....
 	EventMouse* e = (EventMouse*)event;
+	if (m_lockTag_now == m_lockTag&& m_lockTag!=0)
+		Catherine->normal_attack(0);
 	//string str = "Mouse Down detected, Key: ";
 	//str += tostr(e->getMouseButton());
 //	Catherine->pos = e->getLocation();
@@ -298,7 +300,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		{
 			mouse_sprite->setTexture("mouse.png");
 			return false;
-		}	CCLOG("%d", bodyA->get().ATK);
+		}	//CCLOG("%d", bodyA->get().ATK);
 		int dam = bodyA->receivetotaldamage(bodyB->get(),0,0,0, 0);
 		bodyA->changeproperty(Hp - dam, "HP");
 		if (/* tagB == m_lockTag&&*/ Hp <= dam)
@@ -310,6 +312,8 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		if (bodyB->get().HP > 0)
 		{
 			m_lockTag = tagB;
+			Catherine->target = (UnitsSprite*)getChildByTag(m_lockTag);
+			m_lockTag_now = m_lockTag;
 			mouse_sprite->setTexture("mouse_attack.png");
 		}
 	}
@@ -319,6 +323,8 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		{
 			m_lockTag = tagA;
 			mouse_sprite->setTexture("mouse_attack.png");
+			m_lockTag_now = m_lockTag;
+			Catherine->target = (UnitsSprite*)getChildByTag(m_lockTag);
 		}
 	}
 	//CCLOG("%d", bodyA->getPosition().x);
@@ -355,10 +361,12 @@ bool m_controller::onContactSeparate(PhysicsContact& contact)
 	int tagB = bodyB->getTag();
 	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200))
 	{
+		m_lockTag_now = 0;
 		mouse_sprite->setTexture("mouse.png");
 	}
 	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200))
 	{
+		m_lockTag_now = 0;
 		mouse_sprite->setTexture("mouse.png");
 	}
 	return true;
@@ -377,7 +385,13 @@ void m_controller::setscale(float size)
 
 
 
-
+actor_property m_controller::getproperty(int id)
+{
+	if (id == 1)
+		return Catherine->get();
+	else
+		return Catherine2->get();
+}
 
 
 

@@ -22,41 +22,21 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __MAP_ONE_H__
-#define __MAP_ONE_H__
-
+#include "main.h"
+#include "AppDelegate.h"
 #include "cocos2d.h"
-//#include "hero_Catherine.h"
-#include "controller.h"
-#include "UI.h"
 
-class MapScene : public cocos2d::Scene
+USING_NS_CC;
+
+int WINAPI _tWinMain(HINSTANCE hInstance,
+                       HINSTANCE hPrevInstance,
+                       LPTSTR    lpCmdLine,
+                       int       nCmdShow)
 {
-public:
-    static cocos2d::Scene* createScene();
+    UNREFERENCED_PARAMETER(hPrevInstance);
+    UNREFERENCED_PARAMETER(lpCmdLine);
 
-    virtual bool init();
-	/*void onKeyPressed(EventKeyboard::KeyCode, Event*);
-	void onKeyReleased(EventKeyboard::KeyCode, Event*);*/
-	void onMouseDown(Event *event);
-	void onMouseUp(Event *event);
-	void onMouseMove(Event *event);
-	void onMouseScroll(Event *event);
-/*	bool onTouchBegan(Touch* touch, Event* event);
-	void onTouchMoved(Touch* touch, Event* event);
-	void onTouchEnded(Touch* touch, Event* event);
-	*/
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
-	actor_property propertyget(int);
-    // implement the "static create()" method manually
-	void update(float);
-    CREATE_FUNC(MapScene);
-private:
-	TMXTiledMap* _tileMap;
-	void scene_move(Vec2);
-	m_controller* m_control = m_controller::create();
-	UI* layer = UI::createLayer();
-};
-
-#endif // __HELLOWORLD_SCENE_H__
+    // create the application instance
+    AppDelegate app;
+    return Application::getInstance()->run();
+}
