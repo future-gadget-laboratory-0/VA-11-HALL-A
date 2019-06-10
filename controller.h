@@ -26,6 +26,7 @@ public:
 	void setscale(float);//change character size;
 	actor_property getproperty(int);
 	auto chose_character(int,int);
+	Vec2 map_skewing;
 	CREATE_FUNC(m_controller);
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了

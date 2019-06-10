@@ -50,6 +50,7 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
 	actor_property propertyget(int);
     // implement the "static create()" method manually
+	Vec2 map_skewing;
 	void update(float);
     CREATE_FUNC(MapScene);
 private:

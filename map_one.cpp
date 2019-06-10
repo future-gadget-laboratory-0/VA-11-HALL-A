@@ -185,37 +185,59 @@ void MapScene::scene_move(Vec2 loc)
 
 	if (loc.x + range >= visibleSize.width&&loc.y + range <= visibleSize.height&&loc.y >= range)
 	{
-		if(_tileMap->getPosition().x - range>visibleSize.width -_tileMap->getContentSize().width)
+		if (_tileMap->getPosition().x - range > visibleSize.width - _tileMap->getContentSize().width)
+		{
+			map_skewing.x -= range;
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x - range, _tileMap->getPosition().y ));
+		}	
 		else
+		{
+			map_skewing.x = visibleSize.width - _tileMap->getContentSize().width;
 			_tileMap->setPosition(Vec2(visibleSize.width -_tileMap->getContentSize().width, _tileMap->getPosition().y));
+		}	
 	}
 	else if (loc.y + range >= visibleSize.height&&loc.x + range <= visibleSize.width&&loc.x >= range)
 	{
 		if (_tileMap->getPosition().y + range < 0)
+		{
+			map_skewing.y += range;
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x , _tileMap->getPosition().y+ range));
+		}
 		else
+		{
+			map_skewing.y = 0;
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, 0));
+		}
 	}
 		
 	else if (loc.x <= range && loc.y + range <= visibleSize.height&&loc.y >= range)
 	{
 		if (_tileMap->getPosition().x + range < 0)
+		{
+			map_skewing.x += range;
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x + range, _tileMap->getPosition().y));
+		}
 		else
+		{
+			map_skewing.x = 0;
 			_tileMap->setPosition(Vec2(0,_tileMap->getPosition().y));
+		}
 	}
 		
 	else if (loc.y <= range && loc.x + range <= visibleSize.width&&loc.x >= range)
 	{
-		if (_tileMap->getPosition().y + range < visibleSize.height-_tileMap->getContentSize().height)
+		if (_tileMap->getPosition().y + range < visibleSize.height - _tileMap->getContentSize().height)
+		{
+			map_skewing.y += range;
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, _tileMap->getPosition().y - range));
+		}
 		else
+		{
+			map_skewing.y = visibleSize.height - _tileMap->getContentSize().height;
 			_tileMap->setPosition(Vec2(_tileMap->getPosition().x, visibleSize.height -_tileMap->getContentSize().height));
+		}
 	}
-	
-
-
+	m_control->map_skewing= map_skewing;
 }
 
 actor_property MapScene::propertyget(int playerid)

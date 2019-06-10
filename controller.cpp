@@ -186,7 +186,7 @@ bool m_controller::onTouchBegan(Touch* touch, Event* event)
 	
 	if (!PreventRepeated())
 		return true;
-	Catherine->pos = touch->getLocation();
+	Catherine->pos = Vec2(touch->getLocation().x - map_skewing.x, touch->getLocation().y-map_skewing.y);
 	//Catherine->move();
 	return true;
 }
@@ -235,8 +235,8 @@ void m_controller::onMouseMove(Event *event)
 {
 	// to illustrate the event....
 	EventMouse* e = (EventMouse*)event;
-	Catherine->mouse_pos = Point(e->getCursorX(),e->getCursorY());
-	mouse_sprite->setPosition(e->getCursorX(), e->getCursorY());
+	Catherine->mouse_pos = Point(e->getCursorX()-map_skewing.x,e->getCursorY()-map_skewing.y);
+	mouse_sprite->setPosition(e->getCursorX()- map_skewing.x, e->getCursorY()-map_skewing.y);
 	//string str = "MousePosition X:";
 	//str = str + tostr(e->getCursorX()) + " Y:" + tostr(e->getCursorY());
 //	Catherine->pos = e->getLocation();
