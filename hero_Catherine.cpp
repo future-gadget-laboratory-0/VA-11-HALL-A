@@ -341,6 +341,10 @@ bool SpriteCatherine::init()
 	my_propertystruct.RDR = 0;
 	my_propertystruct.BP = 0;
 	my_propertystruct.ATR = 400;
+	my_propertystruct.ATRS = 600;
+	my_propertystruct.ATRN = 600;
+	my_propertystruct.ATRR = 600;
+	my_propertystruct.ATRT = 600;
 	my_propertystruct.ATS = 0.5;
 	my_propertystruct.RET = 10;
 	my_propertystruct.TYPE = 1;
@@ -800,8 +804,14 @@ void SpriteCatherine::skillrd()
 		this->runAction(Repeat::create(animate, 1));
 	//m_hero->runAction(RepeatForever::create(animate));
 }
-void SpriteCatherine::skillth(Sprite* target)
+void SpriteCatherine::skillth(Sprite* m_target)
 {
+	target=(UnitsSprite*)m_target;
+	if (Inrange(4) == false)
+	{
+		pos = pos_should;
+		return;
+	}
 	cooldowning_compare = 4;
 	if (!state_estimation(1, 0, 1))
 		return;
@@ -871,7 +881,7 @@ void SpriteCatherine::skillnd(float time)
 	this->runAction(Repeat::create(animate, times));
 	auto bullet = bulletmaking(0);
 	bullet->setanimation("magi0_", "fly_one");
-	bullet->Fixed(this->getPosition(), mouse_pos, 200);
+	bullet->Fixed(this->getPosition(), mouse_pos, this->get().ATRN);
 	//bullet0->Fixed(Vec2(m_hero->getPosition().x,m_hero->getPosition().y + m_hero->getContentSize().height*0.5), Vec2(mouse_pos.x,mouse_pos.y+ m_hero->getContentSize().height));
 //	bullet0->Fixed(this->getPosition(), mouse_pos,200);
 }
@@ -905,6 +915,12 @@ void SpriteCatherine::skillth(float time)
 }
 void SpriteCatherine::normal_attack(float ats)
 {
+	if (Inrange(0) == false)
+	{
+		pos = pos_should;
+		return;
+	}
+
 	if (ats == 0)
 		ats = this->get().ATS;
 	if (!state_estimation(1, 0, 0))
@@ -943,7 +959,33 @@ void SpriteCatherine::doattack(float)
 	actionManager->removeAllActionsFromTarget(this);
 	this->setTexture("snow0_0.png");
 }
-
+bool SpriteCatherine::Inrange(int kind)
+{
+	int distance;
+	if (kind == 0)
+		distance = this->get().ATR;
+	else if (kind == 1)
+		distance = this->get().ATRS;
+	else if(kind==2)
+		distance = this->get().ATRN;
+	else if (kind == 3)
+		distance = this->get().ATRR;
+	else if (kind == 4)
+		distance = this->get().ATRT;
+	int m_x = this->getPosition().x;
+	int m_y = this->getPosition().y;
+	int ta_x=target->getPosition().x;
+	int ta_y=target->getPosition().y;
+	double denominator = sqrt(pow((ta_y - m_y), 2) + pow(ta_x - m_x, 2));
+	if (denominator > distance)
+	{
+		pos_should.x = m_x + (ta_x - m_x) / denominator * distance;
+		pos_should.y = m_y + (ta_y - m_y) / denominator * distance;
+		return false;
+	}
+	else
+		return true;
+}
 
 
 void SpriteCatherine::shock(float time)
@@ -1018,7 +1060,7 @@ void SpriteCatherine::levelup(float time)
 	if (level==20)
 		this->unschedule(schedule_selector(SpriteCatherine::levelup));
 }
-
+//bool Inrange(int kind);
 
 
 /*

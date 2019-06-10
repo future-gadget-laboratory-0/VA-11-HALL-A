@@ -477,6 +477,10 @@ bool m_controller::init()
 	Catherine2->setPosition(260, 160);
 	Catherine2->pos=Vec2(80, 80);
 
+	/*
+	auto tower = Sprite::create("def_tower_right.png");
+	tower->setPosition(Vec2(400, 400));
+	this->addChild(tower, 1);*/
 
 	return true;
 

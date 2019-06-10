@@ -42,11 +42,13 @@ public:
 	void death(float);
 	BulletSprite* bulletmaking(int);
 	UnitsSprite* target;
+	bool Inrange(int kind);
 	//float isexecute(int);//if int ==1, spell_judge=1,==0,=0,else won't change anything
 	//void reexecute();
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	SpriteCatherine();
+	Vec2 pos_should;
 	ProgressTimer * Hp_progress;
 	ProgressTimer * Mp_progress;
 	bool death_judge = false;
