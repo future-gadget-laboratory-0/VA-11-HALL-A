@@ -28,6 +28,7 @@
 #include "cocos2d.h"
 //#include "hero_Catherine.h"
 #include "controller.h"
+#include "tower.h""
 #include "UI.h"
 
 class MapScene : public cocos2d::Scene
@@ -50,10 +51,14 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
 	actor_property propertyget(int);
     // implement the "static create()" method manually
-	Vec2 map_skewing;
+	Vec2 map_skewing=Vec2(0,0);
 	void update(float);
     CREATE_FUNC(MapScene);
 private:
+	Spritetower* tower1 = Spritetower::getInstance();
+	Spritetower* tower2 = Spritetower::getInstance();
+	Spritetower* tower3 = Spritetower::getInstance();
+	Spritetower* tower4 = Spritetower::getInstance();
 	TMXTiledMap* _tileMap;
 	void scene_move(Vec2);
 	m_controller* m_control = m_controller::create();

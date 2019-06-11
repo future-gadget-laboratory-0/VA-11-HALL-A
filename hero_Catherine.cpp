@@ -408,7 +408,7 @@ bool SpriteCatherine::init()
 	my_propertystruct.ATK = 35;
 	my_propertystruct.ATKM = 10;
 	my_propertystruct.ATKS = 0;
-	my_propertystruct.DEF = 5;
+	my_propertystruct.DEF = 0;
 	my_propertystruct.RES = 0;
 	my_propertystruct.RDR = 0;
 	my_propertystruct.BP = 0;

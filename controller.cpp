@@ -277,6 +277,35 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			bodyA->removeFromParentAndCleanup(true);
 		//bodyA->setVisible(true);
 		}
+		//10000000 red tower 10000012 red crystal 10000007 blue tower 10000013 blue crystal
+		if (tagB == 10000007)
+		{
+			int Hp = bodyB->get().HP;
+			if (Hp <= 0)
+			{
+				mouse_sprite->setTexture("mouse.png");
+				return false;
+			}
+			int dam = bodyB->receivetotaldamage(bodyA->get(), 0, 0, 0, 0);
+			bodyB->changeproperty(Hp - dam, "HP");
+			if (/* tagB == m_lockTag&&*/ Hp <= dam)
+				mouse_sprite->setTexture("mouse.png");
+			bodyA->removeFromParentAndCleanup(true);
+		}
+		if (tagB == 10000013)
+		{
+			int Hp = bodyB->get().HP;
+			if (Hp <= 0)
+			{
+				mouse_sprite->setTexture("mouse.png");
+				return false;
+			}
+			int dam = bodyB->receivetotaldamage(bodyA->get(), 0, 0, 0, 0);
+			bodyB->changeproperty(Hp - dam, "HP");
+			if (/* tagB == m_lockTag&&*/ Hp <= dam)
+				mouse_sprite->setTexture("mouse.png");
+			bodyA->removeFromParentAndCleanup(true);
+		}
 	}
 /*
 	if (tagA == 100001&& (tagB == 20100 || tagB == 20200))
@@ -291,7 +320,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	}*/
 
 
-	if (tagB == 100001&& (tagA == 20100 || tagA == 20200))
+	if (tagB == 100001&& (tagA == 20100 || tagA == 20200|| tagA == 10000007 ||tagA == 10000013))
 	{
 		int Hp = bodyA->get().HP; 
 		if (Hp <= 0)
@@ -305,7 +334,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			mouse_sprite->setTexture("mouse.png");
 		bodyB->removeFromParentAndCleanup(true);
 	}
-	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200))
+	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200|| tagB == 10000007 || tagB == 10000013))
 	{
 		if (bodyB->get().HP > 0)
 		{
@@ -313,9 +342,11 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			Catherine->target = (UnitsSprite*)getChildByTag(m_lockTag);
 			m_lockTag_now = m_lockTag;
 			mouse_sprite->setTexture("mouse_attack.png");
+			if(tagB== 10000007 || tagB == 10000013)
+				Catherine->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
 		}
 	}
-	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200))
+	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200|| tagA == 10000007 || tagA == 10000013))
 	{
 		if (bodyA->get().HP > 0)
 		{
@@ -323,6 +354,8 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			mouse_sprite->setTexture("mouse_attack.png");
 			m_lockTag_now = m_lockTag;
 			Catherine->target = (UnitsSprite*)getChildByTag(m_lockTag);
+			if (tagA == 10000007 || tagA == 10000013)
+				Catherine->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
 		}
 	}
 	//CCLOG("%d", bodyA->getPosition().x);
@@ -357,12 +390,12 @@ bool m_controller::onContactSeparate(PhysicsContact& contact)
 	auto bodyB = (UnitsSprite*)(contact.getShapeB()->getBody()->getNode());
 	int tagA = bodyA->getTag();
 	int tagB = bodyB->getTag();
-	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200))
+	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200||tagB == 10000007 || tagB == 10000013))
 	{
 		m_lockTag_now = 0;
 		mouse_sprite->setTexture("mouse.png");
 	}
-	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200))
+	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 10000007 || tagA == 10000013))
 	{
 		m_lockTag_now = 0;
 		mouse_sprite->setTexture("mouse.png");
@@ -449,7 +482,7 @@ bool m_controller::init()
 	//ShowCursor(FALSE);
 	//mouse_sprite->setAnchorPoint(Point(mouse_sprite->getContentSize().width,mouse_sprite->getContentSize().height));
 	mouse_sprite->setAnchorPoint(Point(0,1));
-	this->addChild(mouse_sprite, 2);
+	this->addChild(mouse_sprite, 5);
 	
 	auto mouse_Body = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	//m_hero->setPhysicsBody(CaBody);
@@ -471,9 +504,10 @@ bool m_controller::init()
 	//static auto m_sprite = chose_character(1, 1);
 	Catherine = chose_character(1, 1);
 	Catherine2 = chose_character(2, 1);
-	Catherine->setPosition(80, 80);
-	Catherine2->setPosition(260, 160);
-	Catherine2->pos=Vec2(80, 80);
+	Catherine->setPosition(300, 300);
+	Catherine->pos = Vec2(300,300);
+	Catherine2->setPosition(2500, 150);
+	Catherine2->pos=Vec2(2500, 150);
 
 	/*
 	auto tower = Sprite::create("def_tower_right.png");

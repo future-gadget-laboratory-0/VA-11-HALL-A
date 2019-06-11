@@ -81,6 +81,16 @@ private:
 	static BulletSprite* instance48;
 	static BulletSprite* instance49;
 	static BulletSprite* instance50;
+	static BulletSprite* instance51;
+	static BulletSprite* instance52;
+	static BulletSprite* instance53;
+	static BulletSprite* instance54;
+	static BulletSprite* instance55;
+	static BulletSprite* instance56;
+	static BulletSprite* instance57;
+	static BulletSprite* instance58;
+	static BulletSprite* instance59;
+	static BulletSprite* instance60;
 	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
 //	Sprite* m_bullet;
 	Animate* animate;

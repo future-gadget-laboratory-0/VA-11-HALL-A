@@ -335,15 +335,71 @@ bool MapScene::init()
     // create menu, it's an autorelease object
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+    this->addChild(menu, 2);
 	//mouse_sprite->setScale(0.5f);
 	//ShowCursor(FALSE);
 	//mouse_sprite->setAnchorPoint(Point(mouse_sprite->getContentSize().width,mouse_sprite->getContentSize().height));
 	//mouse_sprite->setAnchorPoint(Point(0,-1.1));
 	//this->addChild(mouse_sprite,2);
 //	this->addChild(Catherine,1);
-	_tileMap->addChild(m_control, 1);
-    
+	_tileMap->addChild(m_control, 2);
+
+	tower1->setPosition(1800, 500);
+	_tileMap->addChild(tower1, 1);
+	tower2->setPosition(2400, 500);
+	_tileMap->addChild(tower2, 1);
+	tower3->setPosition(1000, 500);
+	_tileMap->addChild(tower3, 1);
+	tower4->setPosition(400, 500);
+	_tileMap->addChild(tower4, 1);
+
+
+
+
+	auto CaBody = PhysicsBody::createBox(Size(700, 600), PHYSICSBODY_MATERIAL_DEFAULT);
+	CaBody->setRotationEnable(false);
+	CaBody->setCategoryBitmask(0x01);
+	CaBody->setCollisionBitmask(0x00000000);
+	CaBody->setContactTestBitmask(0x01);
+	auto CbBody = PhysicsBody::createBox(Size(700, 600), PHYSICSBODY_MATERIAL_DEFAULT);
+	CbBody->setRotationEnable(false);
+	CbBody->setCategoryBitmask(0x01);
+	CbBody->setCollisionBitmask(0x00000000);
+	CbBody->setContactTestBitmask(0x01);
+
+	tower1->setTexture("tower_blue.png");
+	tower2->setTexture("crystal_blue.png");
+	tower3->setTexture("tower_red.png");
+	tower4->setTexture("crystal_red.png");
+	tower1->setScale(0.5);
+	tower2->setScale(0.5);
+	tower3->setScale(0.5);
+	tower4->setScale(0.5);
+	tower2->setPhysicsBody(CaBody);
+	tower4->setPhysicsBody(CbBody);
+	tower2->HP_bar->setPosition(Vec2(150,650));
+	tower2->Hp_progress->setPosition(Vec2(150,650 ));
+	tower4->HP_bar->setPosition(Vec2(700, 650));
+	tower4->Hp_progress->setPosition(Vec2(700, 650));
+	//10000000 red tower 10000012 red crystal 10000007 blue tower 10000013 blue crystal
+	tower1->settag(10000007);
+	tower2->settag(10000013);
+	tower3->settag(10000000);
+	tower4->settag(10000012);
+
+
+
+	/**/
+	auto wall1 = Sprite::create("boundary.png");
+	auto CcBody = PhysicsBody::createBox(Size(700, 600), PHYSICSBODY_MATERIAL_DEFAULT);
+	CcBody->setRotationEnable(false);
+	CcBody->setCategoryBitmask(0x01);
+	CcBody->setCollisionBitmask(0x00000001);
+	CcBody->setContactTestBitmask(0x01);
+	wall1->setPhysicsBody(CcBody);
+	wall1->setPosition(Vec2(400,400));
+	_tileMap->addChild(wall1, 1);
+
 	layer->init();
 	this->addChild(layer);
 	this->schedule(schedule_selector(MapScene::update), 0.01f, kRepeatForever, 0);

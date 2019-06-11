@@ -32,6 +32,36 @@ BulletSprite* BulletSprite::instance27 = NULL;
 BulletSprite* BulletSprite::instance28 = NULL;
 BulletSprite* BulletSprite::instance29 = NULL;
 BulletSprite* BulletSprite::instance30 = NULL;
+BulletSprite* BulletSprite::instance31 = NULL;
+BulletSprite* BulletSprite::instance32 = NULL;
+BulletSprite* BulletSprite::instance33 = NULL;
+BulletSprite* BulletSprite::instance34 = NULL;
+BulletSprite* BulletSprite::instance35 = NULL;
+BulletSprite* BulletSprite::instance36 = NULL;
+BulletSprite* BulletSprite::instance37 = NULL;
+BulletSprite* BulletSprite::instance38 = NULL;
+BulletSprite* BulletSprite::instance39 = NULL;
+BulletSprite* BulletSprite::instance40 = NULL;
+BulletSprite* BulletSprite::instance41 = NULL;
+BulletSprite* BulletSprite::instance42 = NULL;
+BulletSprite* BulletSprite::instance43 = NULL;
+BulletSprite* BulletSprite::instance44 = NULL;
+BulletSprite* BulletSprite::instance45 = NULL;
+BulletSprite* BulletSprite::instance46 = NULL;
+BulletSprite* BulletSprite::instance47 = NULL;
+BulletSprite* BulletSprite::instance48 = NULL;
+BulletSprite* BulletSprite::instance49 = NULL;
+BulletSprite* BulletSprite::instance50 = NULL;
+BulletSprite* BulletSprite::instance51 = NULL;
+BulletSprite* BulletSprite::instance52 = NULL;
+BulletSprite* BulletSprite::instance53 = NULL;
+BulletSprite* BulletSprite::instance54 = NULL;
+BulletSprite* BulletSprite::instance55 = NULL;
+BulletSprite* BulletSprite::instance56 = NULL;
+BulletSprite* BulletSprite::instance57 = NULL;
+BulletSprite* BulletSprite::instance58 = NULL;
+BulletSprite* BulletSprite::instance59 = NULL;
+BulletSprite* BulletSprite::instance60 = NULL;
 
 
 BulletSprite::BulletSprite()
@@ -226,6 +256,192 @@ BulletSprite* BulletSprite::getInstance()
 		instance30 = new BulletSprite();
 		instance30->init();
 		return instance30;
+	}
+	if (instance31 == NULL)
+	{
+		instance31 = new BulletSprite();
+		instance31->init();
+		return instance31;
+	}
+	if (instance32 == NULL)
+	{
+		instance32 = new BulletSprite();
+		instance32->init();
+		return instance32;
+	}
+	if (instance33 == NULL)
+	{
+		instance33 = new BulletSprite();
+		instance33->init();
+		return instance33;
+	}
+	if (instance34 == NULL)
+	{
+		instance34 = new BulletSprite();
+		instance34->init();
+		return instance34;
+	}
+	if (instance35 == NULL)
+	{
+		instance35 = new BulletSprite();
+		instance35->init();
+		return instance35;
+	}
+	if (instance36 == NULL)
+	{
+		instance36 = new BulletSprite();
+		instance36->init();
+		return instance36;
+	}
+	if (instance37 == NULL)
+	{
+		instance37 = new BulletSprite();
+		instance37->init();
+		return instance37;
+	}
+	if (instance38 == NULL)
+	{
+		instance38 = new BulletSprite();
+		instance38->init();
+		return instance38;
+	}
+	if (instance39 == NULL)
+	{
+		instance39 = new BulletSprite();
+		instance39->init();
+		return instance39;
+	}
+	if (instance40 == NULL)
+	{
+		instance40 = new BulletSprite();
+		instance40->init();
+		return instance40;
+	}
+	if (instance41 == NULL)
+	{
+		instance41 = new BulletSprite();
+		instance41->init();
+		return instance41;
+	}
+	if (instance41 == NULL)
+	{
+		instance41 = new BulletSprite();
+		instance41->init();
+		return instance41;
+	}
+	if (instance42 == NULL)
+	{
+		instance42 = new BulletSprite();
+		instance42->init();
+		return instance42;
+	}
+	if (instance43 == NULL)
+	{
+		instance43 = new BulletSprite();
+		instance43->init();
+		return instance43;
+	}
+	if (instance44 == NULL)
+	{
+		instance44 = new BulletSprite();
+		instance44->init();
+		return instance44;
+	}
+	if (instance45 == NULL)
+	{
+		instance45 = new BulletSprite();
+		instance45->init();
+		return instance45;
+	}
+	if (instance46 == NULL)
+	{
+		instance46 = new BulletSprite();
+		instance46->init();
+		return instance46;
+	}
+	if (instance47 == NULL)
+	{
+		instance47 = new BulletSprite();
+		instance47->init();
+		return instance47;
+	}
+	if (instance48 == NULL)
+	{
+		instance48 = new BulletSprite();
+		instance48->init();
+		return instance48;
+	}
+	if (instance49 == NULL)
+	{
+		instance49 = new BulletSprite();
+		instance49->init();
+		return instance49;
+	}
+	if (instance50 == NULL)
+	{
+		instance50 = new BulletSprite();
+		instance50->init();
+		return instance50;
+	}
+	if (instance51 == NULL)
+	{
+		instance51 = new BulletSprite();
+		instance51->init();
+		return instance51;
+	}
+	if (instance52 == NULL)
+	{
+		instance52 = new BulletSprite();
+		instance52->init();
+		return instance52;
+	}
+	if (instance53 == NULL)
+	{
+		instance53 = new BulletSprite();
+		instance53->init();
+		return instance53;
+	}
+	if (instance54 == NULL)
+	{
+		instance54 = new BulletSprite();
+		instance54->init();
+		return instance54;
+	}
+	if (instance55 == NULL)
+	{
+		instance55 = new BulletSprite();
+		instance55->init();
+		return instance55;
+	}
+	if (instance56 == NULL)
+	{
+		instance56 = new BulletSprite();
+		instance56->init();
+		return instance56;
+	}
+	if (instance57 == NULL)
+	{
+		instance57 = new BulletSprite();
+		instance57->init();
+		return instance50;
+	}
+	if (instance58 == NULL)
+	{
+		instance58 = new BulletSprite();
+		instance58->init();
+		return instance58;
+	}
+	if (instance59 == NULL)
+	{
+		instance59 = new BulletSprite();
+		instance59->init();
+		return instance59;
+	}
+	if (instance60 == NULL)
+	{
+		instance60 = new BulletSprite();
+		instance60->init();
+		return instance60;
 	}
 }
 
