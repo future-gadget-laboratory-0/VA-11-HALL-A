@@ -702,6 +702,10 @@ void SpriteCatherine::move(float)
 
 void SpriteCatherine::skillst()
 {
+	if (!Mana_cost(1))
+	{
+		return;
+	}
 	cooldowning_compare = 1;
 	if (!state_estimation(1, 0, 1))
 		return;
@@ -737,6 +741,10 @@ void SpriteCatherine::skillst()
 }
 void SpriteCatherine::skillnd()
 {
+	if (!Mana_cost(2))
+	{
+		return;
+	}
 	cooldowning_compare = 2;
 	if (!state_estimation(1, 0, 1))
 		return;
@@ -771,6 +779,10 @@ void SpriteCatherine::skillnd()
 }
 void SpriteCatherine::skillrd()
 {
+	if (!Mana_cost(3))
+	{
+		return;
+	}
 	cooldowning_compare = 3;
 	if (!state_estimation(1, 0, 1))
 		return;
@@ -807,6 +819,10 @@ void SpriteCatherine::skillrd()
 void SpriteCatherine::skillth(Sprite* m_target)
 {
 	target=(UnitsSprite*)m_target;
+	if (!Mana_cost(4))
+	{
+		return;
+	}
 	if (Inrange(4) == false)
 	{
 		pos = pos_should;
@@ -852,6 +868,10 @@ void SpriteCatherine::skillth(Sprite* m_target)
 
 void SpriteCatherine::skillst(float time)
 {
+	if (!Mana_cost(1))
+	{
+		return;
+	}
 	cooldowning_compare = 1;
 	if (!state_estimation(0, 0, 1))
 		return;
@@ -868,6 +888,10 @@ void SpriteCatherine::skillst(float time)
 }
 void SpriteCatherine::skillnd(float time)
 {
+	if (!Mana_cost(2))
+	{
+		return;
+	}
 	cooldowning_compare = 2;
 	if (!state_estimation(0, 0, 1))
 		return;
@@ -887,6 +911,10 @@ void SpriteCatherine::skillnd(float time)
 }
 void SpriteCatherine::skillrd(float time)
 {
+	if (!Mana_cost(3))
+	{
+		return;
+	}
 	cooldowning_compare = 3;
 	if (!state_estimation(0, 0, 1))
 		return;
@@ -901,6 +929,10 @@ void SpriteCatherine::skillrd(float time)
 }
 void SpriteCatherine::skillth(float time)
 {
+	if (!Mana_cost(4))
+	{
+		return;
+	}
 	cooldowning_compare = 4;
 	if (!state_estimation(0, 0, 1))
 		return;
@@ -913,6 +945,31 @@ void SpriteCatherine::skillth(float time)
 	int times=time/Repeat::create(animate, 1)->getDuration()+1;
 	this->runAction(Repeat::create(animate, times));
 }
+bool SpriteCatherine::Mana_cost(int kind)
+{
+	int mana_cost;
+	if (kind == 1)
+		mana_cost = this->get().MCS;
+	else if (kind == 2)
+		mana_cost = this->get().MCN;
+	else if (kind == 3)
+		mana_cost = this->get().MCR;
+	else if (kind == 4)
+		mana_cost = this->get().MCT;
+	if (this->get().MP > mana_cost)
+	{
+		this->changeproperty(this->get().MP - mana_cost, "MP");
+			return true;
+	}
+	else 
+	{
+			return false;
+	}
+
+
+}
+
+
 void SpriteCatherine::normal_attack(float ats)
 {
 	if (Inrange(0) == false)

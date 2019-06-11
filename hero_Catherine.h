@@ -86,6 +86,7 @@ private:
 	float spell_judge = 0;
 	//functionspell
 	bool Spell_cooldown();
+	bool Mana_cost(int);
 	void Sc_reset1(float);
 	void Sc_reset2(float);
 	void Sc_reset3(float);
