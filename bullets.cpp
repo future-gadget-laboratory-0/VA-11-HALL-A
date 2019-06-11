@@ -30,6 +30,9 @@ BulletSprite* BulletSprite::instance25 = NULL;
 BulletSprite* BulletSprite::instance26 = NULL;
 BulletSprite* BulletSprite::instance27 = NULL;  
 BulletSprite* BulletSprite::instance28 = NULL;
+BulletSprite* BulletSprite::instance29 = NULL;
+BulletSprite* BulletSprite::instance30 = NULL;
+
 
 BulletSprite::BulletSprite()
 {
@@ -164,6 +167,66 @@ BulletSprite* BulletSprite::getInstance()
 		instance20->init();
 		return instance20;
 	}
+	if (instance21 == NULL)
+	{
+		instance21 = new BulletSprite();
+		instance21->init();
+		return instance21;
+	}
+	if (instance22 == NULL)
+	{
+		instance22 = new BulletSprite();
+		instance22->init();
+		return instance22;
+	}
+	if (instance23 == NULL)
+	{
+		instance23 = new BulletSprite();
+		instance23->init();
+		return instance23;
+	}
+	if (instance24 == NULL)
+	{
+		instance24 = new BulletSprite();
+		instance24->init();
+		return instance24;
+	}
+	if (instance25 == NULL)
+	{
+		instance25 = new BulletSprite();
+		instance25->init();
+		return instance25;
+	}
+	if (instance26 == NULL)
+	{
+		instance26 = new BulletSprite();
+		instance26->init();
+		return instance26;
+	}
+	if (instance27 == NULL)
+	{
+		instance27 = new BulletSprite();
+		instance27->init();
+		return instance27;
+	}
+	if (instance28 == NULL)
+	{
+		instance28 = new BulletSprite();
+		instance28->init();
+		return instance28;
+	}
+	if (instance29 == NULL)
+	{
+		instance29 = new BulletSprite();
+		instance29->init();
+		return instance29;
+	}
+	if (instance30 == NULL)
+	{
+		instance30 = new BulletSprite();
+		instance30->init();
+		return instance30;
+	}
 }
 
 /*
@@ -193,12 +256,17 @@ bool BulletSprite::init()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("magi.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("MagicCircle.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("laser.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("waterspout.plist");
+
 	Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
 	Animation* animation9 = Anima::createWithSingleFrameName("MagicCircle0_", 0.1f, -1);
 	Animation* animation10 = Anima::createWithSingleFrameName("laser0_", 0.1f, -1);
+	Animation* animation11 = Anima::createWithSingleFrameName("waterspout0_", 0.2f, -1);
+
 	AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
 	AnimationCache::getInstance()->addAnimation(animation9, "firing_one");
 	AnimationCache::getInstance()->addAnimation(animation10, "laser_one");
+	AnimationCache::getInstance()->addAnimation(animation11, "waterspout_one");
 	this->setTexture("magi0_0.png");
 //	this->setTexture("MagicCircle0_0.png");
 	//m_bullet = Sprite::createWithSpriteFrameName("magi0_0.png");
@@ -294,6 +362,7 @@ void BulletSprite::setanimation(__String name, __String aniname)
 			throw - 1.00;
 		}
 		catch (float f) { this->stopAllActions();}*/
+		this->setTexture(str);
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation(anistr));
 		this->runAction(RepeatForever::create(animate));
 }
@@ -301,6 +370,7 @@ void BulletSprite::setanimation(__String name, __String aniname)
 void BulletSprite::setanimation(__String name, __String aniname,int times)
 {
 	const std::string str = name.getCString();
+	this->setTexture(str);
 	const std::string anistr = aniname.getCString();
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation(anistr));
 	this->runAction(Repeat::create(animate, times));
@@ -387,24 +457,29 @@ void BulletSprite::Durable(Vec2 pos_started, Vec2 pos_ended, int Length,int time
 {
 	double denominator = sqrt(pow((pos_ended.y - pos_started.y), 2) + pow(pos_ended.x - pos_started.x, 2));
 	Vec2 pos_true;
-	pos_true = (pos_ended - pos_started) / denominator * Length;
+	if(pos_ended!= pos_started)
+		pos_true = pos_started+(pos_ended - pos_started) / denominator * Length;
+	else
+		pos_true == Vec2(0, 0);
 	//this->setPosition(pos_started);
 	if (kind == 1)
 	{
 		this->setPosition(pos_true);
+		//this->setTexture("MagicCircle0_0.png");
 		setanimation("MagicCircle0_0.png", "firing_one");
-		auto CaBody = PhysicsBody::createBox(this->getContentSize()/7*5, PHYSICSBODY_MATERIAL_DEFAULT);
-		CaBody->setRotationEnable(false);
-		CaBody->setCategoryBitmask(0x01);
-		CaBody->setCollisionBitmask(0x00000000);
-		CaBody->setContactTestBitmask(0x01);
-		this->setPhysicsBody(CaBody);
-		this->setTag(100002);
+		auto BaBody = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+		BaBody->setRotationEnable(false);
+		BaBody->setCategoryBitmask(0x01);
+		BaBody->setCollisionBitmask(0x00000000);
+		BaBody->setContactTestBitmask(0x01);
+
+		this->setPhysicsBody(BaBody);
+		this->setTag(100001);
 	}
 	else
 	{
 		this->setPosition(Vec2(50, 30));
-		setanimation("laser0_0", "laser_one");
+		setanimation("laser0_0.png", "laser_one");
 		auto CaBody = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 		CaBody->setRotationEnable(false);
 		CaBody->setCategoryBitmask(0x01);

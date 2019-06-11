@@ -22,6 +22,14 @@ struct actor_property
 	int RDR=0;//Actor's reduction ratio
 	int	BP=0;	//Battering rate
 	int	ATR=0;//Attack range;
+	int	ATRS = 0;//Spell st range;
+	int	ATRN= 0;//Spell nd range;
+	int	ATRR = 0;//Spell rd range;
+	int	ATRT = 0;//Spell th range;
+	int	MCS = 0;//Mana cost st
+	int	MCN= 0;//Mana cost st
+	int	MCR = 0;//Mana cost st
+	int	MCT = 0;//Mana cost st
 	float ATS = 0;//Attack speed;
 	int RET=0;//Actor's Resurrection time
 	int TYPE=0;//Actor's type

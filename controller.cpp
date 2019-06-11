@@ -17,7 +17,8 @@ auto m_controller::chose_character(int player,int character)
 				//SpriteCatherine* Playerone = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
 				SpriteCatherine* Playerone = SpriteCatherine::getInstance();
 			//	Playerone->setPosition(Vec2(100, 100));
-			//	Playerone->setTag(tag);
+				Playerone->setTag(tag);
+				hero_choices["player_one"] = 1;
 				this->addChild(Playerone);
 				return Playerone;
 			}	
@@ -27,6 +28,7 @@ auto m_controller::chose_character(int player,int character)
 				SpriteCatherine* Playerone = SpriteCatherine::getInstance();
 			//	Playerone->setPosition(Vec2(100, 100));
 				Playerone->setTag(tag);
+				hero_choices["player_one"] = 2;
 				this->addChild(Playerone);
 				return Playerone;
 			}
@@ -40,6 +42,7 @@ auto m_controller::chose_character(int player,int character)
 				SpriteCatherine* Playertwo = SpriteCatherine::getInstance();
 			//	Playertwo->setPosition(Vec2(100, 100));
 				Playertwo->setTag(tag);
+				hero_choices["player_two"] = 1;
 				this->addChild(Playertwo);
 				return Playertwo;
 			}
@@ -49,17 +52,12 @@ auto m_controller::chose_character(int player,int character)
 				SpriteCatherine* Playertwo = SpriteCatherine::getInstance();
 			//	Playertwo->setPosition(Vec2(100, 100));
 				Playertwo->setTag(tag);
+				hero_choices["player_two"] = 2;
 				this->addChild(Playertwo);
 				return Playertwo;
 			}
 		}
 }
-
-
-
-
-
-
 
 
 // Implementation of the keyboard event callback function prototype

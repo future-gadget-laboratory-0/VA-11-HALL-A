@@ -180,13 +180,130 @@ bool UnitsSprite::changeproperty(const int& val, const __String& name)
 		m_property.BP = val;
 	else if (str == "ATR")
 		m_property.ATR = val;
+	else if (str == "ATRS")
+		m_property.ATRS = val;
+	else if (str == "ATRN")
+		m_property.ATRN = val;
+	else if (str == "ATRR")
+		m_property.ATRR = val;
+	else if (str == "ATRT")
+		m_property.ATRT = val;
+	else if (str == "MCS")
+		m_property.MCS = val;
+	else if (str == "MCN")
+		m_property.MCN = val;
+	else if (str == "MCR")
+		m_property.MCR = val;
+	else if (str == "MCT")
+		m_property.MCT = val;
 	else if (str == "RET")
 		m_property.RET = val;
 	else if (str == "TYPE")
 		m_property.TYPE = val;
+	else if (str == "CDS")
+		m_property.CDS = val;
+	else if (str == "CDN")
+		m_property.CDN = val;
+	else if (str == "CDR")
+		m_property.CDR = val;
+	else if (str == "CDF")
+		m_property.CDF = val;
+	else if (str == "CDA")
+		m_property.CDA = val;
+	else if (str == "LEVEL")
+		m_property.LEVEL = val;
+	else if (str == "EXP")
+		m_property.EXP = val;
+	else
 		return FALSE;
 	return TRUE;
 }	
+
+bool UnitsSprite::addproperty(const int& val, const __String& name)
+{
+	const std::string str = name.getCString();
+	if (str == "HP")
+		m_property.HP += val;
+	else if (str == "MP")
+		m_property.MP += val;
+	else if (str == "STA")
+		m_property.STA += val;
+	else if (str == "MHP")
+		m_property.MHP += val;
+	else if (str == "MP")
+		m_property.MMP += val;
+	else if (str == "MMP")
+		m_property.MP += val;
+	else if (str == "MSTA")
+		m_property.MSTA += val;
+	else if (str == "RHP")
+		m_property.RHP += val;
+	else if (str == "RMP")
+		m_property.RMP += val;
+	else if (str == "RSTA")
+		m_property.RSTA += val;
+	else if (str == "EVA")
+		m_property.EVA += val;
+	else if (str == "SPE")
+		m_property.SPE += val;
+	else if (str == "ACC")
+		m_property.ACC += val;
+	else if (str == "ATK")
+		m_property.ATK += val;
+	else if (str == "ATKM")
+		m_property.ATKM += val;
+	else if (str == "ATKS")
+		m_property.ATKS += val;
+	else if (str == "DEF")
+		m_property.DEF += val;
+	else if (str == "RES")
+		m_property.RES += val;
+	else if (str == "RDR")
+		m_property.RDR = val;
+	else if (str == "BP")
+		m_property.BP += val;
+	else if (str == "ATR")
+		m_property.ATR += val;
+	else if (str == "ATR")
+		m_property.ATR += val;
+	else if (str == "ATRS")
+		m_property.ATRS += val;
+	else if (str == "ATRN")
+		m_property.ATRN += val;
+	else if (str == "ATRR")
+		m_property.ATRR += val;
+	else if (str == "ATRT")
+		m_property.ATRT += val;
+	else if (str == "MCS")
+		m_property.MCS += val;
+	else if (str == "MCN")
+		m_property.MCN += val;
+	else if (str == "MCR")
+		m_property.MCR += val;
+	else if (str == "MCT")
+		m_property.MCT += val;
+	else if (str == "RET")
+		m_property.RET += val;
+	else if (str == "TYPE")
+		m_property.TYPE += val;
+	else if (str == "CDS")
+		m_property.CDS += val;
+	else if (str == "CDN")
+		m_property.CDN += val;
+	else if (str == "CDR")
+		m_property.CDR += val;
+	else if (str == "CDF")
+		m_property.CDF += val;
+	else if (str == "CDA")
+		m_property.CDA += val;
+	else if (str == "LEVEL")
+		m_property.LEVEL += val;
+	else if (str == "EXP")
+		m_property.EXP += val;
+	else
+		return FALSE;
+	return TRUE;
+}
 void UnitsSprite::Recover(const int& val, const int& time, const __String& name)//return condition
 {
 	m_property.HP += m_property.RHP;

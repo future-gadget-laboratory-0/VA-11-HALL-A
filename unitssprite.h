@@ -21,6 +21,7 @@ public:
 	int receivetotaldamage(const actor_property&,const int&,const int&,const int&, const int&);//if don't want to reduce Hp,input0,else 1
 	int consumeSTA(const int&);
 	bool changeproperty(const int&, const __String&);
+	bool addproperty(const int&, const __String&);
 	void Recover(const int&, const int&, const __String&);//return HP
 	int consumeEXP(const int&, const int&);//the level and exp added
 	

@@ -2,6 +2,8 @@
 #define _CONTROLLER_H_
 #include "cocos2d.h"
 #include "hero_Catherine.h"
+#include "hero_nighttide.h"
+
 
 USING_NS_CC;
 class m_controller:public Sprite
@@ -27,6 +29,7 @@ public:
 	actor_property getproperty(int);
 	auto chose_character(int,int);
 	Vec2 map_skewing;
+	std::map<std::string,int> hero_choices;
 	CREATE_FUNC(m_controller);
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
@@ -49,6 +52,16 @@ protected:
 	SpriteCatherine* Catherine8 = NULL;
 	SpriteCatherine* Catherine9 = NULL;
 	SpriteCatherine* Catherine10 = NULL;
+	SpriteNighttide* Nighttide1 = NULL;
+	SpriteNighttide* Nighttide2 = NULL;
+	SpriteNighttide* Nighttide3 = NULL;
+	SpriteNighttide* Nighttide4 = NULL;
+	SpriteNighttide* Nighttide5 = NULL;
+	SpriteNighttide* Nighttide6 = NULL;
+	SpriteNighttide* Nighttide7 = NULL;
+	SpriteNighttide* Nighttide8 = NULL;
+	SpriteNighttide* Nighttide9 = NULL;
+	SpriteNighttide* Nighttide10 = NULL;
 	//SpriteCatherine* Playerone = SpriteCatherine::getInstance();
 	//SpriteCatherine* Catherine_two = SpriteCatherine::getInstance();
 	//SpriteCatherine* Catherine_two = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
