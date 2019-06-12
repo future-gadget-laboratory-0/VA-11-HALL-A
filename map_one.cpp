@@ -348,9 +348,9 @@ bool MapScene::init()
 	_tileMap->addChild(tower1, 1);
 	tower2->setPosition(2400, 500);
 	_tileMap->addChild(tower2, 1);
-	tower3->setPosition(1000, 500);
+	tower3->setPosition(1100, 500);
 	_tileMap->addChild(tower3, 1);
-	tower4->setPosition(400, 500);
+	tower4->setPosition(500, 500);
 	_tileMap->addChild(tower4, 1);
 
 
@@ -391,14 +391,64 @@ bool MapScene::init()
 
 	/**/
 	auto wall1 = Sprite::create("boundary.png");
-	auto CcBody = PhysicsBody::createBox(Size(700, 600), PHYSICSBODY_MATERIAL_DEFAULT);
-	CcBody->setRotationEnable(false);
-	CcBody->setCategoryBitmask(0x01);
-	CcBody->setCollisionBitmask(0x00000001);
-	CcBody->setContactTestBitmask(0x01);
-	wall1->setPhysicsBody(CcBody);
-	wall1->setPosition(Vec2(400,400));
+	auto Cc1Body = PhysicsBody::createBox(Size(2500, 100), PHYSICSBODY_MATERIAL_DEFAULT);
+	Cc1Body->setRotationEnable(false);
+	Cc1Body->setCategoryBitmask(0x01);
+	Cc1Body->setCollisionBitmask(0x00000001);
+	Cc1Body->setContactTestBitmask(0x01);
+	wall1->setPhysicsBody(Cc1Body);
+	wall1->setPosition(Vec2(1200,250));
 	_tileMap->addChild(wall1, 1);
+
+	auto wall2 = Sprite::create("boundary.png");
+	auto Cc2Body = PhysicsBody::createBox(Size(2500, 100), PHYSICSBODY_MATERIAL_DEFAULT);
+	Cc2Body->setRotationEnable(false);
+	Cc2Body->setCategoryBitmask(0x01);
+	Cc2Body->setCollisionBitmask(0x00000001);
+	Cc2Body->setContactTestBitmask(0x01);
+	wall2->setPhysicsBody(Cc2Body);
+	wall2->setPosition(Vec2(1920, 785));
+	_tileMap->addChild(wall2, 1);
+
+	auto wall3 = Sprite::create("boundary.png");
+	auto Cc3Body = PhysicsBody::createBox(Size(1000, 100), PHYSICSBODY_MATERIAL_DEFAULT);
+	Cc3Body->setRotationEnable(false);
+	Cc3Body->setCategoryBitmask(0x01);
+	Cc3Body->setCollisionBitmask(0x00000001);
+	Cc3Body->setContactTestBitmask(0x01);
+	wall3->setPhysicsBody(Cc3Body);
+	wall3->setPosition(Vec2(500, 885));
+	_tileMap->addChild(wall3, 1);
+
+	auto wall4 = Sprite::create("boundary.png");
+	auto Cc4Body = PhysicsBody::createBox(Size(100, 300), PHYSICSBODY_MATERIAL_DEFAULT);
+	Cc4Body->setRotationEnable(false);
+	Cc4Body->setCategoryBitmask(0x01);
+	Cc4Body->setCollisionBitmask(0x00000001);
+	Cc4Body->setContactTestBitmask(0x01);
+	wall4->setPhysicsBody(Cc4Body);
+	wall4->setPosition(Vec2(2400, 50));
+	_tileMap->addChild(wall4, 1);
+
+	auto wall5 = Sprite::create("boundary.png");
+	auto Cc5Body = PhysicsBody::createBox(Size(180, 180), PHYSICSBODY_MATERIAL_DEFAULT);
+	Cc5Body->setRotationEnable(false);
+	Cc5Body->setCategoryBitmask(0x01);
+	Cc5Body->setCollisionBitmask(0x00000001);
+	Cc5Body->setContactTestBitmask(0x01);
+	wall5->setPhysicsBody(Cc5Body);
+	wall5->setPosition(Vec2(620, 530));
+	_tileMap->addChild(wall5, 1);
+
+	auto wall6 = Sprite::create("boundary.png");
+	auto Cc6Body = PhysicsBody::createBox(Size(180, 180), PHYSICSBODY_MATERIAL_DEFAULT);
+	Cc6Body->setRotationEnable(false);
+	Cc6Body->setCategoryBitmask(0x01);
+	Cc6Body->setCollisionBitmask(0x00000001);
+	Cc6Body->setContactTestBitmask(0x01);
+	wall6->setPhysicsBody(Cc6Body);
+	wall6->setPosition(Vec2(2300, 530));
+	_tileMap->addChild(wall6, 1);
 
 	layer->init();
 	this->addChild(layer);
