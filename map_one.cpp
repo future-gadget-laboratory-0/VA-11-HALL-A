@@ -450,6 +450,9 @@ bool MapScene::init()
 	wall6->setPosition(Vec2(2300, 530));
 	_tileMap->addChild(wall6, 1);
 
+	schedule(schedule_selector(MapScene::victory_judge), 1.0f);
+	
+
 	layer->init();
 	this->addChild(layer);
 	this->schedule(schedule_selector(MapScene::update), 0.01f, kRepeatForever, 0);
@@ -468,4 +471,14 @@ void MapScene::update(float)
 	layer->giveHealth(propertyget(1).HP);
 	layer->giveMaxHealth(propertyget(1).MHP);
 	layer->scheduleBlood();
+}
+void MapScene::victory_judge(float)
+{
+	int blue_chealth = tower2->get().HP;
+	if (blue_chealth <= 0) {
+		auto victory = Sprite::create("victory.png");
+		victory->setPosition(1500,500);
+		this->addChild(victory);
+
+	}
 }

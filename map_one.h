@@ -53,6 +53,7 @@ public:
     // implement the "static create()" method manually
 	Vec2 map_skewing=Vec2(0,0);
 	void update(float);
+	void victory_judge(float);
     CREATE_FUNC(MapScene);
 private:
 	Spritetower* tower1 = Spritetower::getInstance();
