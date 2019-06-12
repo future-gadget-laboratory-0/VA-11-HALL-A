@@ -473,16 +473,21 @@ bool BulletSprite::init()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("MagicCircle.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("laser.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("waterspout.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("sword.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Evation.plist");
 
 	Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
 	Animation* animation9 = Anima::createWithSingleFrameName("MagicCircle0_", 0.1f, -1);
 	Animation* animation10 = Anima::createWithSingleFrameName("laser0_", 0.1f, -1);
 	Animation* animation11 = Anima::createWithSingleFrameName("waterspout0_", 0.2f, -1);
-
+	Animation* animation12 = Anima::createWithSingleFrameName("sword0_", 0.1f, -1);
+	Animation* animation13 = Anima::createWithSingleFrameName("Evation0_", 0.1f, -1);
 	AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
 	AnimationCache::getInstance()->addAnimation(animation9, "firing_one");
 	AnimationCache::getInstance()->addAnimation(animation10, "laser_one");
 	AnimationCache::getInstance()->addAnimation(animation11, "waterspout_one");
+	AnimationCache::getInstance()->addAnimation(animation12, "sword_one");
+	AnimationCache::getInstance()->addAnimation(animation12, "Evation_one");
 	this->setTexture("magi0_0.png");
 //	this->setTexture("MagicCircle0_0.png");
 	//m_bullet = Sprite::createWithSpriteFrameName("magi0_0.png");
@@ -581,6 +586,12 @@ void BulletSprite::setanimation(__String name, __String aniname)
 		this->setTexture(str);
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation(anistr));
 		this->runAction(RepeatForever::create(animate));
+
+		auto CaBody = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+		CaBody->setCategoryBitmask(0x01);
+		CaBody->setCollisionBitmask(0x00000000);
+		CaBody->setContactTestBitmask(0x01);
+		this->setPhysicsBody(CaBody);
 }
 
 void BulletSprite::setanimation(__String name, __String aniname,int times)
@@ -590,6 +601,11 @@ void BulletSprite::setanimation(__String name, __String aniname,int times)
 	const std::string anistr = aniname.getCString();
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation(anistr));
 	this->runAction(Repeat::create(animate, times));
+	auto CaBody = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	CaBody->setCategoryBitmask(0x01);
+	CaBody->setCollisionBitmask(0x00000000);
+	CaBody->setContactTestBitmask(0x01);
+	this->setPhysicsBody(CaBody);
 }
 
 
@@ -603,6 +619,7 @@ void BulletSprite::bulletclear(float)
 
 void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length)
 {
+	this->setTag(100001);
 	double denominator = sqrt(pow((pos_ended.y - pos_started.y), 2) + pow(pos_ended.x - pos_started.x, 2));
 	Vec2 pos_true;
 	pos_true = (pos_ended - pos_started) / denominator * Length;
@@ -617,6 +634,7 @@ void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length)
 
 void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length, int sped)
 {
+	this->setTag(100001);
 	double denominator = sqrt(pow((pos_ended.y - pos_started.y), 2) + pow(pos_ended.x - pos_started.x, 2));
 	Vec2 pos_true;
 	pos_true = (pos_ended - pos_started) / denominator * Length;
@@ -630,11 +648,13 @@ void BulletSprite::Fixed(Vec2 pos_started, Vec2 pos_ended,int Length, int sped)
 
 void BulletSprite::Followed(Sprite* target, int sped)
 {
+	this->setTag(100001);
 	m_target = target;
 	m_sped = sped;
 	this->setPosition(Vec2(50, 30));
 	old_pos = this->getParent()->getPosition();
 	schedule(schedule_selector(BulletSprite::Followed),0.01f, kRepeatForever, 0);
+	this->schedule(schedule_selector(BulletSprite::bulletclear), 10, 1, 0);
 }
 /*
 void BulletSprite::Followed(float)
@@ -690,7 +710,7 @@ void BulletSprite::Durable(Vec2 pos_started, Vec2 pos_ended, int Length,int time
 		BaBody->setContactTestBitmask(0x01);
 
 		this->setPhysicsBody(BaBody);
-		this->setTag(100001);
+		this->setTag(100002);
 	}
 	else
 	{
@@ -702,6 +722,7 @@ void BulletSprite::Durable(Vec2 pos_started, Vec2 pos_ended, int Length,int time
 		CaBody->setCollisionBitmask(0x00000000);
 		CaBody->setContactTestBitmask(0x01);
 		this->setPhysicsBody(CaBody);
+		this->setTag(100001);
 	}
 	this->schedule(schedule_selector(BulletSprite::bulletclear),time, 1, 0);
 }

@@ -304,6 +304,27 @@ bool UnitsSprite::addproperty(const int& val, const __String& name)
 		return FALSE;
 	return TRUE;
 }
+
+bool UnitsSprite::temporary_property(const int& duration, const int& value, const __String& string)
+{
+	if (in_strengthen == 1)
+		return false;
+	else
+		in_strengthen == 1;
+	tem_str = string;
+	tem_value = value;
+	this->addproperty(tem_value, tem_str);
+	this->schedule(schedule_selector(UnitsSprite::temporary_property_execute), duration, 1, 0);
+	return true;
+}
+
+void UnitsSprite::temporary_property_execute(float)
+{
+	in_strengthen = 0;
+	this->addproperty(-tem_value, tem_str);
+	tem_str = "";
+}
+
 void UnitsSprite::Recover(const int& val, const int& time, const __String& name)//return condition
 {
 	m_property.HP += m_property.RHP;

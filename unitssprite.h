@@ -22,6 +22,7 @@ public:
 	int consumeSTA(const int&);
 	bool changeproperty(const int&, const __String&);
 	bool addproperty(const int&, const __String&);
+	bool temporary_property(const int&, const int&, const __String&);
 	void Recover(const int&, const int&, const __String&);//return HP
 	int consumeEXP(const int&, const int&);//the level and exp added
 	
@@ -31,7 +32,10 @@ public:
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	UnitsSprite();
-	
+	void temporary_property_execute(float);
+	int tem_value=0;
+	int in_strengthen=0;
+	__String tem_str="";
 	actor_property m_property;
 	static UnitsSprite* instance;
 private:

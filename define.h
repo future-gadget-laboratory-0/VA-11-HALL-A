@@ -43,7 +43,7 @@ struct actor_property
 };
 //1000000 mouse;100001 bullet of Player one;200001 player one;100002 bullet of Player one's durable bullet;//10000000 red tower 10000012 red crystal 10000007 blue tower 10000013 blue crystal 
 //1000001 Catherine//deleted
-#define move_rate 500;//500
+#define move_rate 100;//500
 #define deviation 5;
 #define bulletspeed 100;
 #define Castinterval 0.2;

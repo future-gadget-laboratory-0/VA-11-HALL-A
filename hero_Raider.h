@@ -1,18 +1,18 @@
-#ifndef _HERO_NIGHTTIDE_H_
-#define _HERO_NIGHTTIDE_H_
+#ifndef _HERO_RAIDER_H_
+#define _HERO_RAIDER_H_
 #include "cocos2d.h"
 #include "unitssprite.h"
 #include "bullets.h"
 //#include "anima.h"
 USING_NS_CC;
-class SpriteNighttide :public UnitsSprite
+class SpriteRaider :public UnitsSprite
 {
 public:
 	virtual bool init();
 	//这个类对象的访问接口，通过它来实例化对象
-	static SpriteNighttide *create(const char *pszFileName);
-	static SpriteNighttide *createWithSpriteFrameName(const char *pszFileName);
-	static SpriteNighttide *getInstance();
+	static SpriteRaider * create(const char *pszFileName);
+	static SpriteRaider *createWithSpriteFrameName(const char *pszFileName);
+	static SpriteRaider* getInstance();
 	//void setPosition(Vec2);
 	void settag(int);
 	void setbody(int, int, int);
@@ -24,7 +24,7 @@ public:
 	void stop_rf();
 	void stop_rb();
 	void stop_lb();
-	CREATE_FUNC(SpriteNighttide);
+	CREATE_FUNC(SpriteRaider);
 	Vec2 pos;
 	Vec2 old_pos = Point(-100, -100);
 	Vec2 mouse_pos;
@@ -40,7 +40,6 @@ public:
 	void skillth(float);
 	void normal_attack(float);
 	void death(float);
-	void shrink(float);
 	BulletSprite* bulletmaking(int);
 	UnitsSprite* target;
 	bool Inrange(int kind);
@@ -48,23 +47,25 @@ public:
 	void self_strengthen(int, int, __String, int, __String);
 	void self_strengthen(int, int, __String, int, __String, int, __String);
 	void self_strengthen(int, int, __String, int, __String, int, __String, int, __String);
+	//float isexecute(int);//if int ==1, spell_judge=1,==0,=0,else won't change anything
+	//void reexecute();
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
-	SpriteNighttide();
+	SpriteRaider();
 	Vec2 pos_should;
 	ProgressTimer * Hp_progress;
 	ProgressTimer * Mp_progress;
 	bool death_judge = false;
-	static SpriteNighttide* instance1;
-	static SpriteNighttide* instance2;
-	static SpriteNighttide* instance3;
-	static SpriteNighttide* instance4;
-	static SpriteNighttide* instance5;
-	static SpriteNighttide* instance6;
-	static SpriteNighttide* instance7;
-	static SpriteNighttide* instance8;
-	static SpriteNighttide* instance9;
-	static SpriteNighttide* instance10;
+	static SpriteRaider* instance1;
+	static SpriteRaider* instance2;
+	static SpriteRaider* instance3;
+	static SpriteRaider* instance4;
+	static SpriteRaider* instance5;
+	static SpriteRaider* instance6;
+	static SpriteRaider* instance7;
+	static SpriteRaider* instance8;
+	static SpriteRaider* instance9;
+	static SpriteRaider* instance10;
 	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
 	//Sprite* m_hero;
 	Animate* animate;

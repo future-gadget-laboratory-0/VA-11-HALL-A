@@ -211,13 +211,13 @@ bool Spritetower::init()
 	this->addChild(Hp_progress, 1);
 	this->addChild(HP_bar, 0);
 	actor_property my_propertystruct;
-	my_propertystruct.HP = 2000;
+	my_propertystruct.HP = 50;
 	my_propertystruct.MP = 0;
 	my_propertystruct.STA = 0;
-	my_propertystruct.MHP = 2000;
+	my_propertystruct.MHP = 500;
 	my_propertystruct.MMP = 0;
 	my_propertystruct.MSTA = 0;
-	my_propertystruct.RHP = 1;
+	my_propertystruct.RHP = 0;
 	my_propertystruct.RMP = 0;
 	my_propertystruct.RSTA = 0;
 	my_propertystruct.EVA = 0;
@@ -452,6 +452,9 @@ void Spritetower::death(float time)
 		this->unschedule(schedule_selector(Spritetower::death));
 	}
 }
+
+
+
 
 void Spritetower::restore(float time)
 {

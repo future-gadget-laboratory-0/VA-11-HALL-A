@@ -260,9 +260,14 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	int tagB = bodyB->getTag();
 	if (tagA == tagB && tagA == 100001)
 		return false ;
+	if (tagA == tagB && tagA == 100002)
+		return false;
+
+
+	
 	if (tagA == 100001&&tagB!= 10100)
 	{
-		if(tagB==20100)
+		if(tagB==20100|| tagB == 10000007|| tagB == 10000013)
 		{ 
 			int Hp = bodyB->get().HP ;
 			if (Hp <= 0)
@@ -277,8 +282,10 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			bodyA->removeFromParentAndCleanup(true);
 		//bodyA->setVisible(true);
 		}
-		//10000000 red tower 10000012 red crystal 10000007 blue tower 10000013 blue crystal
-		if (tagB == 10000007)
+	}
+	if (tagA == 100002 && tagB != 10100)
+	{
+		if (tagB == 20100 || tagB == 10000007 || tagB == 10000013)
 		{
 			int Hp = bodyB->get().HP;
 			if (Hp <= 0)
@@ -287,24 +294,13 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 				return false;
 			}
 			int dam = bodyB->receivetotaldamage(bodyA->get(), 0, 0, 0, 0);
-			bodyB->changeproperty(Hp - dam, "HP");
-			if (/* tagB == m_lockTag&&*/ Hp <= dam)
+			
+			dam=dam /5;
+			bodyB->temporary_property(10, -dam, "RHP");
+		//	bodyB->addproperty(- dam, "HP");
+			if (m_lockTag == m_lockTag_now &&Hp <= dam)
 				mouse_sprite->setTexture("mouse.png");
-			bodyA->removeFromParentAndCleanup(true);
-		}
-		if (tagB == 10000013)
-		{
-			int Hp = bodyB->get().HP;
-			if (Hp <= 0)
-			{
-				mouse_sprite->setTexture("mouse.png");
-				return false;
-			}
-			int dam = bodyB->receivetotaldamage(bodyA->get(), 0, 0, 0, 0);
-			bodyB->changeproperty(Hp - dam, "HP");
-			if (/* tagB == m_lockTag&&*/ Hp <= dam)
-				mouse_sprite->setTexture("mouse.png");
-			bodyA->removeFromParentAndCleanup(true);
+			//bodyA->removeFromParentAndCleanup(true);
 		}
 	}
 /*
@@ -334,6 +330,22 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			mouse_sprite->setTexture("mouse.png");
 		bodyB->removeFromParentAndCleanup(true);
 	}
+	if (tagB == 100002 && (tagA == 20100 || tagA == 20200 || tagA == 10000007 || tagA == 10000013))
+	{
+		int Hp = bodyA->get().HP;
+		if (Hp <= 0)
+		{
+			mouse_sprite->setTexture("mouse.png");
+			return false;
+		}	//CCLOG("%d", bodyA->get().ATK);
+		int dam = bodyA->receivetotaldamage(bodyB->get(), 0, 0, 0, 0);
+		dam = dam / 5;
+		bodyA->temporary_property(10, -dam, "RHP");
+		if (m_lockTag == m_lockTag_now && Hp <= dam)
+			mouse_sprite->setTexture("mouse.png");
+	//	bodyB->removeFromParentAndCleanup(true);
+	}
+
 	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200|| tagB == 10000007 || tagB == 10000013))
 	{
 		if (bodyB->get().HP > 0)

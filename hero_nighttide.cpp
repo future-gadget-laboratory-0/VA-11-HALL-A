@@ -410,10 +410,10 @@ bool SpriteNighttide::init()
 	my_propertystruct.ATS = 0.5;
 	my_propertystruct.RET = 10;
 	my_propertystruct.TYPE = 1;
-	my_propertystruct.CDS = 7;
-	my_propertystruct.CDN = 6;
-	my_propertystruct.CDR = 10;
-	my_propertystruct.CDF = 60;
+	my_propertystruct.CDS = 30;
+	my_propertystruct.CDN = 10;
+	my_propertystruct.CDR = 5;
+	my_propertystruct.CDF = 40;
 	my_propertystruct.CDA = 0.5;
 	my_propertystruct.LEVEL = 1;
 	my_propertystruct.EXP = 0;
@@ -729,9 +729,13 @@ void SpriteNighttide::move(float)
 	}
 }
 
+void SpriteNighttide::shrink(float)
+{
+	this->setScale(1);
+}
+
 void SpriteNighttide::skillst()
 {
-	
 	cooldowning_compare = 1;
 	if (!state_estimation(1, 0, 1))
 		return;
@@ -765,6 +769,9 @@ void SpriteNighttide::skillst()
 	}
 	else
 		this->runAction(Repeat::create(animate, 1));
+	this->self_strengthen(10, this->get().MHP , "MHP", this->get().HP , "HP", this->get().ATK * 0.5, "ATK");
+	this->setScale(2);
+	this->schedule(schedule_selector(SpriteNighttide::shrink), 10,1, 0);
 	//m_hero->runAction(Repeat::create(animate, 1));
 	//m_hero->scheduleOnce(schedule_selector(SpriteCatherine::judge_action), Repeat::create(animate, 1)->getDuration());
 //	m_hero->runAction(Repeat::create(animate, 1));
@@ -806,6 +813,9 @@ void SpriteNighttide::skillnd()
 	else
 		this->runAction(Repeat::create(animate, 1));
 	//m_hero->runAction(RepeatForever::create(animate));
+
+	target->temporary_property(3, -100, "SPE");
+	this->self_strengthen(3, 100, "SPE");
 }
 void SpriteNighttide::skillrd()
 {
@@ -846,6 +856,7 @@ void SpriteNighttide::skillrd()
 	else
 		this->runAction(Repeat::create(animate, 1));
 	//m_hero->runAction(RepeatForever::create(animate));
+	target->temporary_property(1, -this->get().MP/5, "RMP");
 }
 void SpriteNighttide::skillth(Sprite* m_target)
 {
@@ -891,11 +902,10 @@ void SpriteNighttide::skillth(Sprite* m_target)
 	}
 	else
 		this->runAction(Repeat::create(animate, 1));
-//	auto bullet = bulletmaking(1);
-//	bullet->setanimation("waterspout0_0.png", "waterspout_one");
-//	bullet->Followed(target, 200);
-	//schedule(CC_SCHEDULE_SELECTOR(HelloWorld::unpause), 3);
-	//m_hero->runAction(RepeatForever::create(animate));
+	auto bullet = bulletmaking(0);
+	bullet->setanimation("waterspout0_0.png", "waterspout_one");
+	bullet->Followed(target, 200);
+
 }
 
 void SpriteNighttide::skillst(float time)
@@ -1040,6 +1050,8 @@ void SpriteNighttide::normal_attack(float ats)
 	attack_pos = pos;
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation("nightattack"));
 	int times = time / Repeat::create(animate, 1)->getDuration();
+	if (times == 0)
+		times = 1;
 	this->runAction(Repeat::create(animate, times));
 }
 void SpriteNighttide::doattack(float)
@@ -1047,9 +1059,8 @@ void SpriteNighttide::doattack(float)
 	if (attack_pos != pos)
 		return;
 	normal_attacked = 0;
-	auto bullet = bulletmaking(1);
-	bullet->setanimation("waterspout0_0.png", "waterspout_one");
-	bullet->Followed(target, 200);
+	int dam = target->receivetotaldamage(this->get(), 0, 0, 0, 0);
+	target->addproperty(-dam, "HP");
 	actionManager->removeAllActionsFromTarget(this);
 	this->setTexture("nighttide0_0.png");
 }
