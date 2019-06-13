@@ -27,7 +27,8 @@ public:
 	Vec2 getmouseloc();
 	void setscale(float);//change character size;
 	actor_property getproperty(int);
-	auto chose_character(int,int);
+	//auto chose_character(int,int);
+	void chose_character(int, int);
 	Vec2 map_skewing;
 	std::map<std::string,int> hero_choices;
 	CREATE_FUNC(m_controller);
@@ -42,6 +43,7 @@ protected:
 	bool execute = 0;//is revising
 	//SpriteCatherine* Catherine = SpriteCatherine::createWithSpriteFrameName("snow0_0.png");
 	//SpriteCatherine* Catherine = SpriteCatherine::getInstance();
+	/*
 	SpriteCatherine* Catherine = NULL;
 	SpriteCatherine* Catherine2 = NULL;
 	SpriteCatherine* Catherine3 = NULL;
@@ -61,7 +63,7 @@ protected:
 	SpriteNighttide* Nighttide7 = NULL;
 	SpriteNighttide* Nighttide8 = NULL;
 	SpriteNighttide* Nighttide9 = NULL;
-	SpriteNighttide* Nighttide10 = NULL;
+	SpriteNighttide* Nighttide10 = NULL;*/
 	//SpriteCatherine* Playerone = SpriteCatherine::getInstance();
 	//SpriteCatherine* Catherine_two = SpriteCatherine::getInstance();
 	//SpriteCatherine* Catherine_two = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");

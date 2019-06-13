@@ -487,7 +487,7 @@ bool BulletSprite::init()
 	AnimationCache::getInstance()->addAnimation(animation10, "laser_one");
 	AnimationCache::getInstance()->addAnimation(animation11, "waterspout_one");
 	AnimationCache::getInstance()->addAnimation(animation12, "sword_one");
-	AnimationCache::getInstance()->addAnimation(animation12, "Evation_one");
+	AnimationCache::getInstance()->addAnimation(animation13, "Evation_one");
 	this->setTexture("magi0_0.png");
 //	this->setTexture("MagicCircle0_0.png");
 	//m_bullet = Sprite::createWithSpriteFrameName("magi0_0.png");

@@ -383,7 +383,7 @@ bool SpriteNighttide::init()
 	this->addChild(HP_bar, 0);
 	this->addChild(MP_bar, 0);
 	actor_property my_propertystruct;
-	my_propertystruct.HP = 500;
+	my_propertystruct.HP = 1000;
 	my_propertystruct.MP = 200;
 	my_propertystruct.STA = 100;
 	my_propertystruct.MHP = 500;
@@ -402,11 +402,11 @@ bool SpriteNighttide::init()
 	my_propertystruct.RES = 0;
 	my_propertystruct.RDR = 0;
 	my_propertystruct.BP = 0;
-	my_propertystruct.ATR = 400;
+	my_propertystruct.ATR = 100;
 	my_propertystruct.ATRS = 600;
 	my_propertystruct.ATRN = 600;
 	my_propertystruct.ATRR = 600;
-	my_propertystruct.ATRT = 600;
+	my_propertystruct.ATRT = 900;
 	my_propertystruct.ATS = 0.5;
 	my_propertystruct.RET = 10;
 	my_propertystruct.TYPE = 1;
@@ -902,10 +902,10 @@ void SpriteNighttide::skillth(Sprite* m_target)
 	}
 	else
 		this->runAction(Repeat::create(animate, 1));
-	auto bullet = bulletmaking(0);
+	auto bullet = bulletmaking(0);	
 	bullet->setanimation("waterspout0_0.png", "waterspout_one");
-	bullet->Followed(target, 200);
-
+	bullet->Followed(target, 100);
+	target->temporary_property(3, -150, "SPE");
 }
 
 void SpriteNighttide::skillst(float time)
