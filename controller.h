@@ -39,6 +39,7 @@ protected:
 	static m_controller* instance;
 	//Sprite*m_sprite = NULL;
 	void reexecute(float);
+	void m_ai(float);
 	bool PreventRepeated();//is revising
 	bool sptime=0;//is revising
 	bool execute = 0;//is revising
@@ -65,10 +66,11 @@ protected:
 	SpriteNighttide* Nighttide8 = NULL;
 	SpriteNighttide* Nighttide9 = NULL;
 	SpriteNighttide* Nighttide10 = NULL;*/
-	//SpriteCatherine* Playerone = SpriteCatherine::getInstance();
-	//SpriteCatherine* Catherine_two = SpriteCatherine::getInstance();
-	//SpriteCatherine* Catherine_two = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
-	//SpriteCatherine* Catherine_two = SpriteCatherine::create();
+	
+	Vec2 BT_pos= Vec2(1800, 500);
+	Vec2 BC_pos = Vec2(2400, 500);
+	Vec2 RT_pos = Vec2(1100, 500);
+	Vec2 RC_pos = Vec2(500, 500);
 	Sprite* mouse_sprite = Sprite::create("mouse.png");
 	//SpriteCatherine* Catherine_test = SpriteCatherine::create();
 	//Vector<int> SPS;//store Sprites's tag;

@@ -63,7 +63,7 @@ void m_controller::chose_character(int player,int character)
 				//SpriteCatherine* Playertwo = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
 				SpriteCatherine* Playertwo = SpriteCatherine::getInstance();
 				Playertwo->setPosition(Vec2(1500, 150));
-				Playertwo->pos = Vec2(300, 300);
+				Playertwo->pos = Vec2(1500, 150);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 1;
 				this->addChild(Playertwo);
@@ -74,7 +74,7 @@ void m_controller::chose_character(int player,int character)
 				//SpriteCatherine* Playertwo = SpriteCatherine::createWithSpriteFrameName("snow20_0.png");
 				SpriteNighttide* Playertwo = SpriteNighttide::getInstance();
 				Playertwo->setPosition(Vec2(1500, 150));
-				Playertwo->pos = Vec2(300, 300);
+				Playertwo->pos = Vec2(1500, 150);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 2;
 				this->addChild(Playertwo);
@@ -83,8 +83,8 @@ void m_controller::chose_character(int player,int character)
 			else if (character == 3)
 			{
 				SpriteRaider* Playertwo = SpriteRaider::getInstance();
-				Playertwo->setPosition(Vec2(300, 300));
-				Playertwo->pos = Vec2(300, 300);
+				Playertwo->setPosition(Vec2(1500, 150));
+				Playertwo->pos = Vec2(1500, 150);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 3;
 				this->addChild(Playertwo);
@@ -92,8 +92,8 @@ void m_controller::chose_character(int player,int character)
 			else if (character == 4)
 			{
 				SpritePecola* Playertwo = SpritePecola::getInstance();
-				Playertwo->setPosition(Vec2(300, 300));
-				Playertwo->pos = Vec2(300, 300);
+				Playertwo->setPosition(Vec2(1500, 150));
+				Playertwo->pos = Vec2(1500, 150);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 4;
 				this->addChild(Playertwo);
@@ -748,6 +748,22 @@ bool m_controller::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreS
 	}
 	return true;
 }*/
+void m_controller::m_ai(float)
+{
+	if (hero_choices["player_two"] == 1)
+	{
+		SpriteCatherine* player_two = (SpriteCatherine*)this->getChildByTag(20100);
+
+		player_two->pos = BT_pos;
+
+
+
+	}
+
+
+
+}
+
 
 
 
@@ -991,9 +1007,8 @@ bool m_controller::init()
 	auto tower = Sprite::create("def_tower_right.png");
 	tower->setPosition(Vec2(400, 400));
 	this->addChild(tower, 1);*/
-
+	this->schedule(schedule_selector(m_controller::m_ai), 1.0f, kRepeatForever, 0);
 	return true;
-
 }
 /*
 void m_controller::clockon()
