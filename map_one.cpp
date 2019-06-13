@@ -477,7 +477,8 @@ void MapScene::victory_judge(float)
 	int blue_chealth = tower2->get().HP;
 	if (blue_chealth <= 0) {
 		auto victory = Sprite::create("victory.png");
-		victory->setPosition(1500,500);
+		victory->setPosition(1000,500);
+		victory->setAnchorPoint(Point(0.5, 0.5));
 		this->addChild(victory);
 
 	}

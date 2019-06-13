@@ -28,11 +28,12 @@ public:
 	
 	actor_property get();
 
-	//CREATE_FUNC(UnitsSprite);
+private:
+	void temporary_property_execute(float);
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	UnitsSprite();
-	void temporary_property_execute(float);
+	
 	int tem_value=0;
 	int in_strengthen=0;
 	__String tem_str="";

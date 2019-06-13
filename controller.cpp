@@ -16,22 +16,44 @@ void m_controller::chose_character(int player,int character)
 			{
 				//SpriteCatherine* Playerone = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
 				SpriteCatherine* Playerone = SpriteCatherine::getInstance();
-			//	Playerone->setPosition(Vec2(100, 100));
+				Playerone->setPosition(Vec2(300, 300));
+				Playerone->pos = Vec2(300, 300);
 				Playerone->setTag(tag);
 				hero_choices["player_one"] = 1;
 				this->addChild(Playerone);
 				//return Playerone;
-			}	
+			}
 			else if (character == 2)
 			{
-				//SpriteCatherine* Playerone = SpriteCatherine::createWithSpriteFrameName("snow20_0.png");
 				SpriteNighttide* Playerone = SpriteNighttide::getInstance();
-			//	Playerone->setPosition(Vec2(100, 100));
+				Playerone->setPosition(Vec2(300, 300));
+				Playerone->pos = Vec2(300, 300);
 				Playerone->setTag(tag);
 				hero_choices["player_one"] = 2;
 				this->addChild(Playerone);
 				//return Playerone;
 			}
+			else if (character == 3)
+			{
+				SpriteRaider* Playerone = SpriteRaider::getInstance();
+				Playerone->setPosition(Vec2(300, 300));
+				Playerone->pos = Vec2(300, 300);
+				Playerone->setTag(tag);
+				hero_choices["player_one"] = 3;
+				this->addChild(Playerone);
+			}
+			else if (character == 4)
+			{
+				SpritePecola* Playerone = SpritePecola::getInstance();
+				Playerone->setPosition(Vec2(300, 300));
+				Playerone->pos = Vec2(300, 300);
+				Playerone->setTag(tag);
+				hero_choices["player_one"] = 4;
+				this->addChild(Playerone);
+			}
+			else
+				return;
+
 		}
 		else if (player == 2)
 		{
@@ -40,7 +62,8 @@ void m_controller::chose_character(int player,int character)
 			{
 				//SpriteCatherine* Playertwo = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
 				SpriteCatherine* Playertwo = SpriteCatherine::getInstance();
-			//	Playertwo->setPosition(Vec2(100, 100));
+				Playertwo->setPosition(Vec2(1500, 150));
+				Playertwo->pos = Vec2(300, 300);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 1;
 				this->addChild(Playertwo);
@@ -50,12 +73,33 @@ void m_controller::chose_character(int player,int character)
 			{
 				//SpriteCatherine* Playertwo = SpriteCatherine::createWithSpriteFrameName("snow20_0.png");
 				SpriteNighttide* Playertwo = SpriteNighttide::getInstance();
-			//	Playertwo->setPosition(Vec2(100, 100));
+				Playertwo->setPosition(Vec2(1500, 150));
+				Playertwo->pos = Vec2(300, 300);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 2;
 				this->addChild(Playertwo);
 				//return Playertwo;
 			}
+			else if (character == 3)
+			{
+				SpriteRaider* Playertwo = SpriteRaider::getInstance();
+				Playertwo->setPosition(Vec2(300, 300));
+				Playertwo->pos = Vec2(300, 300);
+				Playertwo->setTag(tag);
+				hero_choices["player_two"] = 3;
+				this->addChild(Playertwo);
+			}
+			else if (character == 4)
+			{
+				SpritePecola* Playertwo = SpritePecola::getInstance();
+				Playertwo->setPosition(Vec2(300, 300));
+				Playertwo->pos = Vec2(300, 300);
+				Playertwo->setTag(tag);
+				hero_choices["player_two"] = 4;
+				this->addChild(Playertwo);
+			}
+			else
+				return;
 		}
 }
 
@@ -149,6 +193,62 @@ void m_controller::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 			}
 			else if (keyCode == EventKeyboard::KeyCode::KEY_E)
 			{
+				Sprite* target = (Sprite*)getChildByTag(m_lockTag);
+				if (target != NULL)
+				m_sprite->skillrd(target);
+			}
+			else if (keyCode == EventKeyboard::KeyCode::KEY_R)
+			{
+				Sprite* target = (Sprite*)getChildByTag(m_lockTag);
+				if (target != NULL)
+					m_sprite->skillth(target);
+			}
+		}
+	}
+	else if (choice_one == 3)
+	{
+		SpriteRaider* m_sprite = (SpriteRaider*)this->getChildByTag(player1_tag);
+		if (PreventRepeated())
+		{
+
+			if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+			{
+				m_sprite->skillst(1);
+			}
+			else if (keyCode == EventKeyboard::KeyCode::KEY_W)
+			{
+				m_sprite->skillnd();
+			}
+			else if (keyCode == EventKeyboard::KeyCode::KEY_E)
+			{
+					m_sprite->skillrd();
+			}
+			else if (keyCode == EventKeyboard::KeyCode::KEY_R)
+			{
+				Sprite* target = (Sprite*)getChildByTag(m_lockTag);
+				if (target != NULL)
+					m_sprite->skillth(target);
+			}
+		}
+	}
+	else if (choice_one == 4)
+	{
+		SpritePecola* m_sprite = (SpritePecola*)this->getChildByTag(player1_tag);
+		if (PreventRepeated())
+		{
+
+			if (keyCode == EventKeyboard::KeyCode::KEY_Q)
+			{
+				Sprite* target = (Sprite*)getChildByTag(m_lockTag);
+				if (target != NULL)
+					m_sprite->skillst(target);
+			}
+			else if (keyCode == EventKeyboard::KeyCode::KEY_W)
+			{
+				m_sprite->skillnd();
+			}
+			else if (keyCode == EventKeyboard::KeyCode::KEY_E)
+			{
 				m_sprite->skillrd();
 			}
 			else if (keyCode == EventKeyboard::KeyCode::KEY_R)
@@ -159,37 +259,6 @@ void m_controller::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 			}
 		}
 	}
-
-
-	/*
-	if (PreventRepeated())
-	{ 
-	
-	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
-	{
-		Catherine->skillst();
-	//	m_sprite->skillst();
-		//Catherine->move_rb();
-		//Catherine->skillst();
-	}
-	else if (keyCode == EventKeyboard::KeyCode::KEY_W)
-	{
-		//Catherine->move_lb();
-		Catherine->skillnd(2);
-	}
-	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
-	{
-		//Catherine->move_lf();
-		Catherine->skillrd();
-	}
-	else if (keyCode == EventKeyboard::KeyCode::KEY_R)
-	{
-		//Catherine->move_rf();
-		Sprite* target = (Sprite*)getChildByTag(m_lockTag);
-		if(target!=NULL)
-			Catherine->skillth(target);
-	}
-	}*/
 }
 
 
@@ -199,22 +268,6 @@ void m_controller::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 
 	if (!PreventRepeated())
 		return;
-	/*
-	float sptime = Catherine->isexecute(-1);
-	if (sptime == 1)
-	{
-		float interval = Castinterval;
-		this->schedule(schedule_selector(m_controller::reexecute), interval, 1, 0);
-		return;
-	}
-	else if (sptime != 0)
-	{
-		this->schedule(schedule_selector(m_controller::reexecute), sptime, 1, 0);
-		return;
-	}*/
-	//log("Key with keycode %d released", keyCode);
-	//Catherine->stop_lf();
-	//this->addChild(Catherine);
 	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
 	{
 		//Catherine->stop_rb();
@@ -250,8 +303,17 @@ bool m_controller::onTouchBegan(Touch* touch, Event* event)
 		SpriteNighttide* m_sprite = (SpriteNighttide*)this->getChildByTag(player1_tag);
 		m_sprite->pos = Vec2(touch->getLocation().x - map_skewing.x, touch->getLocation().y - map_skewing.y);
 	}
-	//m_sprite->pos = Vec2(touch->getLocation().x - map_skewing.x, touch->getLocation().y-map_skewing.y);
-	//Catherine->move();
+	else if (choice_one == 3)
+	{
+		SpriteRaider* m_sprite = (SpriteRaider*)this->getChildByTag(player1_tag);
+		m_sprite->pos = Vec2(touch->getLocation().x - map_skewing.x, touch->getLocation().y - map_skewing.y);
+	}
+	else if (choice_one == 4)
+	{
+		SpritePecola* m_sprite = (SpritePecola*)this->getChildByTag(player1_tag);
+		m_sprite->pos = Vec2(touch->getLocation().x - map_skewing.x, touch->getLocation().y - map_skewing.y);
+	}
+	
 	return true;
 }
 void m_controller::onTouchMoved(Touch* touch, Event* event)
@@ -288,32 +350,29 @@ void m_controller::onMouseDown(Event *event)
 		if (m_lockTag_now == m_lockTag && m_lockTag != 0)
 			m_sprite->normal_attack(0);
 	}
-
-
-
-	//if (m_lockTag_now == m_lockTag&& m_lockTag!=0)
-	//	Catherine->normal_attack(0);
-	//string str = "Mouse Down detected, Key: ";
-	//str += tostr(e->getMouseButton());
-//	Catherine->pos = e->getLocation();
-	//Catherine->pos = convertToNodeSpace(Catherine->pos);
-	//Catherine->move();
+	else if (choice_one == 3)
+	{
+		SpriteRaider* m_sprite = (SpriteRaider*)this->getChildByTag(player1_tag);
+		if (m_lockTag_now == m_lockTag && m_lockTag != 0)
+			m_sprite->normal_attack(0);
+	}
+	else if (choice_one == 4)
+	{
+		SpritePecola* m_sprite = (SpritePecola*)this->getChildByTag(player1_tag);
+		if (m_lockTag_now == m_lockTag && m_lockTag != 0)
+			m_sprite->normal_attack(0);
+	}
 }
 
 
 
 void m_controller::onMouseUp(Event *event)
 {
-	// to illustrate the event....
 	EventMouse* e = (EventMouse*)event;
-	//string str = "Mouse Up detected, Key: ";
-	//str += tostr(e->getMouseButton());
-//	Catherine->pos = e->getLocation();
 }
 
 void m_controller::onMouseMove(Event *event)
 {
-	// to illustrate the event....
 	EventMouse* e = (EventMouse*)event;
 
 
@@ -328,16 +387,23 @@ void m_controller::onMouseMove(Event *event)
 		SpriteNighttide* m_sprite = (SpriteNighttide*)this->getChildByTag(player1_tag);
 		m_sprite->mouse_pos = Point(e->getCursorX() - map_skewing.x, e->getCursorY() - map_skewing.y);
 	}
-	//Catherine->mouse_pos = Point(e->getCursorX()-map_skewing.x,e->getCursorY()-map_skewing.y);
+	else if (choice_one == 3)
+	{
+		SpriteRaider* m_sprite = (SpriteRaider*)this->getChildByTag(player1_tag);
+		m_sprite->mouse_pos = Point(e->getCursorX() - map_skewing.x, e->getCursorY() - map_skewing.y);
+	}
+	else if (choice_one == 4)
+	{
+		SpritePecola* m_sprite = (SpritePecola*)this->getChildByTag(player1_tag);
+		m_sprite->mouse_pos = Point(e->getCursorX() - map_skewing.x, e->getCursorY() - map_skewing.y);
+	}
 	mouse_sprite->setPosition(e->getCursorX()- map_skewing.x, e->getCursorY()-map_skewing.y);
-	//string str = "MousePosition X:";
-	//str = str + tostr(e->getCursorX()) + " Y:" + tostr(e->getCursorY());
-//	Catherine->pos = e->getLocation();
+	
 }
 
 void m_controller::onMouseScroll(Event *event)
 {
-	// to illustrate the event....
+
 	EventMouse* e = (EventMouse*)event;
 	//string str = "Mouse Scroll detected, X: ";
 	//str = str + tostr(e->getScrollX()) + " Y: " + tostr(e->getScrollY());
@@ -357,12 +423,22 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		return false ;
 	if (tagA == tagB && tagA == 100002)
 		return false;
-
-
+	if (tagA == tagB && tagA == 100003)
+		return false;
+	if (tagA == tagB && tagA == 100004)
+		return false;
+	if (tagA == tagB && tagA == 100101)
+		return false;
+	if (tagA == tagB && tagA == 100102)
+		return false;
+	if (tagA == tagB && tagA == 100103)
+		return false;
+	if (tagA == tagB && tagA == 100104)
+		return false;
 	
-	if (tagA == 100001&&tagB!= 10100)
+	if (tagA == 100001&&(tagB!= 10100|| tagB != 10200||tagB!= 10300 || tagB != 10400))
 	{
-		if(tagB==20100|| tagB == 10000007|| tagB == 10000013)
+		if(tagB==20100||tagB== 20200 || tagB == 20300||tagB == 20400||tagB == 10000007|| tagB == 10000013||tagB== 100)
 		{ 
 			int Hp = bodyB->get().HP ;
 			if (Hp <= 0)
@@ -378,9 +454,9 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		//bodyA->setVisible(true);
 		}
 	}
-	if (tagA == 100002 && tagB != 10100)
+	if (tagA == 100002 &&(tagB != 10100 || tagB != 10200 || tagB != 10300 || tagB != 10400))
 	{
-		if (tagB == 20100 || tagB == 10000007 || tagB == 10000013)
+		if (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100)
 		{
 			int Hp = bodyB->get().HP;
 			if (Hp <= 0)
@@ -398,6 +474,44 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			//bodyA->removeFromParentAndCleanup(true);
 		}
 	}
+	if (tagA == 100101 && (tagB != 20100 || tagB != 20200 || tagB != 20300 || tagB != 20400))
+	{
+		if (tagB == 10100 || tagB == 10200 || tagB == 10300 || tagB == 10400 || tagB == 10000000 || tagB == 10000012 || tagB == 100)
+		{
+			int Hp = bodyB->get().HP;
+			if (Hp <= 0)
+			{
+				mouse_sprite->setTexture("mouse.png");
+				return false;
+			}
+			int dam = bodyB->receivetotaldamage(bodyA->get(), 0, 0, 0, 0);
+			bodyB->changeproperty(Hp - dam, "HP");
+			if (/* tagB == m_lockTag&&*/ Hp <= dam)
+				mouse_sprite->setTexture("mouse.png");
+			bodyA->removeFromParentAndCleanup(true);
+			//bodyA->setVisible(true);
+		}
+	}
+	if (tagA == 100102 && (tagB != 20100 || tagB != 20200 || tagB != 20300 || tagB != 20400))
+	{
+		if (tagB == 10100 || tagB == 10200 || tagB == 10300 || tagB == 10400 || tagB == 10000000 || tagB == 10000012 || tagB == 100)
+		{
+			int Hp = bodyB->get().HP;
+			if (Hp <= 0)
+			{
+				mouse_sprite->setTexture("mouse.png");
+				return false;
+			}
+			int dam = bodyB->receivetotaldamage(bodyA->get(), 0, 0, 0, 0);
+
+			dam = dam / 5;
+			bodyB->temporary_property(10, -dam, "RHP");
+			//	bodyB->addproperty(- dam, "HP");
+			if (m_lockTag == m_lockTag_now && Hp <= dam)
+				mouse_sprite->setTexture("mouse.png");
+			//bodyA->removeFromParentAndCleanup(true);
+		}
+	}
 /*
 	if (tagA == 100001&& (tagB == 20100 || tagB == 20200))
 	{
@@ -411,7 +525,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	}*/
 
 
-	if (tagB == 100001&& (tagA == 20100 || tagA == 20200|| tagA == 10000007 ||tagA == 10000013))
+	if (tagB == 100001&& (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100))
 	{
 		int Hp = bodyA->get().HP; 
 		if (Hp <= 0)
@@ -425,7 +539,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			mouse_sprite->setTexture("mouse.png");
 		bodyB->removeFromParentAndCleanup(true);
 	}
-	if (tagB == 100002 && (tagA == 20100 || tagA == 20200 || tagA == 10000007 || tagA == 10000013))
+	if (tagB == 100002 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100))
 	{
 		int Hp = bodyA->get().HP;
 		if (Hp <= 0)
@@ -439,6 +553,35 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		if (m_lockTag == m_lockTag_now && Hp <= dam)
 			mouse_sprite->setTexture("mouse.png");
 	//	bodyB->removeFromParentAndCleanup(true);
+	}
+	if (tagB == 100101 && (tagA == 10100 || tagA == 10200 || tagA == 10300 || tagA == 10400 || tagA == 10000000 || tagA == 10000012 || tagA == 100))
+	{
+		int Hp = bodyA->get().HP;
+		if (Hp <= 0)
+		{
+			mouse_sprite->setTexture("mouse.png");
+			return false;
+		}	//CCLOG("%d", bodyA->get().ATK);
+		int dam = bodyA->receivetotaldamage(bodyB->get(), 0, 0, 0, 0);
+		bodyA->changeproperty(Hp - dam, "HP");
+		if (/* tagB == m_lockTag&&*/ Hp <= dam)
+			mouse_sprite->setTexture("mouse.png");
+		bodyB->removeFromParentAndCleanup(true);
+	}
+	if (tagB == 100102 && (tagA == 10100 || tagA == 10200 || tagA == 10300 || tagA == 10400 || tagA == 10000000 || tagA == 10000012 || tagA == 100))
+	{
+		int Hp = bodyA->get().HP;
+		if (Hp <= 0)
+		{
+			mouse_sprite->setTexture("mouse.png");
+			return false;
+		}	//CCLOG("%d", bodyA->get().ATK);
+		int dam = bodyA->receivetotaldamage(bodyB->get(), 0, 0, 0, 0);
+		dam = dam / 5;
+		bodyA->temporary_property(10, -dam, "RHP");
+		if (m_lockTag == m_lockTag_now && Hp <= dam)
+			mouse_sprite->setTexture("mouse.png");
+		//	bodyB->removeFromParentAndCleanup(true);
 	}
 	/*
 	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200|| tagB == 10000007 || tagB == 10000013))
@@ -468,7 +611,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	if (hero_choices["player_one"] == 1)
 	{
 		SpriteCatherine* player_one = (SpriteCatherine*)this->getChildByTag(player1_tag);
-		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 10000007 || tagB == 10000013))
+		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100))
 		{
 			if (bodyB->get().HP > 0)
 			{
@@ -480,7 +623,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 					player_one->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
 			}
 		}
-		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 10000007 || tagA == 10000013))
+		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100))
 		{
 			if (bodyA->get().HP > 0)
 			{
@@ -496,7 +639,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	else if (hero_choices["player_one"] == 2)
 	{
 		SpriteNighttide* player_one = (SpriteNighttide*)this->getChildByTag(player1_tag);
-		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 10000007 || tagB == 10000013))
+		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100))
 		{
 			if (bodyB->get().HP > 0)
 			{
@@ -508,7 +651,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 					player_one->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
 			}
 		}
-		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 10000007 || tagA == 10000013))
+		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100))
 		{
 			if (bodyA->get().HP > 0)
 			{
@@ -521,7 +664,62 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			}
 		}
 	}
-
+	else if (hero_choices["player_one"] == 3)
+	{
+		SpriteRaider* player_one = (SpriteRaider*)this->getChildByTag(player1_tag);
+		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100))
+		{
+			if (bodyB->get().HP > 0)
+			{
+				m_lockTag = tagB;
+				player_one->target = (UnitsSprite*)getChildByTag(m_lockTag);
+				m_lockTag_now = m_lockTag;
+				mouse_sprite->setTexture("mouse_attack.png");
+				if (tagB == 10000007 || tagB == 10000013)
+					player_one->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
+			}
+		}
+		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100))
+		{
+			if (bodyA->get().HP > 0)
+			{
+				m_lockTag = tagA;
+				mouse_sprite->setTexture("mouse_attack.png");
+				m_lockTag_now = m_lockTag;
+				player_one->target = (UnitsSprite*)getChildByTag(m_lockTag);
+				if (tagA == 10000007 || tagA == 10000013)
+					player_one->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
+			}
+		}
+	}
+	else if (hero_choices["player_one"] == 4)
+	{
+		SpritePecola* player_one = (SpritePecola*)this->getChildByTag(player1_tag);
+		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100))
+		{
+			if (bodyB->get().HP > 0)
+			{
+				m_lockTag = tagB;
+				player_one->target = (UnitsSprite*)getChildByTag(m_lockTag);
+				m_lockTag_now = m_lockTag;
+				mouse_sprite->setTexture("mouse_attack.png");
+				if (tagB == 10000007 || tagB == 10000013)
+					player_one->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
+			}
+		}
+		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100))
+		{
+			if (bodyA->get().HP > 0)
+			{
+				m_lockTag = tagA;
+				mouse_sprite->setTexture("mouse_attack.png");
+				m_lockTag_now = m_lockTag;
+				player_one->target = (UnitsSprite*)getChildByTag(m_lockTag);
+				if (tagA == 10000007 || tagA == 10000013)
+					player_one->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
+			}
+		}
+	}
 
 
 
@@ -559,12 +757,12 @@ bool m_controller::onContactSeparate(PhysicsContact& contact)
 	auto bodyB = (UnitsSprite*)(contact.getShapeB()->getBody()->getNode());
 	int tagA = bodyA->getTag();
 	int tagB = bodyB->getTag();
-	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200||tagB == 10000007 || tagB == 10000013))
+	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100))
 	{
 		m_lockTag_now = 0;
 		mouse_sprite->setTexture("mouse.png");
 	}
-	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 10000007 || tagA == 10000013))
+	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100))
 	{
 		m_lockTag_now = 0;
 		mouse_sprite->setTexture("mouse.png");
@@ -592,14 +790,34 @@ void m_controller::setscale(float size)
 		SpriteNighttide* player_one = (SpriteNighttide*)this->getChildByTag(player1_tag);
 		player_one->setScale(size);
 	}
+	else if (hero_choices["player_one"] == 3)
+	{
+		SpriteRaider* player_one = (SpriteRaider*)this->getChildByTag(player1_tag);
+		player_one->setScale(size);
+	}
+	else if (hero_choices["player_one"] == 4)
+	{
+		SpritePecola* player_one = (SpritePecola*)this->getChildByTag(player1_tag);
+		player_one->setScale(size);
+	}
 	if (hero_choices["player_two"] == 1)
 	{
-		SpriteCatherine* player_two = (SpriteCatherine*)this->getChildByTag(player1_tag);
+		SpriteCatherine* player_two = (SpriteCatherine*)this->getChildByTag(player2_tag);
 		player_two->setScale(size);
 	}
 	else if (hero_choices["player_two"] == 2)
 	{
-		SpriteNighttide* player_two = (SpriteNighttide*)this->getChildByTag(player1_tag);
+		SpriteNighttide* player_two = (SpriteNighttide*)this->getChildByTag(player2_tag);
+		player_two->setScale(size);
+	}
+	else if (hero_choices["player_two"] == 3)
+	{
+		SpriteRaider* player_two = (SpriteRaider*)this->getChildByTag(player2_tag);
+		player_two->setScale(size);
+	}
+	else if (hero_choices["player_two"] == 4)
+	{
+		SpritePecola* player_two = (SpritePecola*)this->getChildByTag(player2_tag);
 		player_two->setScale(size);
 	}
 }
@@ -620,16 +838,36 @@ actor_property m_controller::getproperty(int id)
 			SpriteNighttide* player_one = (SpriteNighttide*)this->getChildByTag(player1_tag);
 			return player_one->get();
 		}
+		else if (hero_choices["player_one"] == 3)
+		{
+			SpriteRaider* player_one = (SpriteRaider*)this->getChildByTag(player1_tag);
+			return player_one->get();
+		}
+		else if (hero_choices["player_one"] == 4)
+		{
+			SpritePecola* player_one = (SpritePecola*)this->getChildByTag(player1_tag);
+			return player_one->get();
+		}
 	}
 	else if (id == 2)
 		if (hero_choices["player_two"] == 1)
 		{
-			SpriteCatherine* player_two = (SpriteCatherine*)this->getChildByTag(player1_tag);
+			SpriteCatherine* player_two = (SpriteCatherine*)this->getChildByTag(player2_tag);
 			return player_two->get();
 		}
 		else if (hero_choices["player_two"] == 2)
 		{
-			SpriteNighttide* player_two = (SpriteNighttide*)this->getChildByTag(player1_tag);
+			SpriteNighttide* player_two = (SpriteNighttide*)this->getChildByTag(player2_tag);
+			return player_two->get();
+		}
+		else if (hero_choices["player_two"] == 3)
+		{
+			SpriteRaider* player_two = (SpriteRaider*)this->getChildByTag(player2_tag);
+			return player_two->get();
+		}
+		else if (hero_choices["player_two"] == 4)
+		{
+			SpritePecola* player_two = (SpritePecola*)this->getChildByTag(player2_tag);
 			return player_two->get();
 		}
 }
@@ -720,8 +958,9 @@ bool m_controller::init()
 	Catherine2->pos=Vec2(2500, 150);*/
 
 
-	chose_character(1, 2);
+	chose_character(1, 3);
 	chose_character(2, 1);
+	/*
 	if (hero_choices["player_one"] == 1)
 	{
 		SpriteCatherine* player_one = (SpriteCatherine*)this->getChildByTag(player1_tag);
@@ -746,7 +985,7 @@ bool m_controller::init()
 		SpriteNighttide* player_two = (SpriteNighttide*)this->getChildByTag(player2_tag);
 		player_two->setPosition(2500, 150);
 		player_two->pos = Vec2(2500, 150);
-	}
+	}*/
 
 	/*
 	auto tower = Sprite::create("def_tower_right.png");

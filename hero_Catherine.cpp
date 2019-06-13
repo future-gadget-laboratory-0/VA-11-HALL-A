@@ -896,6 +896,8 @@ void SpriteCatherine::skillrd()
 		this->runAction(Repeat::create(animate, 1));
 	auto bullet = bulletmaking(1);
 	bullet->Durable(this->getContentSize()/2,Vec2(0,0), 0.1, 5, 1);
+	if (this->getTag() > 20000)
+		bullet->setTag(100102);
 	this->self_strengthen(5,10,"RDR");
 }
 void SpriteCatherine::skillth(Sprite* m_target)
@@ -945,6 +947,8 @@ void SpriteCatherine::skillth(Sprite* m_target)
 	auto bullet = bulletmaking(1);
 	bullet->changeproperty(bullet->get().ATKM * 2 + 100, "ATKM");
 	bullet->setanimation("magi0_0.png", "fly_one");
+	if (this->getTag() > 20000)
+		bullet->setTag(100101);
 	bullet->Followed((Sprite*)target, 200);
 	//schedule(CC_SCHEDULE_SELECTOR(HelloWorld::unpause), 3);
 	//m_hero->runAction(RepeatForever::create(animate));
@@ -992,6 +996,8 @@ void SpriteCatherine::skillnd(float time)
 	auto bullet = bulletmaking(0);
 	bullet->setanimation("magi0_0.png", "fly_one");
 	bullet->Fixed(this->getPosition(), mouse_pos, this->get().ATRN);
+	if (this->getTag() > 20000)
+		bullet->setTag(100101);
 	//bullet0->Fixed(Vec2(m_hero->getPosition().x,m_hero->getPosition().y + m_hero->getContentSize().height*0.5), Vec2(mouse_pos.x,mouse_pos.y+ m_hero->getContentSize().height));
 //	bullet0->Fixed(this->getPosition(), mouse_pos,200);
 }
@@ -1010,7 +1016,7 @@ void SpriteCatherine::skillrd(float time)
 	shock(time);
 	pos.x = old_pos.x;
 	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
-	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_ed"));
+	animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_nd"));
 	int times = time / Repeat::create(animate, 1)->getDuration()+1;
 	this->runAction(Repeat::create(animate, times));
 }
@@ -1103,6 +1109,8 @@ void SpriteCatherine::doattack(float)
 	auto bullet = bulletmaking(1);
 	bullet->setanimation("magi0_0.png", "fly_one");
 	bullet->Followed(target, 200);
+	if (this->getTag() > 20000)
+		bullet->setTag(100101);
 	actionManager->removeAllActionsFromTarget(this);
 	this->setTexture("snow0_0.png");
 }

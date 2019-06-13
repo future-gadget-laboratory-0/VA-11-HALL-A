@@ -343,6 +343,7 @@ bool SpriteNighttide::init()
 	Animation* animation6 = Anima::createWithSingleFrameName("nightmagic2_", 0.1f, 1);
 	Animation* animation7 = Anima::createWithSingleFrameName("nightmagic3_", 0.1f, 1);
 	Animation* animation8 = Anima::createWithSingleFrameName("nightattack0_", 0.1f, 1);
+	Animation* animation9 = Anima::createWithSingleFrameName("nightattack1_", 0.1f, 1);
 	//Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
 	AnimationCache::getInstance()->addAnimation(animation0, "nighttide_lf");
 	AnimationCache::getInstance()->addAnimation(animation1, "nighttide_rf");
@@ -353,6 +354,7 @@ bool SpriteNighttide::init()
 	AnimationCache::getInstance()->addAnimation(animation6, "nighttide_rd");
 	AnimationCache::getInstance()->addAnimation(animation7, "nighttide_th");
 	AnimationCache::getInstance()->addAnimation(animation8, "nightattack");
+	AnimationCache::getInstance()->addAnimation(animation9, "nightattack2");
 	this->setTexture("nighttide0_0.png");
 	HP_bar = Sprite::create("bar.png");
 	MP_bar = Sprite::create("bar.png");
@@ -817,9 +819,9 @@ void SpriteNighttide::skillnd()
 	target->temporary_property(3, -100, "SPE");
 	this->self_strengthen(3, 100, "SPE");
 }
-void SpriteNighttide::skillrd()
+void SpriteNighttide::skillrd(Sprite* m_target)
 {
-	
+	target = (UnitsSprite*)m_target;
 	cooldowning_compare = 3;
 	if (!state_estimation(1, 0, 1))
 		return;
@@ -905,6 +907,8 @@ void SpriteNighttide::skillth(Sprite* m_target)
 	auto bullet = bulletmaking(0);	
 	bullet->setanimation("waterspout0_0.png", "waterspout_one");
 	bullet->Followed(target, 100);
+	if (this->getTag() > 20000)
+		bullet->setTag(100101);
 	target->temporary_property(3, -150, "SPE");
 }
 
@@ -1048,7 +1052,10 @@ void SpriteNighttide::normal_attack(float ats)
 	pos.x = old_pos.x;
 	pos.y = old_pos.y; //- this->getContentSize().height*0.3;
 	attack_pos = pos;
-	animate = Animate::create(AnimationCache::getInstance()->getAnimation("nightattack"));
+	if(this->getPosition().y>=target->getPosition().y)
+		animate = Animate::create(AnimationCache::getInstance()->getAnimation("nightattack"));
+	else if (this->getPosition().y < target->getPosition().y)
+		animate = Animate::create(AnimationCache::getInstance()->getAnimation("nightattack2"));
 	int times = time / Repeat::create(animate, 1)->getDuration();
 	if (times == 0)
 		times = 1;

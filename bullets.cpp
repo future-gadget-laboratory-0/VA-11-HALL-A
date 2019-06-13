@@ -62,6 +62,46 @@ BulletSprite* BulletSprite::instance57 = NULL;
 BulletSprite* BulletSprite::instance58 = NULL;
 BulletSprite* BulletSprite::instance59 = NULL;
 BulletSprite* BulletSprite::instance60 = NULL;
+BulletSprite* BulletSprite::instance61 = NULL;
+BulletSprite* BulletSprite::instance62 = NULL;
+BulletSprite* BulletSprite::instance63 = NULL;
+BulletSprite* BulletSprite::instance64 = NULL; 
+BulletSprite* BulletSprite::instance65 = NULL;
+BulletSprite* BulletSprite::instance66 = NULL;
+BulletSprite* BulletSprite::instance67 = NULL;
+BulletSprite* BulletSprite::instance68 = NULL;
+BulletSprite* BulletSprite::instance69 = NULL;
+BulletSprite* BulletSprite::instance70 = NULL;
+BulletSprite* BulletSprite::instance71 = NULL;
+BulletSprite* BulletSprite::instance72 = NULL;
+BulletSprite* BulletSprite::instance73 = NULL;
+BulletSprite* BulletSprite::instance74 = NULL;
+BulletSprite* BulletSprite::instance75 = NULL;
+BulletSprite* BulletSprite::instance76 = NULL;
+BulletSprite* BulletSprite::instance77 = NULL;
+BulletSprite* BulletSprite::instance78 = NULL;
+BulletSprite* BulletSprite::instance79 = NULL;
+BulletSprite* BulletSprite::instance80 = NULL;
+BulletSprite* BulletSprite::instance81 = NULL;
+BulletSprite* BulletSprite::instance82 = NULL;
+BulletSprite* BulletSprite::instance83 = NULL;
+BulletSprite* BulletSprite::instance84 = NULL;
+BulletSprite* BulletSprite::instance85 = NULL;
+BulletSprite* BulletSprite::instance86 = NULL;
+BulletSprite* BulletSprite::instance87 = NULL;
+BulletSprite* BulletSprite::instance88 = NULL;
+BulletSprite* BulletSprite::instance89 = NULL;
+BulletSprite* BulletSprite::instance90 = NULL;
+BulletSprite* BulletSprite::instance91 = NULL;
+BulletSprite* BulletSprite::instance92 = NULL;
+BulletSprite* BulletSprite::instance93 = NULL;
+BulletSprite* BulletSprite::instance94 = NULL;
+BulletSprite* BulletSprite::instance95 = NULL;
+BulletSprite* BulletSprite::instance96 = NULL;
+BulletSprite* BulletSprite::instance97 = NULL;
+BulletSprite* BulletSprite::instance98 = NULL;
+BulletSprite* BulletSprite::instance99 = NULL;
+BulletSprite* BulletSprite::instance100 = NULL;
 
 
 BulletSprite::BulletSprite()
@@ -443,6 +483,246 @@ BulletSprite* BulletSprite::getInstance()
 		instance60->init();
 		return instance60;
 	}
+	if (instance61 == NULL)
+	{
+		instance61 = new BulletSprite();
+		instance61->init();
+		return instance61;
+	}
+	if (instance62 == NULL)
+	{
+		instance62 = new BulletSprite();
+		instance62->init();
+		return instance62;
+	}
+	if (instance63 == NULL)
+	{
+		instance63 = new BulletSprite();
+		instance63->init();
+		return instance63;
+	}
+	if (instance64 == NULL)
+	{
+		instance64 = new BulletSprite();
+		instance64->init();
+		return instance64;
+	}
+	if (instance65 == NULL)
+	{
+		instance65 = new BulletSprite();
+		instance65->init();
+		return instance65;
+	}
+	if (instance66 == NULL)
+	{
+		instance66 = new BulletSprite();
+		instance66->init();
+		return instance66;
+	}
+	if (instance67 == NULL)
+	{
+		instance67 = new BulletSprite();
+		instance67->init();
+		return instance67;
+	}
+	if (instance68 == NULL)
+	{
+		instance68 = new BulletSprite();
+		instance68->init();
+		return instance68;
+	}
+	if (instance69 == NULL)
+	{
+		instance69 = new BulletSprite();
+		instance69->init();
+		return instance69;
+	}
+	if (instance70 == NULL)
+	{
+		instance70 = new BulletSprite();
+		instance70->init();
+		return instance70;
+	}
+	if (instance71 == NULL)
+	{
+		instance71 = new BulletSprite();
+		instance71->init();
+		return instance71;
+	}
+	if (instance72 == NULL)
+	{
+		instance72 = new BulletSprite();
+		instance72->init();
+		return instance72;
+	}
+	if (instance73 == NULL)
+	{
+		instance73 = new BulletSprite();
+		instance73->init();
+		return instance73;
+	}
+	if (instance74 == NULL)
+	{
+		instance74 = new BulletSprite();
+		instance74->init();
+		return instance74;
+	}
+	if (instance75 == NULL)
+	{
+		instance75 = new BulletSprite();
+		instance75->init();
+		return instance75;
+	}
+	if (instance76 == NULL)
+	{
+		instance76 = new BulletSprite();
+		instance76->init();
+		return instance76;
+	}
+	if (instance77 == NULL)
+	{
+		instance77 = new BulletSprite();
+		instance77->init();
+		return instance77;
+	}
+	if (instance78 == NULL)
+	{
+		instance78 = new BulletSprite();
+		instance78->init();
+		return instance78;
+	}
+	if (instance79 == NULL)
+	{
+		instance79 = new BulletSprite();
+		instance79->init();
+		return instance79;
+	}
+	if (instance80 == NULL)
+	{
+		instance80 = new BulletSprite();
+		instance80->init();
+		return instance80;
+	}
+	if (instance81 == NULL)
+	{
+		instance81 = new BulletSprite();
+		instance81->init();
+		return instance81;
+	}
+	if (instance82 == NULL)
+	{
+		instance82 = new BulletSprite();
+		instance82->init();
+		return instance82;
+	}
+	if (instance83 == NULL)
+	{
+		instance83 = new BulletSprite();
+		instance83->init();
+		return instance83;
+	}
+	if (instance84 == NULL)
+	{
+		instance84 = new BulletSprite();
+		instance84->init();
+		return instance84;
+	}
+	if (instance85 == NULL)
+	{
+		instance85 = new BulletSprite();
+		instance85->init();
+		return instance85;
+	}
+	if (instance86 == NULL)
+	{
+		instance86 = new BulletSprite();
+		instance86->init();
+		return instance86;
+	}
+	if (instance87 == NULL)
+	{
+		instance87 = new BulletSprite();
+		instance87->init();
+		return instance87;
+	}
+	if (instance88 == NULL)
+	{
+		instance88 = new BulletSprite();
+		instance88->init();
+		return instance88;
+	}
+	if (instance89 == NULL)
+	{
+		instance89 = new BulletSprite();
+		instance89->init();
+		return instance89;
+	}
+	if (instance90 == NULL)
+	{
+		instance90 = new BulletSprite();
+		instance90->init();
+		return instance90;
+	}
+	if (instance91 == NULL)
+	{
+		instance91 = new BulletSprite();
+		instance91->init();
+		return instance91;
+	}
+	if (instance92 == NULL)
+	{
+		instance92 = new BulletSprite();
+		instance92->init();
+		return instance92;
+	}
+	if (instance93 == NULL)
+	{
+		instance93 = new BulletSprite();
+		instance93->init();
+		return instance93;
+	}
+	if (instance94 == NULL)
+	{
+		instance94 = new BulletSprite();
+		instance94->init();
+		return instance94;
+	}
+	if (instance95 == NULL)
+	{
+		instance95 = new BulletSprite();
+		instance95->init();
+		return instance95;
+	}
+	if (instance96 == NULL)
+	{
+		instance96 = new BulletSprite();
+		instance96->init();
+		return instance96;
+	}
+	if (instance97 == NULL)
+	{
+		instance97 = new BulletSprite();
+		instance97->init();
+		return instance97;
+	}
+	if (instance98 == NULL)
+	{
+		instance98 = new BulletSprite();
+		instance98->init();
+		return instance98;
+	}
+	if (instance99 == NULL)
+	{
+		instance99 = new BulletSprite();
+		instance99->init();
+		return instance99;
+	}
+	if (instance100 == NULL)
+	{
+		instance100 = new BulletSprite();
+		instance100->init();
+		return instance100;
+	}
 }
 
 /*
@@ -475,6 +755,7 @@ bool BulletSprite::init()
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("waterspout.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("sword.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Evation.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("chaos.plist");
 
 	Animation* animation8 = Anima::createWithSingleFrameName("magi0_", 0.1f, -1);
 	Animation* animation9 = Anima::createWithSingleFrameName("MagicCircle0_", 0.1f, -1);
@@ -482,12 +763,14 @@ bool BulletSprite::init()
 	Animation* animation11 = Anima::createWithSingleFrameName("waterspout0_", 0.2f, -1);
 	Animation* animation12 = Anima::createWithSingleFrameName("sword0_", 0.1f, -1);
 	Animation* animation13 = Anima::createWithSingleFrameName("Evation0_", 0.1f, -1);
+	Animation* animation14 = Anima::createWithSingleFrameName("chaos0_", 0.3f, -1);
 	AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
 	AnimationCache::getInstance()->addAnimation(animation9, "firing_one");
 	AnimationCache::getInstance()->addAnimation(animation10, "laser_one");
 	AnimationCache::getInstance()->addAnimation(animation11, "waterspout_one");
 	AnimationCache::getInstance()->addAnimation(animation12, "sword_one");
 	AnimationCache::getInstance()->addAnimation(animation13, "Evation_one");
+	AnimationCache::getInstance()->addAnimation(animation13, "chaos_one");
 	this->setTexture("magi0_0.png");
 //	this->setTexture("MagicCircle0_0.png");
 	//m_bullet = Sprite::createWithSpriteFrameName("magi0_0.png");

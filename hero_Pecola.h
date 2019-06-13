@@ -1,19 +1,19 @@
-#ifndef _HERO_NIGHTTIDE_H_
-#define _HERO_NIGHTTIDE_H_
+#ifndef _HERO_PECOLA_H_
+#define _HERO_PECOLA_H_
 #include "cocos2d.h"
 #include "unitssprite.h"
 #include "bullets.h"
+#include "wall.h"
 //#include "anima.h"
 USING_NS_CC;
-class SpriteNighttide :public UnitsSprite
+class SpritePecola :public UnitsSprite
 {
 public:
 	virtual bool init();
 	//这个类对象的访问接口，通过它来实例化对象
-	static SpriteNighttide *create(const char *pszFileName);
-	static SpriteNighttide *createWithSpriteFrameName(const char *pszFileName);
-	static SpriteNighttide *getInstance();
-	//void setPosition(Vec2);
+	static SpritePecola * create(const char *pszFileName);
+	static SpritePecola *createWithSpriteFrameName(const char *pszFileName);
+	static SpritePecola* getInstance();
 	void settag(int);
 	void setbody(int, int, int);
 	void move_lf();
@@ -24,15 +24,15 @@ public:
 	void stop_rf();
 	void stop_rb();
 	void stop_lb();
-	CREATE_FUNC(SpriteNighttide);
+	CREATE_FUNC(SpritePecola);
 	Vec2 pos;
 	Vec2 old_pos = Point(-100, -100);
 	Vec2 mouse_pos;
 	int m_tag = 0;
 	void move(float);
-	void skillst();
+	void skillst(Sprite*);
 	void skillnd();
-	void skillrd(Sprite* );
+	void skillrd();
 	void skillth(Sprite*);
 	void skillst(float);
 	void skillnd(float);
@@ -40,7 +40,6 @@ public:
 	void skillth(float);
 	void normal_attack(float);
 	void death(float);
-	void shrink(float);
 	BulletSprite* bulletmaking(int);
 	UnitsSprite* target;
 	bool Inrange(int kind);
@@ -49,22 +48,27 @@ public:
 	void self_strengthen(int, int, __String, int, __String, int, __String);
 	void self_strengthen(int, int, __String, int, __String, int, __String, int, __String);
 private:
-	//构造函数私有，这样就不可以随便声明这个类的对象了
-	SpriteNighttide();
+	SpritePecola();
+	void unchoose (float);
+	bool swifted = false;
+	void swift_judge(float);
+	void special_attack(float);
+	int special_times = 0;
+	Sprite* special_hint = create("active_one.png");
 	Vec2 pos_should;
 	ProgressTimer * Hp_progress;
 	ProgressTimer * Mp_progress;
 	bool death_judge = false;
-	static SpriteNighttide* instance1;
-	static SpriteNighttide* instance2;
-	static SpriteNighttide* instance3;
-	static SpriteNighttide* instance4;
-	static SpriteNighttide* instance5;
-	static SpriteNighttide* instance6;
-	static SpriteNighttide* instance7;
-	static SpriteNighttide* instance8;
-	static SpriteNighttide* instance9;
-	static SpriteNighttide* instance10;
+	static SpritePecola* instance1;
+	static SpritePecola* instance2;
+	static SpritePecola* instance3;
+	static SpritePecola* instance4;
+	static SpritePecola* instance5;
+	static SpritePecola* instance6;
+	static SpritePecola* instance7;
+	static SpritePecola* instance8;
+	static SpritePecola* instance9;
+	static SpritePecola* instance10;
 	CCActionManager* actionManager = CCDirector::sharedDirector()->getActionManager();
 	//Sprite* m_hero;
 	Animate* animate;
@@ -73,7 +77,7 @@ private:
 	int move_judge = 0;
 	Vec2 touch_pos;
 	bool touch_judge = 0;
-	float stop_judge = 0;//0 is down;1 is doing move execute;other the time of stand excute
+	float stop_judge = 0;
 	void property_refresh(float);
 	void shock(float);
 	void shock_remove(float);
@@ -92,8 +96,6 @@ private:
 	bool instrengthen = 0;
 	//functionstate
 	bool state_estimation(int, int, int);
-	//functionshake
-	//bool executeshake=0;
 	bool Back_shake();
 	void Bs_reset(float);
 	float spell_judge = 0;
@@ -115,12 +117,6 @@ private:
 	Vec2 attack_pos = Vec2(0, 0);
 	Sprite* HP_bar;
 	Sprite* MP_bar;
-	/*	BulletSprite* bullet0 = BulletSprite::create();
-		BulletSprite* bullet1 = BulletSprite::create();
-		BulletSprite* bullet2 = BulletSprite::create();
-		BulletSprite* bullet3 = BulletSprite::create();
-		BulletSprite* bullet4 = BulletSprite::create();
-		BulletSprite* bullet5 = BulletSprite::create();*/
 	BulletSprite* bullet0 = BulletSprite::getInstance();
 	BulletSprite* bullet1 = BulletSprite::getInstance();
 	BulletSprite* bullet2 = BulletSprite::getInstance();
@@ -131,8 +127,8 @@ private:
 	BulletSprite* bullet7 = BulletSprite::getInstance();
 	BulletSprite* bullet8 = BulletSprite::getInstance();
 	BulletSprite* bullet9 = BulletSprite::getInstance();
-	//BulletSprite* bullett = BulletSprite::getInstance();
-//	void skill(Ref* pSender);
+	BulletSprite* bullet10 = BulletSprite::getInstance();
+
 };
 
 #endif

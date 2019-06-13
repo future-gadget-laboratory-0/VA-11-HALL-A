@@ -3,7 +3,8 @@
 #include "cocos2d.h"
 #include "hero_Catherine.h"
 #include "hero_nighttide.h"
-
+#include "hero_Raider.h"
+#include "hero_Pecola.h"
 
 USING_NS_CC;
 class m_controller:public Sprite
