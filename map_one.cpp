@@ -451,7 +451,34 @@ bool MapScene::init()
 	_tileMap->addChild(wall6, 1);
 
 	schedule(schedule_selector(MapScene::victory_judge), 1.0f);
+
+	gold = 100;
+	schedule(schedule_selector(MapScene::gold_get), 1.0f);
+    pGoldTTF = Label::create(CCString::createWithFormat("GOLD:%i", gold)->getCString(), "fonts/Marker Felt.ttf", 40);
+	pGoldTTF->setPosition(1500, 900);
+	pGoldTTF->setName("gold");
+	this->addChild(pGoldTTF, 2);
 	
+	level = 1;
+	schedule(schedule_selector(MapScene::level_get), 1.0f);
+	pLevelTTF = Label::create(CCString::createWithFormat("LEVEL:%i", level)->getCString(), "fonts/Marker Felt.ttf", 40);
+	pLevelTTF->setPosition(1500, 1000);
+	pLevelTTF->setName("LEVEL");
+	this->addChild(pLevelTTF, 2);
+
+	kills = 0;
+	deaths = 0;
+	player1_mia = 1;
+	player2_mia = 1;
+	schedule(schedule_selector(MapScene::kda_get), 1.0f);
+	pKillsTTF = Label::create(CCString::createWithFormat("KILLS:%i", kills)->getCString(), "fonts/Marker Felt.ttf", 40);
+	pKillsTTF->setPosition(1000, 1000);
+	pKillsTTF->setName("kills");
+	this->addChild(pKillsTTF, 2);
+	pDeathsTTF = Label::create(CCString::createWithFormat("DEATHS:%i", deaths)->getCString(), "fonts/Marker Felt.ttf", 40);
+	pDeathsTTF->setPosition(1200, 1000);
+	pDeathsTTF->setName("deaths");
+	this->addChild(pDeathsTTF, 2);
 
 	layer->init();
 	this->addChild(layer);
@@ -475,11 +502,87 @@ void MapScene::update(float)
 void MapScene::victory_judge(float)
 {
 	int blue_chealth = tower2->get().HP;
+	int red_chealth = tower4->get().HP;
 	if (blue_chealth <= 0) {
 		auto victory = Sprite::create("victory.png");
-		victory->setPosition(1000,500);
-		victory->setAnchorPoint(Point(0.5, 0.5));
+		victory->setPosition(1300,500);
 		this->addChild(victory);
-
 	}
+	if (red_chealth <= 0) {
+		auto defeat = Sprite::create("defeat.png");
+		defeat->setPosition(1300, 500);
+		this->addChild(defeat);
+	}
+}
+void MapScene::gold_get(float)
+{
+	gold++;
+	this->removeChildByName("gold");
+    pGoldTTF = Label::create(CCString::createWithFormat("GOLD:%i", gold)->getCString(), "fonts/Marker Felt.ttf", 40);
+	pGoldTTF->setName("gold");
+	pGoldTTF->setPosition(1500, 900);
+	this->addChild(pGoldTTF, 2);
+}
+void MapScene::level_get(float)
+{
+	int num = m_control->hero_choices["player_one"] * 100 + 10000;
+	UnitsSprite* player_1 = (UnitsSprite*)m_control->getChildByTag(num);
+	level = player_1->get().LEVEL;
+	this->removeChildByName("level");
+	pLevelTTF = Label::create(CCString::createWithFormat("LEVEL:%i", level)->getCString(), "fonts/Marker Felt.ttf", 40);
+	pLevelTTF->setName("level");
+	pLevelTTF->setPosition(1500, 1000);
+	this->addChild(pLevelTTF, 2);
+}
+void MapScene::kda_get(float)
+{
+	int num1 = m_control->hero_choices["player_two"]*100+20000;
+	UnitsSprite* player_2=(UnitsSprite*)m_control->getChildByTag(20100);  
+    int player2health = player_2->get().HP;
+	int num2 = m_control->hero_choices["player_one"] * 100 + 10000;
+	UnitsSprite* player_1 = (UnitsSprite*)m_control->getChildByTag(num2);
+	int player1health = player_1->get().HP;
+	if (player2_mia == 1)
+	{
+		if (player2health <= 0)
+		{
+				player2_mia = 0;
+				gold += 200;
+				kills++;
+				player_1->addproperty(500, "EXP");
+		}
+	}
+	if (player2_mia == 0)
+	{
+		if (player2health > 0)
+		{
+			player2_mia = 1;
+		}
+	}
+	this->removeChildByName("kills");
+	pKillsTTF = Label::create(CCString::createWithFormat("KILLS:%i", kills)->getCString(), "fonts/Marker Felt.ttf", 40);
+	pKillsTTF->setName("kills");
+	pKillsTTF->setPosition(1000, 1000);
+	this->addChild(pKillsTTF, 2);
+	
+	if (player1_mia == 1)
+	{
+		if (player1health <= 0)
+		{
+			player1_mia = 0;
+			deaths++;
+		}
+	}
+	if (player1_mia == 0)
+	{
+		if (player1health > 0)
+		{
+			player1_mia = 1;
+		}
+	}
+	this->removeChildByName("deaths");
+	pDeathsTTF = Label::create(CCString::createWithFormat("DEATHS:%i", deaths)->getCString(), "fonts/Marker Felt.ttf", 40);
+	pDeathsTTF->setName("deaths");
+	pDeathsTTF->setPosition(1200, 1000);
+	this->addChild(pDeathsTTF, 2);
 }

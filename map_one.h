@@ -54,6 +54,16 @@ public:
 	Vec2 map_skewing=Vec2(0,0);
 	void update(float);
 	void victory_judge(float);
+	void gold_get(float);
+	void level_get(float);
+	void kda_get(float);
+	int level;
+	int gold;
+	int kills;
+	int deaths;
+	int player1_mia;
+	int player2_mia;
+	m_controller* m_control = m_controller::create();
     CREATE_FUNC(MapScene);
 private:
 	Spritetower* tower1 = Spritetower::getInstance();
@@ -62,8 +72,11 @@ private:
 	Spritetower* tower4 = Spritetower::getInstance();
 	TMXTiledMap* _tileMap;
 	void scene_move(Vec2);
-	m_controller* m_control = m_controller::create();
 	UI* layer = UI::createLayer();
+	Label* pGoldTTF;
+	Label* pKillsTTF;
+	Label* pDeathsTTF;
+	Label* pLevelTTF;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
