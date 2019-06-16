@@ -119,6 +119,13 @@ int UnitsSprite::receivetotaldamage(const actor_property& property, const int& s
 	rate_physic = (100 - rate_physic)*rate / 100;
 	rate_magic =  (100 - rate_magic)*rate / 100;
 	totaldamage= (property.ATK * rate_physic / 100)+ (property.ATKM*rate_magic/100+ property.ATKS);
+	
+	if (m_property.EVA > 0)
+	{
+		srand(int(time(0)));
+		if (m_property.EVA > rand() % 100)
+			totaldamage = 0;
+	}
 	if (situation != 0)
 	{
 		m_property.HP -= totaldamage;
@@ -310,7 +317,7 @@ bool UnitsSprite::temporary_property(const int& duration, const int& value, cons
 	if (in_strengthen == 1)
 		return false;
 	else
-		in_strengthen == 1;
+		in_strengthen = 1;
 	tem_str = string;
 	tem_value = value;
 	this->addproperty(tem_value, tem_str);

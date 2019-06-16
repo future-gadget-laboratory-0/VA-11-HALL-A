@@ -5,6 +5,8 @@
 #include "hero_nighttide.h"
 #include "hero_Raider.h"
 #include "hero_Pecola.h"
+#include "dogface.h"
+#include "tower.h"
 
 USING_NS_CC;
 class m_controller:public Sprite
@@ -32,7 +34,9 @@ public:
 	void chose_character(int, int);
 	Vec2 map_skewing;
 	std::map<std::string,int> hero_choices;
+	int gettag(__String);
 	CREATE_FUNC(m_controller);
+	bool player2_AI = true;
 protected:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	m_controller();
@@ -40,11 +44,35 @@ protected:
 	//Sprite*m_sprite = NULL;
 	void reexecute(float);
 	void m_ai(float);
+	void tower_attack(float);
+	UnitsSprite* red_tower_target = NULL;
+	UnitsSprite* old_red_tower_target=NULL;
+	UnitsSprite* blue_tower_target= NULL;
+	UnitsSprite* old_blue_tower_target = NULL;
+	bool inattackrange(Vec2,int);
+	bool inmoverange(Vec2);
+	void ai_attack(float);
+	bool ai_safe();
+	void ai_normalattak();
+	bool ai_getmoney(Vec2);
+	bool ai_getmoney(Vec2,int,int);
+	bool attackable=true;
 	bool PreventRepeated();//is revising
 	bool sptime=0;//is revising
 	bool execute = 0;//is revising
 	//SpriteCatherine* Catherine = SpriteCatherine::createWithSpriteFrameName("snow0_0.png");
 	//SpriteCatherine* Catherine = SpriteCatherine::getInstance();
+
+	Spritedogface* dogface1 = NULL;
+	Spritedogface* dogface2 = NULL;
+	Spritedogface* dogface3 = NULL;
+	Spritedogface* dogface4 = NULL;
+	Spritedogface* dogface5 = NULL;
+	Spritedogface* dogface6 = NULL;
+
+
+
+
 	/*
 	SpriteCatherine* Catherine = NULL;
 	SpriteCatherine* Catherine2 = NULL;
@@ -71,6 +99,10 @@ protected:
 	Vec2 BC_pos = Vec2(2400, 500);
 	Vec2 RT_pos = Vec2(1100, 500);
 	Vec2 RC_pos = Vec2(500, 500);
+	bool BT_DES = false;
+	bool BC_DES = false;
+	bool RT_DES = false;
+	bool RC_DES = false;
 	Sprite* mouse_sprite = Sprite::create("mouse.png");
 	//SpriteCatherine* Catherine_test = SpriteCatherine::create();
 	//Vector<int> SPS;//store Sprites's tag;

@@ -360,15 +360,15 @@ bool SpritePecola::init()
 	AnimationCache::getInstance()->addAnimation(animation3, "hana_lb");
 	AnimationCache::getInstance()->addAnimation(animation4, "pecola_lf");
 	AnimationCache::getInstance()->addAnimation(animation5, "pecola_rf");
-	AnimationCache::getInstance()->addAnimation(animation6, "pecola_rb");
-	AnimationCache::getInstance()->addAnimation(animation7, "pecola_lb");
+	AnimationCache::getInstance()->addAnimation(animation6, "pecola_lb");
+	AnimationCache::getInstance()->addAnimation(animation7, "pecola_rb");
 	AnimationCache::getInstance()->addAnimation(animation8, "swift");
 	AnimationCache::getInstance()->addAnimation(animation9, "hanaattack");
 	AnimationCache::getInstance()->addAnimation(animation10, "hanamagic");
 	AnimationCache::getInstance()->addAnimation(animation11, "pecolaattack_lf");
 	AnimationCache::getInstance()->addAnimation(animation12, "pecolaattack_rf");
-	AnimationCache::getInstance()->addAnimation(animation13, "pecolaattack_rb");
-	AnimationCache::getInstance()->addAnimation(animation14, "pecolaattack_lb");
+	AnimationCache::getInstance()->addAnimation(animation13, "pecolaattack_lb");
+	AnimationCache::getInstance()->addAnimation(animation14, "pecolaattack_rb");
 	AnimationCache::getInstance()->addAnimation(animation15, "pecola_st");
 	AnimationCache::getInstance()->addAnimation(animation16, "pecola_nd");
 
@@ -421,11 +421,11 @@ bool SpritePecola::init()
 	my_propertystruct.RES = 0;
 	my_propertystruct.RDR = 5;
 	my_propertystruct.BP = 5;
-	my_propertystruct.ATR = 500;
-	my_propertystruct.ATRS = 500;
-	my_propertystruct.ATRN = 500;
-	my_propertystruct.ATRR = 500;
-	my_propertystruct.ATRT = 500;
+	my_propertystruct.ATR = 300;
+	my_propertystruct.ATRS = 300;
+	my_propertystruct.ATRN = 300;
+	my_propertystruct.ATRR = 300;
+	my_propertystruct.ATRT = 300;
 	my_propertystruct.MCS = 50;
 	my_propertystruct.MCN = 50;
 	my_propertystruct.MCR = 50;
@@ -476,8 +476,7 @@ bool SpritePecola::init()
 	//animate = Animate::create(AnimationCache::getInstance()->getAnimation("snow_lf"));
 	//m_hero->runAction(RepeatForever::create(animate));
 
-	special_hint->setVisible(FALSE);
-	this->addChild(special_hint);
+
 	//auto birdbody = PhysicsBody::create();
 	//auto birdshape = PhysicsShapeCircle::create(BIRD_RADIUS);
 	//birdbody->addShape(birdshape);
@@ -490,6 +489,9 @@ bool SpritePecola::init()
 	//m_bird->setPhysicsBody(birdbody);
 	this->setAnchorPoint(Point(0.5, 0.2));
 	//	this->addChild(m_hero);
+	special_hint = create("active_one.png");
+	special_hint->setVisible(FALSE);
+	this->addChild(special_hint);
 	this->schedule(schedule_selector(SpritePecola::move), 0.01f, kRepeatForever, 0);
 	this->schedule(schedule_selector(SpritePecola::death), 0.01f, kRepeatForever, 0);
 	this->schedule(schedule_selector(SpritePecola::restore), 1.0f, kRepeatForever, 0);
@@ -516,8 +518,8 @@ void SpritePecola::swift_judge(float)
 {
 	if (this->get().LEVEL >= 2 && swifted == false)
 	{
-		animate = Animate::create(AnimationCache::getInstance()->getAnimation("swift"));
 		shock(1.6f);
+		animate = Animate::create(AnimationCache::getInstance()->getAnimation("swift"));
 		this->runAction(Repeat::create(animate, 1));
 		swifted = true;
 		this->addproperty(200, "HP");
@@ -525,9 +527,10 @@ void SpritePecola::swift_judge(float)
 		this->addproperty(20, "EVA");
 		this->addproperty(0.5, "ATS");
 		this->schedule(schedule_selector(SpritePecola::special_attack), 0.1f, kRepeatForever, 0);
-	}
-	else
 		this->unschedule(schedule_selector(SpritePecola::swift_judge));
+	}
+	//else
+		
 }
 void SpritePecola::special_attack(float)
 {
@@ -761,11 +764,11 @@ void SpritePecola::move(float)
 		}
 	}
 }
-
+/*
 void SpritePecola::unchoose(float)
 {
 	this->setTag(m_tag);
-}
+}*/
 
 void SpritePecola::skillst(Sprite* m_target)
 {
@@ -825,11 +828,15 @@ void SpritePecola::skillst(Sprite* m_target)
 //	m_hero->runAction(Repeat::create(animate, 1));
 	if (swifted)
 	{
+		SpritePecola* n_target = (SpritePecola*)target;
 		int dam = target->receivetotaldamage(this->get(), 0, 0, 0, 0);
 		target->addproperty(-dam /2,"HP");
 		Vec2 t_pos = target->getPosition();
 		target->setPosition(this->getPosition());
+		n_target->old_pos = this->getPosition();
 		this->setPosition(t_pos);
+		this->pos = t_pos;
+		this->old_pos = t_pos;
 	}
 	else
 	{
@@ -899,6 +906,7 @@ void SpritePecola::skillnd()
 		SpriteWall* m_wall = SpriteWall::getInstance();
 		m_wall->setPosition(mouse_pos);
 		m_wall->collopse_time(3);
+		this->getParent()->addChild(m_wall);
 	}
 	else
 	{
@@ -965,9 +973,9 @@ void SpritePecola::skillrd()
 	bullet->Durable(this->getContentSize() / 2, Vec2(0, 0), 0.1, 5, 1);
 	if (this->getTag() > 20000)
 		bullet->setTag(100102);
-	bullet->setanimation("Evation0_0.png", "Evation.plist",1);
-	this->setTag(127);
-	this->schedule(schedule_selector(SpritePecola::unchoose), 1, 1, 0);
+	bullet->setanimation("Evation0_0.png", "Evation_one",1);
+	this->self_strengthen(1,100, "EVA");
+	//this->schedule(schedule_selector(SpritePecola::unchoose), 1, 1, 0);
 }
 
 
@@ -1033,6 +1041,7 @@ void SpritePecola::skillth(Sprite* m_target)
 	if (swifted)
 	{
 		auto bullet = bulletmaking(0);
+		bullet->setanimation("chaos0_0.png", "chaos_one", 1);
 		bullet->Followed(target, 200);
 		bullet->setanimation("chaos0_0.png", "chaos_one", 1);
 		bullet->setPosition(target->getPosition() - this->getPosition());
@@ -1176,6 +1185,8 @@ bool SpritePecola::Mana_cost(int kind)
 
 void SpritePecola::normal_attack(float ats)
 {
+	if (shock_judge)
+		return;
 	if (Inrange(0) == false)
 	{
 		pos = pos_should;
@@ -1194,9 +1205,9 @@ void SpritePecola::normal_attack(float ats)
 	{
 		actionManager->removeAllActionsFromTarget(this);
 	}
-	float time = attackspeed;
-	time = time / ats;
-	this->schedule(schedule_selector(SpritePecola::doattack), time, 1, 0);
+	float timed = attackspeed;
+	timed = timed / ats;
+	this->schedule(schedule_selector(SpritePecola::doattack), timed, 1, 0);
 	//if (!state_estimation(0, 0, 1))
 	//	return;
 //	cooldowning5 = 1;
@@ -1207,35 +1218,40 @@ void SpritePecola::normal_attack(float ats)
 	attack_pos = pos;
 	if (swifted)
 	{
-		if (move_judge == 1)//rbrflblf
+		srand(time(NULL));
+		int choice = rand() % 4;
+		if (choice == 0)//rbrflblf
 		{
 			animate = Animate::create(AnimationCache::getInstance()->getAnimation("pecolaattack_rb"));
 		}
-		else if (move_judge == 2)
+		else if (choice == 1)
 		{
 			animate = Animate::create(AnimationCache::getInstance()->getAnimation("pecolaattack_rf"));
 		}
-		else if (move_judge == 3)
+		else if (choice == 2)
 		{
 			animate = Animate::create(AnimationCache::getInstance()->getAnimation("pecolaattack_lb"));
 		}
-		else if (move_judge == 4)
+		else
 		{
 			animate = Animate::create(AnimationCache::getInstance()->getAnimation("pecolaattack_lf"));
 		}
 	}
 	else
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation("hanaattack"));
-	int times = time / Repeat::create(animate, 1)->getDuration();
+	int times = timed / Repeat::create(animate, 1)->getDuration();
 	if (times == 0)
 		times = 1;
 	this->runAction(Repeat::create(animate, times));
 }
 void SpritePecola::doattack(float)
 {
+	if (shock_judge)
+		return;
 	if (attack_pos != pos)
 		return;
-	special_times += 1;
+	if(swifted)
+		special_times += 1;
 	normal_attacked = 0;
 	auto bullet = bulletmaking(0);
 	bullet->setanimation("magi0_0.png", "fly_one");
@@ -1377,6 +1393,7 @@ void SpritePecola::strengthen(float)
 
 void SpritePecola::shock(float time)
 {
+	shock_judge = true;
 	spell_judge = time;
 	if (move_judge != 0)
 		actionManager->removeAllActionsFromTarget(this);
@@ -1386,6 +1403,7 @@ void SpritePecola::shock(float time)
 
 void SpritePecola::shock_remove(float time)
 {
+	shock_judge = false;
 	this->schedule(schedule_selector(SpritePecola::move), 0.01f, kRepeatForever, 0);
 	this->unschedule(schedule_selector(SpritePecola::shock_remove));
 }
@@ -1398,6 +1416,7 @@ void SpritePecola::death(float time)
 		this->unschedule(schedule_selector(SpritePecola::restore));
 		this->actionManager->removeAllActionsFromTarget(this);
 		this->setTexture("death.png");
+		this->shock(this->get().RET);
 		this->unschedule(schedule_selector(SpritePecola::death));
 		if (get().RET >= 0)
 			this->schedule(schedule_selector(SpritePecola::revive), get().RET, 1, 0);
@@ -1408,6 +1427,18 @@ void SpritePecola::death(float time)
 
 void SpritePecola::revive(float time)
 {
+	if (this->getTag() > 20000)
+	{
+		this->setPosition(Vec2(2500, 150));
+		pos = Vec2(2500, 150);
+		old_pos = Vec2(2500, 150);
+	}
+	else
+	{
+		this->setPosition(Vec2(300, 300));
+		pos = Vec2(300, 300);
+		old_pos = Vec2(300, 300);
+	}
 	death_judge = false;
 	this->changeproperty(get().MHP, "HP");
 	if (swifted)
@@ -1541,6 +1572,8 @@ bool SpritePecola::state_estimation(int shake, int shock, int spell)
 	//return false;
 	if (shock == 1)
 		shock = 1;
+	if (shock_judge)
+		return false;
 	if (spell == 1)
 		if (!Spell_cooldown())
 		{

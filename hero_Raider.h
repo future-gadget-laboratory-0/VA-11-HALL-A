@@ -78,6 +78,7 @@ private:
 	void property_refresh(float);
 	void shock(float);
 	void shock_remove(float);
+	bool shock_judge = false;
 	void revive(float);
 	void restore(float);
 	void levelup(float);

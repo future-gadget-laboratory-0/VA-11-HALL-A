@@ -49,7 +49,7 @@ struct actor_property
 #define Castinterval 0.2;
 #define mousemoverange 20;
 #define attackspeed 1;
-#define ai_moverange 360000;
+#define ai_moverange 250000;
 
 enum class Player{
 	one = 1,

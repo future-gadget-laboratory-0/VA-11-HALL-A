@@ -762,15 +762,15 @@ bool BulletSprite::init()
 	Animation* animation10 = Anima::createWithSingleFrameName("laser0_", 0.1f, -1);
 	Animation* animation11 = Anima::createWithSingleFrameName("waterspout0_", 0.2f, -1);
 	Animation* animation12 = Anima::createWithSingleFrameName("sword0_", 0.1f, -1);
-	Animation* animation13 = Anima::createWithSingleFrameName("Evation0_", 0.1f, -1);
-	Animation* animation14 = Anima::createWithSingleFrameName("chaos0_", 0.3f, -1);
+	Animation* animation13 = Anima::createWithSingleFrameName("Evation0_", 0.1f, 1);
+	Animation* animation14 = Anima::createWithSingleFrameName("chaos0_", 0.5f, 1);
 	AnimationCache::getInstance()->addAnimation(animation8, "fly_one");
 	AnimationCache::getInstance()->addAnimation(animation9, "firing_one");
 	AnimationCache::getInstance()->addAnimation(animation10, "laser_one");
 	AnimationCache::getInstance()->addAnimation(animation11, "waterspout_one");
 	AnimationCache::getInstance()->addAnimation(animation12, "sword_one");
 	AnimationCache::getInstance()->addAnimation(animation13, "Evation_one");
-	AnimationCache::getInstance()->addAnimation(animation13, "chaos_one");
+	AnimationCache::getInstance()->addAnimation(animation14, "chaos_one");
 	this->setTexture("magi0_0.png");
 //	this->setTexture("MagicCircle0_0.png");
 	//m_bullet = Sprite::createWithSpriteFrameName("magi0_0.png");
@@ -882,8 +882,10 @@ void BulletSprite::setanimation(__String name, __String aniname,int times)
 	const std::string str = name.getCString();
 	this->setTexture(str);
 	const std::string anistr = aniname.getCString();
+	this->stopAllActions();
 	animate = Animate::create(AnimationCache::getInstance()->getAnimation(anistr));
 	this->runAction(Repeat::create(animate, times));
+	this->schedule(schedule_selector(BulletSprite::bulletclear), animate->getDuration(), 1, 0);
 	auto CaBody = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	CaBody->setCategoryBitmask(0x01);
 	CaBody->setCollisionBitmask(0x00000000);
@@ -937,7 +939,7 @@ void BulletSprite::Followed(Sprite* target, int sped)
 	this->setPosition(Vec2(50, 30));
 	old_pos = this->getParent()->getPosition();
 	schedule(schedule_selector(BulletSprite::Followed),0.01f, kRepeatForever, 0);
-	this->schedule(schedule_selector(BulletSprite::bulletclear), 10, 1, 0);
+	this->schedule(schedule_selector(BulletSprite::bulletclear), 8, 1, 0);
 }
 /*
 void BulletSprite::Followed(float)

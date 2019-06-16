@@ -413,10 +413,10 @@ bool SpriteCatherine::init()
 	my_propertystruct.RDR = 0;
 	my_propertystruct.BP = 0;
 	my_propertystruct.ATR = 400;
-	my_propertystruct.ATRS = 600;
-	my_propertystruct.ATRN = 600;
-	my_propertystruct.ATRR = 600;
-	my_propertystruct.ATRT = 600;
+	my_propertystruct.ATRS = 300;
+	my_propertystruct.ATRN = 300;
+	my_propertystruct.ATRR = 300;
+	my_propertystruct.ATRT = 400;
 	my_propertystruct.MCS = 100;
 	my_propertystruct.MCN = 10;
 	my_propertystruct.MCR = 75;
@@ -1066,6 +1066,8 @@ bool SpriteCatherine::Mana_cost(int kind)
 
 void SpriteCatherine::normal_attack(float ats)
 {
+	if (shock_judge)
+		return;
 	if (Inrange(0) == false)
 	{
 		pos = pos_should;
@@ -1103,6 +1105,8 @@ void SpriteCatherine::normal_attack(float ats)
 }
 void SpriteCatherine::doattack(float)
 {
+	if (shock_judge)
+		return;
 	if (attack_pos != pos)
 		return;
 	normal_attacked = 0;
@@ -1225,6 +1229,7 @@ void SpriteCatherine::strengthen(float)
 void SpriteCatherine::shock(float time)
 {
 	spell_judge = time;
+	shock_judge = true;
 	if(move_judge!=0)
 		actionManager->removeAllActionsFromTarget(this);
 	this->unschedule(schedule_selector(SpriteCatherine::move));
@@ -1233,6 +1238,7 @@ void SpriteCatherine::shock(float time)
 
 void SpriteCatherine::shock_remove(float time)
 {
+	shock_judge = false;
 	this->schedule(schedule_selector(SpriteCatherine::move), 0.01f, kRepeatForever, 0);
 	this->unschedule(schedule_selector(SpriteCatherine::shock_remove));
 }
@@ -1245,6 +1251,7 @@ void SpriteCatherine::death(float time)
 		this->unschedule(schedule_selector(SpriteCatherine::restore));
 		this->actionManager->removeAllActionsFromTarget(this);
 		this->setTexture("death.png");
+		this->shock(this->get().RET);
 		//changeproperty(500, "RET");
 		this->unschedule(schedule_selector(SpriteCatherine::death));
 		if (get().RET >= 0)
@@ -1256,6 +1263,19 @@ void SpriteCatherine::death(float time)
 
 void SpriteCatherine::revive(float time)
 {
+	if (this->getTag() > 20000)
+	{
+		this->setPosition(Vec2(2500, 150));
+		pos = Vec2(2500, 150);
+		old_pos = Vec2(2500, 150);
+	}
+
+	else
+	{
+		this->setPosition(Vec2(300, 300));
+		pos = Vec2(300, 300);
+		old_pos = Vec2(300, 300);
+	}
 	death_judge = false;
 	this->changeproperty(get().MHP, "HP");
 	this->setTexture("snow0_0.png");
@@ -1434,6 +1454,8 @@ bool SpriteCatherine::state_estimation(int shake, int shock, int spell)
 			//return false;
 	if (shock == 1)
 		shock = 1;
+	if (shock_judge)
+		return false;
 	if (spell == 1)
 		if (!Spell_cooldown())
 		{

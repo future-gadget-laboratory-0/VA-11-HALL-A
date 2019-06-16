@@ -420,11 +420,11 @@ bool SpriteRaider::init()
 	my_propertystruct.RES = 0;
 	my_propertystruct.RDR = 0;
 	my_propertystruct.BP = 0;
-	my_propertystruct.ATR = 150;
-	my_propertystruct.ATRS = 500;
+	my_propertystruct.ATR = 100;
+	my_propertystruct.ATRS = 200;
 	my_propertystruct.ATRN = 200;
-	my_propertystruct.ATRR = 150;
-	my_propertystruct.ATRT = 500;
+	my_propertystruct.ATRR = 100;
+	my_propertystruct.ATRT = 200;
 	my_propertystruct.MCS = 30;
 	my_propertystruct.MCN = 5;
 	my_propertystruct.MCR = 75;
@@ -1010,6 +1010,8 @@ bool SpriteRaider::Mana_cost(int kind)
 
 void SpriteRaider::normal_attack(float ats)
 {
+	if (shock_judge)
+		return;
 	if (Inrange(0) == false)
 	{
 		pos = pos_should;
@@ -1052,6 +1054,8 @@ void SpriteRaider::normal_attack(float ats)
 }
 void SpriteRaider::doattack(float)
 {
+	if (shock_judge)
+		return;
 	if (attack_pos != pos)
 		return;
 	normal_attacked = 0;
@@ -1170,6 +1174,7 @@ void SpriteRaider::strengthen(float)
 
 void SpriteRaider::shock(float time)
 {
+	shock_judge = true;
 	spell_judge = time;
 	if (move_judge != 0)
 		actionManager->removeAllActionsFromTarget(this);
@@ -1179,6 +1184,7 @@ void SpriteRaider::shock(float time)
 
 void SpriteRaider::shock_remove(float time)
 {
+	shock_judge = false;
 	this->schedule(schedule_selector(SpriteRaider::move), 0.01f, kRepeatForever, 0);
 	this->unschedule(schedule_selector(SpriteRaider::shock_remove));
 }
@@ -1190,9 +1196,11 @@ void SpriteRaider::death(float time)
 	{
 		this->unschedule(schedule_selector(SpriteRaider::restore));
 		this->actionManager->removeAllActionsFromTarget(this);
-		animate = Animate::create(AnimationCache::getInstance()->getAnimation("raiderdeath"));
-		this->runAction(Repeat::create(animate,1));
+		this->shock(this->get().RET);
+		//animate = Animate::create(AnimationCache::getInstance()->getAnimation("raiderdeath"));
+		//this->runAction(Repeat::create(animate,1));
 		this->setTexture("death.png");
+		
 		//changeproperty(500, "RET");
 		this->unschedule(schedule_selector(SpriteRaider::death));
 		if (get().RET >= 0)
@@ -1204,6 +1212,19 @@ void SpriteRaider::death(float time)
 
 void SpriteRaider::revive(float time)
 {
+	if (this->getTag() > 20000)
+	{
+		this->setPosition(Vec2(2500, 150));
+		pos = Vec2(2500, 150);
+		old_pos = Vec2(2500, 150);
+	}
+
+	else
+	{
+		this->setPosition(Vec2(300, 300));
+		pos = Vec2(300, 300);
+		old_pos = Vec2(300, 300);
+	}
 	death_judge = false;
 	this->changeproperty(get().MHP, "HP");
 	this->setTexture("snow0_0.png");
@@ -1382,6 +1403,8 @@ bool SpriteRaider::state_estimation(int shake, int shock, int spell)
 	//return false;
 	if (shock == 1)
 		shock = 1;
+	if (shock_judge)
+		return false;
 	if (spell == 1)
 		if (!Spell_cooldown())
 		{

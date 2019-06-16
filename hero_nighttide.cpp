@@ -388,7 +388,7 @@ bool SpriteNighttide::init()
 	my_propertystruct.HP = 1000;
 	my_propertystruct.MP = 200;
 	my_propertystruct.STA = 100;
-	my_propertystruct.MHP = 500;
+	my_propertystruct.MHP = 1000;
 	my_propertystruct.MMP = 200;
 	my_propertystruct.MSTA = 100;
 	my_propertystruct.RHP = 1;
@@ -405,10 +405,10 @@ bool SpriteNighttide::init()
 	my_propertystruct.RDR = 0;
 	my_propertystruct.BP = 0;
 	my_propertystruct.ATR = 100;
-	my_propertystruct.ATRS = 600;
-	my_propertystruct.ATRN = 600;
-	my_propertystruct.ATRR = 600;
-	my_propertystruct.ATRT = 900;
+	my_propertystruct.ATRS = 200;
+	my_propertystruct.ATRN = 200;
+	my_propertystruct.ATRR = 200;
+	my_propertystruct.ATRT = 500;
 	my_propertystruct.ATS = 0.5;
 	my_propertystruct.RET = 10;
 	my_propertystruct.TYPE = 1;
@@ -1023,6 +1023,8 @@ bool SpriteNighttide::Mana_cost(int kind)
 
 void SpriteNighttide::normal_attack(float ats)
 {
+	if (shock_judge)
+		return;
 	if (Inrange(0) == false)
 	{
 		pos = pos_should;
@@ -1063,6 +1065,8 @@ void SpriteNighttide::normal_attack(float ats)
 }
 void SpriteNighttide::doattack(float)
 {
+	if (shock_judge)
+		return;
 	if (attack_pos != pos)
 		return;
 	normal_attacked = 0;
@@ -1181,6 +1185,7 @@ void SpriteNighttide::strengthen(float)
 
 void SpriteNighttide::shock(float time)
 {
+	shock_judge = true;
 	spell_judge = time;
 	if (move_judge != 0)
 		actionManager->removeAllActionsFromTarget(this);
@@ -1190,6 +1195,7 @@ void SpriteNighttide::shock(float time)
 
 void SpriteNighttide::shock_remove(float time)
 {
+	shock_judge = false;
 	this->schedule(schedule_selector(SpriteNighttide::move), 0.01f, kRepeatForever, 0);
 	this->unschedule(schedule_selector(SpriteNighttide::shock_remove));
 }
@@ -1202,6 +1208,7 @@ void SpriteNighttide::death(float time)
 		this->unschedule(schedule_selector(SpriteNighttide::restore));
 		this->actionManager->removeAllActionsFromTarget(this);
 		this->setTexture("death.png");
+		this->shock(this->get().RET);
 		//changeproperty(500, "RET");
 		this->unschedule(schedule_selector(SpriteNighttide::death));
 		if (get().RET >= 0)
@@ -1213,6 +1220,19 @@ void SpriteNighttide::death(float time)
 
 void SpriteNighttide::revive(float time)
 {
+	if (this->getTag() > 20000)
+	{
+		this->setPosition(Vec2(2500, 150));
+		pos = Vec2(2500, 150);
+		old_pos = Vec2(2500, 150);
+	}
+
+	else
+	{
+		this->setPosition(Vec2(300, 300));
+		pos = Vec2(300, 300);
+		old_pos = Vec2(300, 300);
+	}
 	death_judge = false;
 	this->changeproperty(get().MHP, "HP");
 	this->setTexture("nighttide0_0.png");
@@ -1391,6 +1411,8 @@ bool SpriteNighttide::state_estimation(int shake, int shock, int spell)
 	//return false;
 	if (shock == 1)
 		shock = 1;
+	if (shock_judge)
+		return false;
 	if (spell == 1)
 		if (!Spell_cooldown())
 		{

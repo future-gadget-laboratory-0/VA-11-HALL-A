@@ -211,7 +211,7 @@ bool Spritetower::init()
 	this->addChild(Hp_progress, 1);
 	this->addChild(HP_bar, 0);
 	actor_property my_propertystruct;
-	my_propertystruct.HP = 50;
+	my_propertystruct.HP = 5000;
 	my_propertystruct.MP = 0;
 	my_propertystruct.STA = 0;
 	my_propertystruct.MHP = 500;
@@ -223,14 +223,14 @@ bool Spritetower::init()
 	my_propertystruct.EVA = 0;
 	my_propertystruct.SPE = 395;
 	my_propertystruct.ACC = 0;
-	my_propertystruct.ATK = 35;
+	my_propertystruct.ATK = 1000;
 	my_propertystruct.ATKM = 10;
 	my_propertystruct.ATKS = 0;
 	my_propertystruct.DEF = 10;
 	my_propertystruct.RES = 10;
 	my_propertystruct.RDR = 10;
 	my_propertystruct.BP = 0;
-	my_propertystruct.ATR = 600;
+	my_propertystruct.ATR = 300;
 	my_propertystruct.ATRS = 0;
 	my_propertystruct.ATRN = 0;
 	my_propertystruct.ATRR = 0;
@@ -312,6 +312,8 @@ void  Spritetower::setbody(int ca, int co, int ct)
 
 void Spritetower::normal_attack(float ats)
 {
+	CCLOG("15");
+	attackable = false;
 	if (Inrange(0) == false)
 	{
 		return;
@@ -330,7 +332,7 @@ void Spritetower::normal_attack(float ats)
 }
 void Spritetower::doattack(float)
 {
-
+	attackable = true;
 	normal_attacked = 0;
 	auto bullet = bulletmaking(1);
 	bullet->setanimation("waterspout0_0.png", "waterspout_one");

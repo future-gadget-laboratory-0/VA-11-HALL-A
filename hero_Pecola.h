@@ -49,12 +49,12 @@ public:
 	void self_strengthen(int, int, __String, int, __String, int, __String, int, __String);
 private:
 	SpritePecola();
-	void unchoose (float);
-	bool swifted = false;
+	//void unchoose (float);
+	bool swifted = true;
 	void swift_judge(float);
 	void special_attack(float);
 	int special_times = 0;
-	Sprite* special_hint = create("active_one.png");
+	Sprite* special_hint;
 	Vec2 pos_should;
 	ProgressTimer * Hp_progress;
 	ProgressTimer * Mp_progress;
@@ -81,6 +81,7 @@ private:
 	void property_refresh(float);
 	void shock(float);
 	void shock_remove(float);
+	bool shock_judge = false;
 	void revive(float);
 	void restore(float);
 	void levelup(float);
