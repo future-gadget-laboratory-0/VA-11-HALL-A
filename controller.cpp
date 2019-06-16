@@ -438,7 +438,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	
 	if (tagA == 100001&&(tagB!= 10100|| tagB != 10200||tagB!= 10300 || tagB != 10400|| tagB != 11000 || tagB != 12000 || tagB != 13000))
 	{
-		if(tagB==20100||tagB== 20200 || tagB == 20300||tagB == 20400||tagB == 10000007|| tagB == 10000013||tagB== 100|| tagB == 21000 || tagB == 22000 || tagB == 23000)
+		if(tagB==20100||tagB== 20200 || tagB == 20300||tagB == 20400||tagB == 10000007|| tagB == 10000013||tagB== 100|| tagB == 21000 || tagB == 22000 || tagB == 23000|| tagB == 10000020)
 		{ 
 			int Hp = bodyB->get().HP ;
 			if (Hp <= 0)
@@ -456,7 +456,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	}
 	if (tagA == 100002 &&(tagB != 10100 || tagB != 10200 || tagB != 10300 || tagB != 10400 || tagB != 11000 || tagB != 12000 || tagB != 13000))
 	{
-		if (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100 || tagB == 21000 || tagB == 22000 || tagB == 23000)
+		if (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100 || tagB == 21000 || tagB == 22000 || tagB == 23000 || tagB == 10000020)
 		{
 			int Hp = bodyB->get().HP;
 			if (Hp <= 0)
@@ -476,7 +476,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	}
 	if (tagA == 100101 && (tagB != 20100 || tagB != 20200 || tagB != 20300 || tagB != 20400 || tagB != 21000 || tagB != 22000 || tagB != 23000))
 	{
-		if (tagB == 10100 || tagB == 10200 || tagB == 10300 || tagB == 10400 || tagB == 10000000 || tagB == 10000012 || tagB == 100 || tagB == 11000 || tagB == 12000 || tagB == 13000)
+		if (tagB == 10100 || tagB == 10200 || tagB == 10300 || tagB == 10400 || tagB == 10000000 || tagB == 10000012 || tagB == 100 || tagB == 11000 || tagB == 12000 || tagB == 13000 || tagB == 10000020)
 		{
 			int Hp = bodyB->get().HP;
 			if (Hp <= 0)
@@ -494,7 +494,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	}
 	if (tagA == 100102 && (tagB != 20100 || tagB != 20200 || tagB != 20300 || tagB != 20400 || tagB != 21000 || tagB != 22000 || tagB != 23000))
 	{
-		if (tagB == 10100 || tagB == 10200 || tagB == 10300 || tagB == 10400 || tagB == 10000000 || tagB == 10000012 || tagB == 100 || tagB == 11000 || tagB == 12000 || tagB == 13000)
+		if (tagB == 10100 || tagB == 10200 || tagB == 10300 || tagB == 10400 || tagB == 10000000 || tagB == 10000012 || tagB == 100 || tagB == 11000 || tagB == 12000 || tagB == 13000 || tagB == 10000020)
 		{
 			int Hp = bodyB->get().HP;
 			if (Hp <= 0)
@@ -525,7 +525,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	}*/
 
 
-	if (tagB == 100001&& (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100  || tagA == 21000 || tagA == 22000 || tagA == 23000))
+	if (tagB == 100001&& (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100  || tagA == 21000 || tagA == 22000 || tagA == 23000 || tagA == 10000020))
 	{
 		int Hp = bodyA->get().HP; 
 		if (Hp <= 0)
@@ -539,7 +539,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			mouse_sprite->setTexture("mouse.png");
 		bodyB->removeFromParentAndCleanup(true);
 	}
-	if (tagB == 100002 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000))
+	if (tagB == 100002 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000 || tagA== 10000020))
 	{
 		int Hp = bodyA->get().HP;
 		if (Hp <= 0)
@@ -554,7 +554,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			mouse_sprite->setTexture("mouse.png");
 	//	bodyB->removeFromParentAndCleanup(true);
 	}
-	if (tagB == 100101 && (tagA == 10100 || tagA == 10200 || tagA == 10300 || tagA == 10400 || tagA == 10000000 || tagA == 10000012 || tagA == 100 || tagA == 11000 || tagA == 12000 || tagA == 13000))
+	if (tagB == 100101 && (tagA == 10100 || tagA == 10200 || tagA == 10300 || tagA == 10400 || tagA == 10000000 || tagA == 10000012 || tagA == 100 || tagA == 11000 || tagA == 12000 || tagA == 13000 || tagA == 10000020))
 	{
 		int Hp = bodyA->get().HP;
 		if (Hp <= 0)
@@ -568,7 +568,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			mouse_sprite->setTexture("mouse.png");
 		bodyB->removeFromParentAndCleanup(true);
 	}
-	if (tagB == 100102 && (tagA == 10100 || tagA == 10200 || tagA == 10300 || tagA == 10400 || tagA == 10000000 || tagA == 10000012 || tagA == 100 || tagA == 11000 || tagA == 12000 || tagA == 13000))
+	if (tagB == 100102 && (tagA == 10100 || tagA == 10200 || tagA == 10300 || tagA == 10400 || tagA == 10000000 || tagA == 10000012 || tagA == 100 || tagA == 11000 || tagA == 12000 || tagA == 13000 || tagA == 10000020))
 	{
 		int Hp = bodyA->get().HP;
 		if (Hp <= 0)
@@ -611,7 +611,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	if (hero_choices["player_one"] == 1)
 	{
 		SpriteCatherine* player_one = (SpriteCatherine*)this->getChildByTag(player1_tag);
-		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100 || tagB == 21000 || tagB == 22000 || tagB == 23000))
+		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100 || tagB == 21000 || tagB == 22000 || tagB == 23000 || tagB == 10000020))
 		{
 			if (bodyB->get().HP > 0)
 			{
@@ -639,7 +639,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	else if (hero_choices["player_one"] == 2)
 	{
 		SpriteNighttide* player_one = (SpriteNighttide*)this->getChildByTag(player1_tag);
-		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100 || tagB == 21000 || tagB == 22000 || tagB == 23000))
+		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100 || tagB == 21000 || tagB == 22000 || tagB == 23000 || tagB == 10000020))
 		{
 			if (bodyB->get().HP > 0)
 			{
@@ -651,7 +651,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 					player_one->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
 			}
 		}
-		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000))
+		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000 || tagA == 10000020))
 		{
 			if (bodyA->get().HP > 0)
 			{
@@ -667,7 +667,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	else if (hero_choices["player_one"] == 3)
 	{
 		SpriteRaider* player_one = (SpriteRaider*)this->getChildByTag(player1_tag);
-		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100|| tagB == 21000 || tagB == 22000 || tagB == 23000))
+		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100|| tagB == 21000 || tagB == 22000 || tagB == 23000 || tagB == 10000020))
 		{
 			if (bodyB->get().HP > 0)
 			{
@@ -679,7 +679,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 					player_one->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
 			}
 		}
-		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000))
+		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000 || tagA == 10000020))
 		{
 			if (bodyA->get().HP > 0)
 			{
@@ -695,7 +695,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 	else if (hero_choices["player_one"] == 4)
 	{
 		SpritePecola* player_one = (SpritePecola*)this->getChildByTag(player1_tag);
-		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100 || tagB == 21000 || tagB == 22000 || tagB == 23000))
+		if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100 || tagB == 21000 || tagB == 22000 || tagB == 23000 || tagB == 10000020))
 		{
 			if (bodyB->get().HP > 0)
 			{
@@ -707,7 +707,7 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 					player_one->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
 			}
 		}
-		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000))
+		if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000 || tagA == 10000020))
 		{
 			if (bodyA->get().HP > 0)
 			{
@@ -852,8 +852,12 @@ void m_controller::m_ai(float)
 					player_two_ca->pos = Vec2(1450, 500);
 				else
 					player_two_ca->pos = Vec2(900, 500);
-
 			}
+		}
+		else if (player_two_ca->get().LEVEL > 15 && RT_DES&&monster->get().HP > 0)
+		{
+			player_two_ca->pos = monster->getPosition();
+			player_two_ca->target = (UnitsSprite*)monster;
 		}
 		else if (ai_safe())
 		{
@@ -879,9 +883,10 @@ void m_controller::m_ai(float)
 				player_two_ca->pos = Vec2(1450, 500);
 			else
 				player_two_ca->pos = Vec2(900, 500);
+			
 		}
 	}
-	for (int i = 1; i <= 3; i++)
+	for (int i = 1; i <= 6; i++)
 	{
 		Spritedogface* dogface;
 		if (i == 1)
@@ -1250,9 +1255,17 @@ void m_controller::m_ai(float)
 	}
 
 
-
-	
 	this->schedule(schedule_selector(m_controller::tower_attack), 0.10, 1, 0);
+
+	if (inattackrange(monster->getPosition() - player_one->pos, 200)&&monster->get().HP!= monster->get().MHP)
+	{
+		player_one->addproperty(-5, "HP");
+	}
+	else if (inattackrange(monster->getPosition() - player_two_ca->pos, 200) && monster->get().HP != monster->get().MHP)
+	{
+		player_two_ca->addproperty(-5, "HP");
+	}
+
 
 
 }
@@ -1263,19 +1276,19 @@ void m_controller::tower_attack(float)
 	if (red_tower_target->getTag() > 20000 && (inattackrange(RT_pos - red_tower_target->getPosition(), 300)|| inattackrange(RC_pos - red_tower_target->getPosition(), 300)))
 	{
 		if(red_tower_target ==old_red_tower_target)
-			red_tower_target->addproperty(-30, "HP");
+			red_tower_target->addproperty(-8, "HP");
 		else
-			red_tower_target->addproperty(-10, "HP");
+			red_tower_target->addproperty(-3, "HP");
 		old_red_tower_target = red_tower_target;
 	}
 
 	if (blue_tower_target != NULL)
-	if (blue_tower_target->getTag() < 20000 && inattackrange(BT_pos - blue_tower_target->getPosition(), 300 || inattackrange(BC_pos - blue_tower_target->getPosition(), 300)))
+	if (blue_tower_target->getTag() < 20000 && (inattackrange(BT_pos - blue_tower_target->getPosition(), 300) || inattackrange(BC_pos - blue_tower_target->getPosition(), 300)))
 	{
 		if (blue_tower_target == old_blue_tower_target)
-			blue_tower_target->addproperty(-30, "HP");
+			blue_tower_target->addproperty(-8, "HP");
 		else
-			blue_tower_target->addproperty(-10, "HP");
+			blue_tower_target->addproperty(-3, "HP");
 		old_blue_tower_target = blue_tower_target;
 	}
 		
@@ -1419,12 +1432,12 @@ bool m_controller::onContactSeparate(PhysicsContact& contact)
 	auto bodyB = (UnitsSprite*)(contact.getShapeB()->getBody()->getNode());
 	int tagA = bodyA->getTag();
 	int tagB = bodyB->getTag();
-	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100|| tagB == 21000 || tagB == 22000 || tagB == 23000))
+	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200 || tagB == 20300 || tagB == 20400 || tagB == 10000007 || tagB == 10000013 || tagB == 100|| tagB == 21000 || tagB == 22000 || tagB == 23000 || tagB == 10000020))
 	{
 		m_lockTag_now = 0;
 		mouse_sprite->setTexture("mouse.png");
 	}
-	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000))
+	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100 || tagA == 21000 || tagA == 22000 || tagA == 23000 || tagA == 10000020))
 	{
 		m_lockTag_now = 0;
 		mouse_sprite->setTexture("mouse.png");
@@ -1672,6 +1685,28 @@ bool m_controller::init()
 	this->addChild(dogface4);
 	this->addChild(dogface5);
 	this->addChild(dogface6);
+
+
+	monster->setPosition(1500, 800);
+	this->addChild(monster, 1);
+	monster->setTexture("monster.png");
+
+	monster->setScale(2);
+	auto MoBody = PhysicsBody::createBox(monster->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
+	MoBody->setRotationEnable(false);
+	MoBody->setCategoryBitmask(0x01);
+	MoBody->setCollisionBitmask(0x00000000);
+	MoBody->setContactTestBitmask(0x01);
+	monster->setPhysicsBody(MoBody);
+	monster->HP_bar->setPosition(Vec2(150, 400));
+	monster->Hp_progress->setPosition(Vec2(150, 400));
+	//monster->Hp_progress->setScale(10);
+	monster->addproperty(1, "RHP");
+	monster->settag(10000020);
+
+
+
+
 
 	this->schedule(schedule_selector(m_controller::m_ai), 0.15f, kRepeatForever, 0);
 	return true;

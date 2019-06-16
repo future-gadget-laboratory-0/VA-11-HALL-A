@@ -211,10 +211,10 @@ bool Spritetower::init()
 	this->addChild(Hp_progress, 1);
 	this->addChild(HP_bar, 0);
 	actor_property my_propertystruct;
-	my_propertystruct.HP = 5000;
+	my_propertystruct.HP = 1000;
 	my_propertystruct.MP = 0;
 	my_propertystruct.STA = 0;
-	my_propertystruct.MHP = 500;
+	my_propertystruct.MHP = 1000;
 	my_propertystruct.MMP = 0;
 	my_propertystruct.MSTA = 0;
 	my_propertystruct.RHP = 0;
@@ -449,7 +449,18 @@ void Spritetower::death(float time)
 	if (get().HP <= 0)
 	{
 		this->unschedule(schedule_selector(Spritetower::restore));
-		this->setTexture("tower_death.png");
+		if (this->getTag() == 10000000 || this->getTag() == 10000007)
+		{
+			this->setTexture("tower_break.png");
+		}
+		else if (this->getTag() == 10000012 || this->getTag() == 10000013)
+		{
+			this->setTexture("crystal_break.png");
+		}
+		else if (this->getTag() == 10000020)
+			this->setTexture("dragon.png");
+		else
+			this->setTexture("tower_death.png");
 		//changeproperty(500, "RET");
 		this->unschedule(schedule_selector(Spritetower::death));
 	}

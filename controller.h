@@ -32,6 +32,7 @@ public:
 	actor_property getproperty(int);
 	//auto chose_character(int,int);
 	void chose_character(int, int);
+	Spritetower* monster = Spritetower::getInstance();
 	Vec2 map_skewing;
 	std::map<std::string,int> hero_choices;
 	int gettag(__String);
