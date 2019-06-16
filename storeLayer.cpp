@@ -39,7 +39,7 @@ bool StoreLayer::init()
 	auto buyit = MenuItemImage::create(
 		"button_buy.png",
 		"button_buy2.png",
-		CC_CALLBACK_1(StoreLayer::item1, this));
+		CC_CALLBACK_1(StoreLayer::buyit, this));
 	buyit->setPosition(Vec2(1140, 270));
 	auto buy = Menu::create(buyit, NULL);
 	buy->setPosition(Vec2::ZERO);
@@ -174,48 +174,79 @@ StoreLayer* StoreLayer::createLayer()
 	auto storeLayer = StoreLayer::create();
 	return storeLayer;
 }
-void StoreLayer::buy(cocos2d::Ref* pSender)
+void StoreLayer::buyit(cocos2d::Ref* pSender)
 {
 	int gold1 = getgold;
-	price = 9;
-	auto test = Label::createWithTTF("test", "fonts/Marker Felt.ttf", 30);
-	test->setPosition(900, 730);
-	this->addChild(test);
-	if (gold1 >= price)
+	if (gold1 > price) 
 	{
-		if (itemkey == 1)
-		{
 
+        if (itemkey == 1)
+		{
+			itemupdate = 1;
+			auto itemget1 = Sprite::create("equipment/Red_Potion.png");
+			itemget1->setPosition(1120, 700);
+			addChild(itemget1);
+			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
 		}
 		if (itemkey == 2)
 		{
-
+			itemupdate = 2;
+			auto itemget2 = Sprite::create("equipment/Blue_Potion.png");
+			itemget2->setPosition(1180, 700);
+			addChild(itemget2);
+			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
 		}
 		if (itemkey == 3)
 		{
-
+			itemupdate = 3;
+			auto itemget3 = Sprite::create("equipment/head.png");
+			itemget3->setPosition(1240, 700);
+			addChild(itemget3);
+			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
 		}
 		if (itemkey == 4)
 		{
-
+			itemupdate = 4;
+			auto itemget4 = Sprite::create("equipment/armour.png");
+			itemget4->setPosition(1300, 700);
+			addChild(itemget4);
+			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
 		}
 		if (itemkey == 5)
 		{
-
+			itemupdate = 5;
+			auto itemget5 = Sprite::create("equipment/Crossbow.png");
+			itemget5->setPosition(1120, 640);
+			addChild(itemget5);
+			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
 		}
 		if (itemkey == 6)
 		{
-
+			itemupdate = 6;
+			auto itemget6 = Sprite::create("equipment/knife.png");
+			itemget6->setPosition(1180, 640);
+			addChild(itemget6);
+			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
 		}
 		if (itemkey == 7)
 		{
-
+			itemupdate = 7;
+			auto itemget7 = Sprite::create("equipment/ring.png");
+			itemget7->setPosition(1240, 640);
+			addChild(itemget7);
+			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
 		}
 		if (itemkey == 8)
 		{
-
+			itemupdate = 8;
+			auto itemget8 = Sprite::create("equipment/stone.png");
+			itemget8->setPosition(1300, 640);
+			addChild(itemget8);
+			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
 		}
 	}
+		
+	
 }
 void StoreLayer::price_get(float)
 {
@@ -228,12 +259,8 @@ void StoreLayer::price_get(float)
 }
 void StoreLayer::item1(cocos2d::Ref* pSender)
 {
-	int gold1 = getgold;
-	auto test = Label::createWithTTF("test", "fonts/Marker Felt.ttf", 30);
-	test->setPosition(900, 670);
-	this->addChild(test);
 	itemkey = 1;
-	price = gold1;
+	price = 50;
 }
 void StoreLayer::item2(cocos2d::Ref* pSender)
 {
@@ -270,10 +297,14 @@ void StoreLayer::item8(cocos2d::Ref* pSender)
 	itemkey = 8;
 	price = 600;
 }
-void StoreLayer::give_gold(int num)
-{
-	getgold = num;
-}
+//void StoreLayer::give_gold(int num)
+//{
+	//getgold = num;
+//}
+//void upload(float)
+//{
+	
+//}
 //void StoreLayer::gold_get(float)
 //{
 	//gold = getgold;

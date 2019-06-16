@@ -458,6 +458,17 @@ bool MapScene::init()
 	pGoldTTF->setPosition(1500, 900);
 	pGoldTTF->setName("gold");
 	this->addChild(pGoldTTF, 2);
+
+	purchase_key = 0;
+	bought1 = 0;
+	bought2 = 0;
+	bought3 = 0;
+	bought4 = 0;
+	bought5 = 0;
+	bought6 = 0;
+	bought7 = 0;
+	bought8 = 0;
+	
 	
 	level = 1;
 	schedule(schedule_selector(MapScene::level_get), 1.0f);
@@ -508,7 +519,7 @@ void MapScene::update(float)
 	layer->giveHealth(propertyget(1).HP);
 	layer->giveMaxHealth(propertyget(1).MHP);
 	layer->scheduleBlood();
-	storeLayer->give_gold(gold);
+	//storeLayer->give_gold(gold);
 }
 void MapScene::victory_judge(float)
 {
@@ -523,6 +534,69 @@ void MapScene::victory_judge(float)
 		auto defeat = Sprite::create("defeat.png");
 		defeat->setPosition(1300, 500);
 		this->addChild(defeat);
+	}
+}
+void MapScene::purchase(float)
+{
+	purchase_key = storeLayer->itemupdate;
+	storeLayer->getgold = gold;
+	int num = m_control->hero_choices["player_one"] * 100 + 10000;
+	UnitsSprite* player_1 = (UnitsSprite*)m_control->getChildByTag(num);
+	if (purchase_key == 1 && bought1 == 0)
+	{
+		gold -= 50;
+		player_1->addproperty(200, "HP");
+		purchase_key = 0;
+		bought1 = 1;
+	}
+	if (purchase_key == 2 && bought2 == 0)
+	{
+		gold -= 60;
+		player_1->addproperty(200, "MP");
+		purchase_key = 0;
+		bought2 = 1;
+	}
+	if (purchase_key == 3 && bought3 == 0)
+	{
+		gold -= 200;
+		player_1->addproperty(50, "STA");
+		purchase_key = 0;
+		bought3 = 1;
+	}
+	if (purchase_key == 4 && bought4 == 0)
+	{
+		gold -= 300;
+		player_1->addproperty(50, "DEF");
+		purchase_key = 0;
+		bought4 = 1;
+	}
+	if (purchase_key == 5  && bought5 == 0)
+	{
+		gold -= 400;
+		player_1->addproperty(50, "ATK");
+		purchase_key = 0;
+		bought5 = 1;
+	}
+	if (purchase_key == 6 && bought6 == 0)
+	{
+		gold -= 500;
+		player_1->addproperty(50, "ATKM");
+		purchase_key = 0;
+		bought6 = 1;
+	}
+	if (purchase_key == 7 && bought7 == 0)
+	{
+		gold -= 550;
+		player_1->addproperty(50, "RHP");
+		purchase_key = 0;
+		bought7 = 1;
+	}
+	if (purchase_key == 8 && bought8 == 0)
+	{
+		gold -= 600;
+		player_1->addproperty(50, "RMP");
+		purchase_key = 0;
+		bought8 = 1;
 	}
 }
 void MapScene::gold_get(float)
@@ -548,7 +622,7 @@ void MapScene::level_get(float)
 void MapScene::kda_get(float)
 {
 	int num1 = m_control->hero_choices["player_two"] * 100 + 20000;
-	UnitsSprite* player_2 = (UnitsSprite*)m_control->getChildByTag(20100);
+	UnitsSprite* player_2 = (UnitsSprite*)m_control->getChildByTag(num1);
 	int player2health = player_2->get().HP;
 	int num2 = m_control->hero_choices["player_one"] * 100 + 10000;
 	UnitsSprite* player_1 = (UnitsSprite*)m_control->getChildByTag(num2);
@@ -599,7 +673,7 @@ void MapScene::kda_get(float)
 }
 void MapScene::open_store(Ref* pSender)
 {
-	auto storeLayer = StoreLayer::create();
+	storeLayer = StoreLayer::create();
 	this->addChild(storeLayer);
 	storeLayer->setName("storeLayer");
 	auto closeStore = MenuItemImage::create(
@@ -611,13 +685,16 @@ void MapScene::open_store(Ref* pSender)
 	close->setPosition(Vec2::ZERO);
 	addChild(close, 5);
 	close->setName("close");
+	schedule(schedule_selector(MapScene::purchase), 1.0f);
 	//removeChild(open,1);
 }
 void MapScene::close_store(Ref* pSender)
 {
+	this->unschedule(schedule_selector(MapScene::purchase));
 	this->removeChildByName("storeLayer");
 	this->removeChildByName("close");
 	//this->removeChild(closeStore);
 	//close->setVisible(false);
 	//this->addChild(open,1);
 }
+
