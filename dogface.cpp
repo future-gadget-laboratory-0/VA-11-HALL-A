@@ -278,7 +278,7 @@ bool Spritedogface::init()
 	CaBody = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
 	CaBody->setRotationEnable(false);
 	CaBody->setCategoryBitmask(0x01);
-	CaBody->setCollisionBitmask(0x00000001);
+	CaBody->setCollisionBitmask(0x00000000);
 	CaBody->setContactTestBitmask(0x01);
 	this->setPhysicsBody(CaBody);
 
