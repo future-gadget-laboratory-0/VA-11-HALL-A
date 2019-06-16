@@ -159,16 +159,10 @@ bool StoreLayer::init()
 
 	price = 0;
 	schedule(schedule_selector(StoreLayer::price_get), 1.0f);
-	//auto pPriceTTF = Label::create(CCString::createWithFormat("PRICE:%i", price)->getCString(), "fonts/Marker Felt.ttf", 30);
-	//pPriceTTF->setPosition(1125, 350);
-	//pPriceTTF->setColor(ccc3(220,20,60));
-	//pPriceTTF->setName("PRICE");
-	//this->addChild(pPriceTTF, 2);
-
+	
 	return bl;
 }
 
-// Scene的入口，通过该函数进入Layer
 StoreLayer* StoreLayer::createLayer()
 {
 	auto storeLayer = StoreLayer::create();
@@ -186,7 +180,7 @@ void StoreLayer::buyit(cocos2d::Ref* pSender)
 			auto itemget1 = Sprite::create("equipment/Red_Potion.png");
 			itemget1->setPosition(1120, 700);
 			addChild(itemget1);
-			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
+			
 		}
 		if (itemkey == 2)
 		{
@@ -194,7 +188,7 @@ void StoreLayer::buyit(cocos2d::Ref* pSender)
 			auto itemget2 = Sprite::create("equipment/Blue_Potion.png");
 			itemget2->setPosition(1180, 700);
 			addChild(itemget2);
-			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
+		
 		}
 		if (itemkey == 3)
 		{
@@ -202,7 +196,7 @@ void StoreLayer::buyit(cocos2d::Ref* pSender)
 			auto itemget3 = Sprite::create("equipment/head.png");
 			itemget3->setPosition(1240, 700);
 			addChild(itemget3);
-			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
+			
 		}
 		if (itemkey == 4)
 		{
@@ -210,7 +204,7 @@ void StoreLayer::buyit(cocos2d::Ref* pSender)
 			auto itemget4 = Sprite::create("equipment/armour.png");
 			itemget4->setPosition(1300, 700);
 			addChild(itemget4);
-			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
+			
 		}
 		if (itemkey == 5)
 		{
@@ -218,7 +212,7 @@ void StoreLayer::buyit(cocos2d::Ref* pSender)
 			auto itemget5 = Sprite::create("equipment/Crossbow.png");
 			itemget5->setPosition(1120, 640);
 			addChild(itemget5);
-			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
+			
 		}
 		if (itemkey == 6)
 		{
@@ -226,7 +220,7 @@ void StoreLayer::buyit(cocos2d::Ref* pSender)
 			auto itemget6 = Sprite::create("equipment/knife.png");
 			itemget6->setPosition(1180, 640);
 			addChild(itemget6);
-			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
+			
 		}
 		if (itemkey == 7)
 		{
@@ -234,7 +228,7 @@ void StoreLayer::buyit(cocos2d::Ref* pSender)
 			auto itemget7 = Sprite::create("equipment/ring.png");
 			itemget7->setPosition(1240, 640);
 			addChild(itemget7);
-			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
+			
 		}
 		if (itemkey == 8)
 		{
@@ -242,7 +236,7 @@ void StoreLayer::buyit(cocos2d::Ref* pSender)
 			auto itemget8 = Sprite::create("equipment/stone.png");
 			itemget8->setPosition(1300, 640);
 			addChild(itemget8);
-			//scheduleOnce(schedule_selector(StoreLayer::upload), 1.0f);
+			
 		}
 	}
 		
@@ -297,20 +291,3 @@ void StoreLayer::item8(cocos2d::Ref* pSender)
 	itemkey = 8;
 	price = 600;
 }
-//void StoreLayer::give_gold(int num)
-//{
-	//getgold = num;
-//}
-//void upload(float)
-//{
-	
-//}
-//void StoreLayer::gold_get(float)
-//{
-	//gold = getgold;
-	//this->removeChildByName("gold");
-	//auto pGoldTTF = Label::create(CCString::createWithFormat("GOLD:%i", gold)->getCString(), "fonts/Marker Felt.ttf", 40);
-	//pGoldTTF->setName("gold");
-	//pGoldTTF->setPosition(1500, 900);
-	//this->addChild(pGoldTTF, 2);
-//}

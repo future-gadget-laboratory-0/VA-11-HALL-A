@@ -25,13 +25,15 @@
 
 #include "map_one.h"
 #include "SimpleAudioEngine.h"
-
-
+int ID1;
+int ID2;
 
 USING_NS_CC;
 
-Scene* MapScene::createScene()
+Scene* MapScene::createScene(int id1,int id2)
 {
+	ID1 = id1;
+	ID2 = id2;
     return MapScene::create();
 }
 
@@ -160,6 +162,7 @@ void MapScene::onMouseScroll(Event *event)
 
 void MapScene::scene_move(Vec2 loc)
 {
+//	_tileMap->setPosition(Vec2(-900, 0));
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	int range = mousemoverange;
@@ -276,7 +279,7 @@ bool MapScene::init()
 	Scene::initWithPhysics();
 	PhysicsWorld* world = getPhysicsWorld();
 	world->setGravity(Vec2(0, 0));
-	this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+//	this->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 /*	Sprite *edgeSp;
 	edgeSp = Sprite::create();//创建一个精灵
 	auto boundBody = PhysicsBody::createEdgeBox(visibleSize, PhysicsMaterial(0.0f, 1.0f, 0.0f), 3);//edgebox是不受刚体碰撞影响的一种刚体，我们用它来设置物理世界的边界
@@ -342,7 +345,7 @@ bool MapScene::init()
 	//mouse_sprite->setAnchorPoint(Point(0,-1.1));
 	//this->addChild(mouse_sprite,2);
 //	this->addChild(Catherine,1);
-	_tileMap->addChild(m_control, 2);
+	_tileMap->addChild(m_control, 3);
 
 	tower1->setPosition(1800, 500);
 	_tileMap->addChild(tower1, 1);
@@ -353,7 +356,8 @@ bool MapScene::init()
 	tower4->setPosition(500, 500);
 	_tileMap->addChild(tower4, 1);
 
-
+	m_control->chose_character(1, ID1);
+	m_control->chose_character(2, ID2);
 
 
 	auto CaBody = PhysicsBody::createBox(Size(700, 600), PHYSICSBODY_MATERIAL_DEFAULT);
@@ -361,11 +365,14 @@ bool MapScene::init()
 	CaBody->setCategoryBitmask(0x01);
 	CaBody->setCollisionBitmask(0x00000000);
 	CaBody->setContactTestBitmask(0x01);
+	//CaBody->setDynamic(false);
 	auto CbBody = PhysicsBody::createBox(Size(700, 600), PHYSICSBODY_MATERIAL_DEFAULT);
 	CbBody->setRotationEnable(false);
 	CbBody->setCategoryBitmask(0x01);
 	CbBody->setCollisionBitmask(0x00000000);
 	CbBody->setContactTestBitmask(0x01);
+	//CbBody->setDynamic(false);
+
 
 	tower1->setTexture("tower_blue.png");
 	tower2->setTexture("crystal_blue.png");
@@ -391,33 +398,36 @@ bool MapScene::init()
 
 	/**/
 	auto wall1 = Sprite::create("boundary.png");
-	auto Cc1Body = PhysicsBody::createBox(Size(2500, 100), PHYSICSBODY_MATERIAL_DEFAULT);
+	auto Cc1Body = PhysicsBody::createBox(Size(2500, 300), PHYSICSBODY_MATERIAL_DEFAULT);
 	Cc1Body->setRotationEnable(false);
 	Cc1Body->setCategoryBitmask(0x01);
 	Cc1Body->setCollisionBitmask(0x00000001);
 	Cc1Body->setContactTestBitmask(0x01);
+	Cc1Body->setDynamic(false);
 	wall1->setPhysicsBody(Cc1Body);
-	wall1->setPosition(Vec2(1200,250));
+	wall1->setPosition(Vec2(1200,150));
 	_tileMap->addChild(wall1, 1);
 
 	auto wall2 = Sprite::create("boundary.png");
-	auto Cc2Body = PhysicsBody::createBox(Size(2500, 100), PHYSICSBODY_MATERIAL_DEFAULT);
+	auto Cc2Body = PhysicsBody::createBox(Size(2500, 300), PHYSICSBODY_MATERIAL_DEFAULT);
 	Cc2Body->setRotationEnable(false);
 	Cc2Body->setCategoryBitmask(0x01);
 	Cc2Body->setCollisionBitmask(0x00000001);
 	Cc2Body->setContactTestBitmask(0x01);
+	Cc2Body->setDynamic(false);
 	wall2->setPhysicsBody(Cc2Body);
-	wall2->setPosition(Vec2(1920, 785));
+	wall2->setPosition(Vec2(1920, 955));
 	_tileMap->addChild(wall2, 1);
 
 	auto wall3 = Sprite::create("boundary.png");
-	auto Cc3Body = PhysicsBody::createBox(Size(1000, 100), PHYSICSBODY_MATERIAL_DEFAULT);
+	auto Cc3Body = PhysicsBody::createBox(Size(1000, 300), PHYSICSBODY_MATERIAL_DEFAULT);
 	Cc3Body->setRotationEnable(false);
 	Cc3Body->setCategoryBitmask(0x01);
 	Cc3Body->setCollisionBitmask(0x00000001);
 	Cc3Body->setContactTestBitmask(0x01);
+	Cc3Body->setDynamic(false);
 	wall3->setPhysicsBody(Cc3Body);
-	wall3->setPosition(Vec2(500, 885));
+	wall3->setPosition(Vec2(500, 1050));
 	_tileMap->addChild(wall3, 1);
 
 	auto wall4 = Sprite::create("boundary.png");
@@ -426,6 +436,7 @@ bool MapScene::init()
 	Cc4Body->setCategoryBitmask(0x01);
 	Cc4Body->setCollisionBitmask(0x00000001);
 	Cc4Body->setContactTestBitmask(0x01);
+	Cc4Body->setDynamic(false);
 	wall4->setPhysicsBody(Cc4Body);
 	wall4->setPosition(Vec2(2400, 50));
 	_tileMap->addChild(wall4, 1);
@@ -436,6 +447,7 @@ bool MapScene::init()
 	Cc5Body->setCategoryBitmask(0x01);
 	Cc5Body->setCollisionBitmask(0x00000001);
 	Cc5Body->setContactTestBitmask(0x01);
+	Cc5Body->setDynamic(false);
 	wall5->setPhysicsBody(Cc5Body);
 	wall5->setPosition(Vec2(620, 530));
 	_tileMap->addChild(wall5, 1);
@@ -446,9 +458,33 @@ bool MapScene::init()
 	Cc6Body->setCategoryBitmask(0x01);
 	Cc6Body->setCollisionBitmask(0x00000001);
 	Cc6Body->setContactTestBitmask(0x01);
+	Cc6Body->setDynamic(false);
 	wall6->setPhysicsBody(Cc6Body);
 	wall6->setPosition(Vec2(2300, 530));
 	_tileMap->addChild(wall6, 1);
+
+	auto wall7 = Sprite::create("boundary.png");
+	auto Cc7Body = PhysicsBody::createBox(Size(180, 180), PHYSICSBODY_MATERIAL_DEFAULT);
+	Cc7Body->setRotationEnable(false);
+	Cc7Body->setCategoryBitmask(0x01);
+	Cc7Body->setCollisionBitmask(0x00000001);
+	Cc7Body->setContactTestBitmask(0x01);
+	Cc7Body->setDynamic(false);
+	tower1->setPhysicsBody(Cc7Body);
+	//tower1->setPosition(Vec2(1800, 500));
+	//_tileMap->addChild(tower1, 1);
+
+	auto wall8 = Sprite::create("boundary.png");
+	auto Cc8Body = PhysicsBody::createBox(Size(180, 180), PHYSICSBODY_MATERIAL_DEFAULT);
+	Cc8Body->setRotationEnable(false);
+	Cc8Body->setCategoryBitmask(0x01);
+	Cc8Body->setCollisionBitmask(0x00000001);
+	Cc8Body->setContactTestBitmask(0x01);
+	Cc8Body->setDynamic(false);
+	tower3->setPhysicsBody(Cc8Body);
+	//tower3->setPosition(Vec2(1100, 500));
+	//_tileMap->addChild(tower3, 1);
+
 
 	schedule(schedule_selector(MapScene::victory_judge), 1.0f);
 
@@ -472,15 +508,19 @@ bool MapScene::init()
 	
 	level = 1;
 	schedule(schedule_selector(MapScene::level_get), 1.0f);
-	pLevelTTF = Label::create(CCString::createWithFormat("LEVEL:%i", level)->getCString(), "fonts/Marker Felt.ttf", 40);
-	pLevelTTF->setPosition(1500, 1000);
-	pLevelTTF->setName("LEVEL");
-	this->addChild(pLevelTTF, 2);
+	//pLevelTTF = Label::create(CCString::createWithFormat("LEVEL:%i", level)->getCString(), "fonts/Marker Felt.ttf", 40);
+	//pLevelTTF->setPosition(1500, 1000);
+	//pLevelTTF->setName("LEVEL");
+	//this->addChild(pLevelTTF, 2);
 
 	kills = 0;
 	deaths = 0;
 	player1_mia = 1;
 	player2_mia = 1;
+	doge1_mia = 1;
+	doge2_mia = 1;
+	doge3_mia = 1;
+	monster_mia = 1;
 	schedule(schedule_selector(MapScene::kda_get), 1.0f);
 	pKillsTTF = Label::create(CCString::createWithFormat("KILLS:%i", kills)->getCString(), "fonts/Marker Felt.ttf", 40);
 	pKillsTTF->setPosition(1000, 1000);
@@ -627,6 +667,19 @@ void MapScene::kda_get(float)
 	int num2 = m_control->hero_choices["player_one"] * 100 + 10000;
 	UnitsSprite* player_1 = (UnitsSprite*)m_control->getChildByTag(num2);
 	int player1health = player_1->get().HP;
+
+	UnitsSprite* mon1 = (UnitsSprite*)m_control->getChildByTag(10000020);
+	int mon1health = mon1->get().HP;
+
+	UnitsSprite* doge1 = (UnitsSprite*)m_control->getChildByTag(21000);
+	int dog1health = doge1->get().HP;
+
+	UnitsSprite* doge2 = (UnitsSprite*)m_control->getChildByTag(22000);
+	int dog2health = doge2->get().HP;
+
+	UnitsSprite* doge3 = (UnitsSprite*)m_control->getChildByTag(23000);
+	int dog3health = doge3->get().HP;
+
 	if (player2_mia == 1)
 	{
 		if (player2health <= 0)
@@ -642,6 +695,70 @@ void MapScene::kda_get(float)
 		if (player2health > 0)
 		{
 			player2_mia = 1;
+		}
+	}
+	if (doge1_mia == 1)
+	{
+		if (dog1health <= 0)
+		{
+			doge1_mia = 0;
+			gold += 20;
+			player_1->addproperty(50, "EXP");
+		}
+	}
+	if (doge1_mia == 0)
+	{
+		if (dog1health > 0)
+		{
+			doge1_mia = 1;
+		}
+	}
+	if (doge2_mia == 1)
+	{
+		if (dog2health <= 0)
+		{
+			doge2_mia = 0;
+			gold += 20;
+			player_1->addproperty(50, "EXP");
+		}
+	}
+	if (doge2_mia == 0)
+	{
+		if (dog2health > 0)
+		{
+			doge2_mia = 1;
+		}
+	}
+	if (doge3_mia == 1)
+	{
+		if (dog3health <= 0)
+		{
+			doge3_mia = 0;
+			gold += 20;
+			player_1->addproperty(50, "EXP");
+		}
+	}
+	if (doge3_mia == 0)
+	{
+		if (dog3health > 0)
+		{
+			doge3_mia = 1;
+		}
+	}
+	if (monster_mia == 1)
+	{
+		if (mon1health <= 0)
+		{
+			monster_mia = 0;
+			gold += 500;
+			player_1->addproperty(500, "EXP");
+		}
+	}
+	if (monster_mia == 0)
+	{
+		if (mon1health > 0)
+		{
+			monster_mia = 1;
 		}
 	}
 	this->removeChildByName("kills");
@@ -686,15 +803,11 @@ void MapScene::open_store(Ref* pSender)
 	addChild(close, 5);
 	close->setName("close");
 	schedule(schedule_selector(MapScene::purchase), 1.0f);
-	//removeChild(open,1);
 }
 void MapScene::close_store(Ref* pSender)
 {
 	this->unschedule(schedule_selector(MapScene::purchase));
 	this->removeChildByName("storeLayer");
 	this->removeChildByName("close");
-	//this->removeChild(closeStore);
-	//close->setVisible(false);
-	//this->addChild(open,1);
 }
 

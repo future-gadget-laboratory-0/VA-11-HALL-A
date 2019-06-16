@@ -18,22 +18,20 @@ public:
 	void item7(cocos2d::Ref* pSender);
 	void item8(cocos2d::Ref* pSender);
 	void buyit(cocos2d::Ref* pSender);
-	//void give_gold(int num);
+
 	int price;
 	int itemkey;
 	int itemupdate = 0;
-	//void upload(float);
-	//int gold;
-	//void gold_get(float);
+	
 	virtual bool init();
 	void price_get(float); 
 	int getgold;
-	//Label* pPriceTTF;
+	
 	CREATE_FUNC(StoreLayer);
    
 	static StoreLayer* createLayer();
-private:
-	//Label* pGoldTTF;
+
+	
 	
     
 };

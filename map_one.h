@@ -35,7 +35,7 @@
 class MapScene : public cocos2d::Scene
 {
 public:
-	static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene(int id1,int id2);
 
 	virtual bool init();
 	/*void onKeyPressed(EventKeyboard::KeyCode, Event*);
@@ -74,6 +74,10 @@ public:
 	int deaths;
 	int player1_mia;
 	int player2_mia;
+	int doge1_mia;
+	int doge2_mia;
+	int doge3_mia;
+	int monster_mia;
 //	StoreLayer* storeLayer = NULL;
 	void open_store(cocos2d::Ref* pSender);
 	void close_store(cocos2d::Ref* pSender);
