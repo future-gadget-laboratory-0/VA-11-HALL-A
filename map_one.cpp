@@ -480,17 +480,27 @@ bool MapScene::init()
 	pDeathsTTF->setName("deaths");
 	this->addChild(pDeathsTTF, 2);
 
+	auto openStore = MenuItemImage::create(
+		"store.png",
+		"store1.png",
+		CC_CALLBACK_1(MapScene::open_store, this));
+	openStore->setPosition(Vec2(100, 100));
+	auto open = Menu::create(openStore, NULL);
+	open->setPosition(Vec2::ZERO);
+	this->addChild(open);
+
+
 	layer->init();
 	this->addChild(layer);
+	//auto storeLayer = StoreLayer::create();
+	//this->addChild(storeLayer);
 	this->schedule(schedule_selector(MapScene::update), 0.01f, kRepeatForever, 0);
 	return true;
 }
-
-
 void MapScene::menuCloseCallback(Ref* pSender)
 {
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
+	//Close the cocos2d-x game scene and quit the application
+	Director::getInstance()->end();
 
 }
 void MapScene::update(float)
@@ -498,6 +508,7 @@ void MapScene::update(float)
 	layer->giveHealth(propertyget(1).HP);
 	layer->giveMaxHealth(propertyget(1).MHP);
 	layer->scheduleBlood();
+	storeLayer->give_gold(gold);
 }
 void MapScene::victory_judge(float)
 {
@@ -505,7 +516,7 @@ void MapScene::victory_judge(float)
 	int red_chealth = tower4->get().HP;
 	if (blue_chealth <= 0) {
 		auto victory = Sprite::create("victory.png");
-		victory->setPosition(1300,500);
+		victory->setPosition(1300, 500);
 		this->addChild(victory);
 	}
 	if (red_chealth <= 0) {
@@ -518,7 +529,7 @@ void MapScene::gold_get(float)
 {
 	gold++;
 	this->removeChildByName("gold");
-    pGoldTTF = Label::create(CCString::createWithFormat("GOLD:%i", gold)->getCString(), "fonts/Marker Felt.ttf", 40);
+	pGoldTTF = Label::create(CCString::createWithFormat("GOLD:%i", gold)->getCString(), "fonts/Marker Felt.ttf", 40);
 	pGoldTTF->setName("gold");
 	pGoldTTF->setPosition(1500, 900);
 	this->addChild(pGoldTTF, 2);
@@ -536,9 +547,9 @@ void MapScene::level_get(float)
 }
 void MapScene::kda_get(float)
 {
-	int num1 = m_control->hero_choices["player_two"]*100+20000;
-	UnitsSprite* player_2=(UnitsSprite*)m_control->getChildByTag(20100);  
-    int player2health = player_2->get().HP;
+	int num1 = m_control->hero_choices["player_two"] * 100 + 20000;
+	UnitsSprite* player_2 = (UnitsSprite*)m_control->getChildByTag(20100);
+	int player2health = player_2->get().HP;
 	int num2 = m_control->hero_choices["player_one"] * 100 + 10000;
 	UnitsSprite* player_1 = (UnitsSprite*)m_control->getChildByTag(num2);
 	int player1health = player_1->get().HP;
@@ -546,10 +557,10 @@ void MapScene::kda_get(float)
 	{
 		if (player2health <= 0)
 		{
-				player2_mia = 0;
-				gold += 200;
-				kills++;
-				player_1->addproperty(500, "EXP");
+			player2_mia = 0;
+			gold += 200;
+			kills++;
+			player_1->addproperty(500, "EXP");
 		}
 	}
 	if (player2_mia == 0)
@@ -564,7 +575,7 @@ void MapScene::kda_get(float)
 	pKillsTTF->setName("kills");
 	pKillsTTF->setPosition(1000, 1000);
 	this->addChild(pKillsTTF, 2);
-	
+
 	if (player1_mia == 1)
 	{
 		if (player1health <= 0)
@@ -585,4 +596,28 @@ void MapScene::kda_get(float)
 	pDeathsTTF->setName("deaths");
 	pDeathsTTF->setPosition(1200, 1000);
 	this->addChild(pDeathsTTF, 2);
+}
+void MapScene::open_store(Ref* pSender)
+{
+	auto storeLayer = StoreLayer::create();
+	this->addChild(storeLayer);
+	storeLayer->setName("storeLayer");
+	auto closeStore = MenuItemImage::create(
+		"close1.png",
+		"close1.png",
+		CC_CALLBACK_1(MapScene::close_store, this));
+	closeStore->setPosition(Vec2(1350, 850));
+	auto close = Menu::create(closeStore, NULL);
+	close->setPosition(Vec2::ZERO);
+	addChild(close, 5);
+	close->setName("close");
+	//removeChild(open,1);
+}
+void MapScene::close_store(Ref* pSender)
+{
+	this->removeChildByName("storeLayer");
+	this->removeChildByName("close");
+	//this->removeChild(closeStore);
+	//close->setVisible(false);
+	//this->addChild(open,1);
 }

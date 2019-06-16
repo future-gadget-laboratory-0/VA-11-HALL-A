@@ -1,18 +1,18 @@
 /****************************************************************************
  Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
- 
+
  http://www.cocos2d-x.org
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in
  all copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,32 +26,33 @@
 #define __MAP_ONE_H__
 
 #include "cocos2d.h"
-//#include "hero_Catherine.h"
+ //#include "hero_Catherine.h"
 #include "controller.h"
 #include "tower.h""
 #include "UI.h"
+#include "storeLayer.h"
 
 class MapScene : public cocos2d::Scene
 {
 public:
-    static cocos2d::Scene* createScene();
+	static cocos2d::Scene* createScene();
 
-    virtual bool init();
+	virtual bool init();
 	/*void onKeyPressed(EventKeyboard::KeyCode, Event*);
 	void onKeyReleased(EventKeyboard::KeyCode, Event*);*/
 	void onMouseDown(Event *event);
 	void onMouseUp(Event *event);
 	void onMouseMove(Event *event);
 	void onMouseScroll(Event *event);
-/*	bool onTouchBegan(Touch* touch, Event* event);
-	void onTouchMoved(Touch* touch, Event* event);
-	void onTouchEnded(Touch* touch, Event* event);
-	*/
-    // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
+	/*	bool onTouchBegan(Touch* touch, Event* event);
+		void onTouchMoved(Touch* touch, Event* event);
+		void onTouchEnded(Touch* touch, Event* event);
+		*/
+		// a selector callback
+	void menuCloseCallback(cocos2d::Ref* pSender);
 	actor_property propertyget(int);
-    // implement the "static create()" method manually
-	Vec2 map_skewing=Vec2(0,0);
+	// implement the "static create()" method manually
+	Vec2 map_skewing = Vec2(0, 0);
 	void update(float);
 	void victory_judge(float);
 	void gold_get(float);
@@ -63,8 +64,10 @@ public:
 	int deaths;
 	int player1_mia;
 	int player2_mia;
+	void open_store(cocos2d::Ref* pSender);
+	void close_store(cocos2d::Ref* pSender);
 	m_controller* m_control = m_controller::create();
-    CREATE_FUNC(MapScene);
+	CREATE_FUNC(MapScene);
 private:
 	Spritetower* tower1 = Spritetower::getInstance();
 	Spritetower* tower2 = Spritetower::getInstance();
@@ -73,10 +76,14 @@ private:
 	TMXTiledMap* _tileMap;
 	void scene_move(Vec2);
 	UI* layer = UI::createLayer();
+	StoreLayer* storeLayer = StoreLayer::createLayer();
 	Label* pGoldTTF;
 	Label* pKillsTTF;
 	Label* pDeathsTTF;
 	Label* pLevelTTF;
+	Menu* close;
+	Menu* open;
+	MenuItemImage* closeStore;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
