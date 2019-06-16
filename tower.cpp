@@ -265,7 +265,7 @@ bool Spritetower::init()
 	//CaBody->setContactTestBitmask(0xFFFFFFFF);
 	CaBody->setRotationEnable(false);
 	CaBody->setCategoryBitmask(0x01);
-	CaBody->setCollisionBitmask(0x00000000);
+	CaBody->setCollisionBitmask(0x00000001);
 	CaBody->setContactTestBitmask(0x01);
 	this->setPhysicsBody(CaBody);
 

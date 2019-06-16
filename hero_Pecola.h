@@ -50,7 +50,7 @@ public:
 private:
 	SpritePecola();
 	//void unchoose (float);
-	bool swifted = true;
+	bool swifted = false;
 	void swift_judge(float);
 	void special_attack(float);
 	int special_times = 0;
