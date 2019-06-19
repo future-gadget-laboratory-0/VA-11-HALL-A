@@ -306,9 +306,9 @@ void Spritedogface::setkind(int kind)
 		this->setTag(kind*1000+18000);
 	if (kind == 0)
 	{
-		this->setPosition(Vec2(320, 320));
-		pos = Vec2(320, 320);
-		old_pos = Vec2(320, 320);
+		this->setPosition(Vec2(400, 400));
+		pos = Vec2(400, 400);
+		old_pos = Vec2(400, 400);
 		this->addproperty(50, "HP");
 		this->addproperty(50, "MHP");
 		this->addproperty(-10, "ATK");
@@ -320,9 +320,9 @@ void Spritedogface::setkind(int kind)
 		
 	else if(kind == 1)
 	{
-		this->setPosition(Vec2(350, 320));
-		pos = Vec2(350, 320);
-		old_pos = Vec2(350, 320);
+		this->setPosition(Vec2(300, 400));
+		pos = Vec2(300, 400);
+		old_pos = Vec2(300, 400);
 		this->addproperty(-50, "HP");
 		this->addproperty(-50, "MHP");
 		this->addproperty(10, "ATKM");
@@ -332,9 +332,9 @@ void Spritedogface::setkind(int kind)
 	}
 	else if (kind == 2)
 	{
-		this->setPosition(Vec2(400, 320));
-		pos = Vec2(400, 320);
-		old_pos = Vec2(400, 320);
+		this->setPosition(Vec2(200, 400));
+		pos = Vec2(200, 400);
+		old_pos = Vec2(200, 400);
 		this->addproperty(100, "HP");
 		this->addproperty(100, "MHP");
 		this->addproperty(10, "ATK");
@@ -346,9 +346,9 @@ void Spritedogface::setkind(int kind)
 	}
 	else if (kind == 3)
 	{
-		this->setPosition(Vec2(2500, 150));
-		pos = Vec2(2500, 150);
-		old_pos = Vec2(2500, 150);
+		this->setPosition(Vec2(2500, 400));
+		pos = Vec2(2500, 400);
+		old_pos = Vec2(2500, 400);
 		this->addproperty(50, "HP");
 		this->addproperty(50, "MHP");
 		this->addproperty(-10, "ATK");
@@ -359,9 +359,9 @@ void Spritedogface::setkind(int kind)
 	}
 	else if (kind == 4)
 	{
-		this->setPosition(Vec2(2500, 180));
-		pos = Vec2(2500, 180);
-		old_pos = Vec2(2500, 180);
+		this->setPosition(Vec2(2600, 400));
+		pos = Vec2(2600, 400);
+		old_pos = Vec2(2600, 400);
 		this->addproperty(-50, "HP");
 		this->addproperty(-50, "MHP");
 		this->addproperty(10, "ATKM");
@@ -371,9 +371,9 @@ void Spritedogface::setkind(int kind)
 	}
 	else if (kind == 5)
 	{
-		this->setPosition(Vec2(2500, 250));
-		pos = Vec2(2500, 250);
-		old_pos = Vec2(2500, 250);
+		this->setPosition(Vec2(2800, 400));
+		pos = Vec2(2800, 400);
+		old_pos = Vec2(2800, 400);
 		this->addproperty(100, "HP");
 		this->addproperty(100, "MHP");
 		this->addproperty(-10, "ATK");
@@ -629,9 +629,9 @@ void Spritedogface::revive(float time)
 		{
 			movable = false;
 		}
-		this->setPosition(Vec2(320, 320));
-		pos = Vec2(320, 320);
-		old_pos = Vec2(320, 320);
+		this->setPosition(Vec2(400, 400));
+		pos = Vec2(400, 400);
+		old_pos = Vec2(400, 400);
 		this->setTexture("dogface0_0.png");
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation("dogface0"));
 		this->runAction(RepeatForever::create(animate));
@@ -642,9 +642,9 @@ void Spritedogface::revive(float time)
 		{
 			movable = false;
 		}
-		this->setPosition(Vec2(350, 320));
-		pos = Vec2(350, 320);
-		old_pos = Vec2(350, 320); 
+		this->setPosition(Vec2(300, 400));
+		pos = Vec2(300, 400);
+		old_pos = Vec2(300, 400);
 		this->setTexture("dogface1_0.png");
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation("dogface1"));
 		this->runAction(RepeatForever::create(animate));
@@ -655,9 +655,9 @@ void Spritedogface::revive(float time)
 			dogface1->movable = true;
 			dogface2->movable = true;
 		}
-		this->setPosition(Vec2(400, 150));
-		pos = Vec2(400, 320);
-		old_pos = Vec2(400, 320);
+		this->setPosition(Vec2(200, 400));
+		pos = Vec2(200, 400);
+		old_pos = Vec2(200, 400);
 		this->setTexture("dogface2_0.png");
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation("dogface2"));
 		this->runAction(RepeatForever::create(animate));
@@ -669,9 +669,9 @@ void Spritedogface::revive(float time)
 		{
 			movable = false;
 		}
-		this->setPosition(Vec2(2500, 150));
-		pos = Vec2(2500, 150);
-		old_pos = Vec2(2500, 150);
+		this->setPosition(Vec2(2500, 400));
+		pos = Vec2(2500, 400);
+		old_pos = Vec2(2500, 400);
 		this->setTexture("dogface3_0.png");
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation("dogface3"));
 		this->runAction(RepeatForever::create(animate));
@@ -682,9 +682,9 @@ void Spritedogface::revive(float time)
 		{
 			movable = false;
 		}
-		this->setPosition(Vec2(2500, 180));
-		pos = Vec2(2500, 180);
-		old_pos = Vec2(2500, 180);
+		this->setPosition(Vec2(2600, 400));
+		pos = Vec2(2600, 400);
+		old_pos = Vec2(2600, 400);
 		this->setTexture("dogface4_0.png");
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation("dogface4"));
 		this->runAction(RepeatForever::create(animate));
@@ -696,9 +696,9 @@ void Spritedogface::revive(float time)
 			dogface4->movable = true;
 			dogface5->movable = true;
 		}
-		this->setPosition(Vec2(2500, 250));
-		pos = Vec2(2500, 250);
-		old_pos = Vec2(2500, 250);
+		this->setPosition(Vec2(2800, 400));
+		pos = Vec2(2800, 400);
+		old_pos = Vec2(2800, 400);
 		this->setTexture("dogface5_0.png");
 		animate = Animate::create(AnimationCache::getInstance()->getAnimation("dogface5"));
 		this->runAction(RepeatForever::create(animate));

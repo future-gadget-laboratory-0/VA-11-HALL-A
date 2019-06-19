@@ -48,6 +48,7 @@ public:
 	void self_strengthen(int, int, __String, int, __String);
 	void self_strengthen(int, int, __String, int, __String, int, __String);
 	void self_strengthen(int, int, __String, int, __String, int, __String, int, __String);
+	int skill_check();
 private:
 	//构造函数私有，这样就不可以随便声明这个类的对象了
 	SpriteNighttide();

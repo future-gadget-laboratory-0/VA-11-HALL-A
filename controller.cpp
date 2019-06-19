@@ -7,21 +7,18 @@ USING_NS_CC;
 void m_controller::chose_character(int player,int character)
 {
 	int tag = player*10000+character*100;
-	//int condition = static_cast<int>(Player::one);
 
 		if (player==1)
 		{
 			player1_tag = tag;
 			if (character == 1)
 			{
-				//SpriteCatherine* Playerone = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
 				SpriteCatherine* Playerone = SpriteCatherine::getInstance();
 				Playerone->setPosition(Vec2(300, 300));
 				Playerone->pos = Vec2(300, 300);
 				Playerone->setTag(tag);
 				hero_choices["player_one"] = 1;
-				this->addChild(Playerone);
-				//return Playerone;
+				this->addChild(Playerone,3);
 			}
 			else if (character == 2)
 			{
@@ -30,8 +27,7 @@ void m_controller::chose_character(int player,int character)
 				Playerone->pos = Vec2(300, 300);
 				Playerone->setTag(tag);
 				hero_choices["player_one"] = 2;
-				this->addChild(Playerone);
-				//return Playerone;
+				this->addChild(Playerone, 3);
 			}
 			else if (character == 3)
 			{
@@ -40,7 +36,7 @@ void m_controller::chose_character(int player,int character)
 				Playerone->pos = Vec2(300, 300);
 				Playerone->setTag(tag);
 				hero_choices["player_one"] = 3;
-				this->addChild(Playerone);
+				this->addChild(Playerone, 3);
 			}
 			else if (character == 4)
 			{
@@ -49,7 +45,7 @@ void m_controller::chose_character(int player,int character)
 				Playerone->pos = Vec2(300, 300);
 				Playerone->setTag(tag);
 				hero_choices["player_one"] = 4;
-				this->addChild(Playerone);
+				this->addChild(Playerone, 3);
 			}
 			else
 				return;
@@ -60,51 +56,45 @@ void m_controller::chose_character(int player,int character)
 			player2_tag = tag;
 			if (character == 1)
 			{
-				//SpriteCatherine* Playertwo = SpriteCatherine::createWithSpriteFrameName("snow10_0.png");
 				SpriteCatherine* Playertwo = SpriteCatherine::getInstance();
-				Playertwo->setPosition(Vec2(2500, 150));
-				Playertwo->pos = Vec2(2500, 150);
+				Playertwo->setPosition(Vec2(2500, 400));
+				Playertwo->pos = Vec2(2500, 400);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 1;
-				this->addChild(Playertwo);
-				//return Playertwo;
+				this->addChild(Playertwo, 3);
 			}
 			else if (character == 2)
 			{
-				//SpriteCatherine* Playertwo = SpriteCatherine::createWithSpriteFrameName("snow20_0.png");
 				SpriteNighttide* Playertwo = SpriteNighttide::getInstance();
-				Playertwo->setPosition(Vec2(2500, 150));
-				Playertwo->pos = Vec2(2500, 150);
+				Playertwo->setPosition(Vec2(2500, 400));
+				Playertwo->pos = Vec2(2500, 400);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 2;
-				this->addChild(Playertwo);
-				//return Playertwo;
+				this->addChild(Playertwo, 3);
 			}
 			else if (character == 3)
 			{
 				SpriteRaider* Playertwo = SpriteRaider::getInstance();
-				Playertwo->setPosition(Vec2(2500, 150));
-				Playertwo->pos = Vec2(2500, 150);
+				Playertwo->setPosition(Vec2(2500, 400));
+				Playertwo->pos = Vec2(2500, 400);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 3;
-				this->addChild(Playertwo);
+				this->addChild(Playertwo, 3);
 			}
 			else if (character == 4)
 			{
 				SpritePecola* Playertwo = SpritePecola::getInstance();
-				Playertwo->setPosition(Vec2(2500, 150));
-				Playertwo->pos = Vec2(2500, 150);
+				Playertwo->setPosition(Vec2(2500, 400));
+				Playertwo->pos = Vec2(2500, 400);
 				Playertwo->setTag(tag);
 				hero_choices["player_two"] = 4;
-				this->addChild(Playertwo);
+				this->addChild(Playertwo, 3);
 			}
 			else
 				return;
 		}
 }
 
-
-// Implementation of the keyboard event callback function prototype
 void m_controller::reexecute(float)
 {
 	sptime = 0;
@@ -113,43 +103,13 @@ void m_controller::reexecute(float)
 
 bool m_controller::PreventRepeated()
 {
-//	float spt = Catherine->isexecute(-1);
-	/*
-	 if(sptime == 0)
-	 {
-		 float spt= Catherine->isexecute(-1);
-		 if (spt == 1)
-		 {
-			 float interval = Castinterval;
-			 sptime=1;
-			 Catherine->schedule(schedule_selector(m_controller::reexecute), interval, 1, 0);
-			 return false;
-		 }
-		 else if(spt!=0)
-		 {
-			 sptime = 1;
-			 Catherine->scheduleOnce(schedule_selector(m_controller::reexecute), spt);
-			 return false;
-		 } 
-		 else
-			 return true;
-	 }
-	 else if (sptime == 1)
-	 {
-		 return false;
-	 }*/
 	return true;
 }
 
 
 void m_controller::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	//Catherine->stop_rb();
-	//Catherine->move_rb();
-	//this->addChild(Catherine);
-	//Catherine->setPosition(Point(Vec2(100, 200)));
-//	if(player1_tag==10100)
-//		auto m_sprite = this->getChildByTag(player1_tag);
+
 	int choice_one = hero_choices["player_one"];
 	if (choice_one == 1)
 	{
@@ -270,19 +230,19 @@ void m_controller::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 		return;
 	if (keyCode == EventKeyboard::KeyCode::KEY_Q)
 	{
-		//Catherine->stop_rb();
+
 	}
 	else if (keyCode == EventKeyboard::KeyCode::KEY_W)
 	{
-		//Catherine->stop_lb();
+
 	}
 	else if (keyCode == EventKeyboard::KeyCode::KEY_E)
 	{
-		//Catherine->stop_lf();
+
 	}
 	else if (keyCode == EventKeyboard::KeyCode::KEY_R)
 	{
-		//Catherine->stop_rf();
+
 	}
 
 }
@@ -318,13 +278,10 @@ bool m_controller::onTouchBegan(Touch* touch, Event* event)
 }
 void m_controller::onTouchMoved(Touch* touch, Event* event)
 {
-	//Catherine->move();
-//	Catherine->pos = touch->getLocation();
+
 }
 void m_controller::onTouchEnded(Touch* touch, Event* event)
 {
-	//Catherine->pos = touch->getLocation();
-//	Catherine->pos = touch->getLocation();
 
 }
 
@@ -333,9 +290,7 @@ void m_controller::onTouchEnded(Touch* touch, Event* event)
 
 void m_controller::onMouseDown(Event *event)
 {
-//	if (!PreventRepeated())
-//		return;
-	// to illustrate the event....
+
 	EventMouse* e = (EventMouse*)event;
 	int choice_one = hero_choices["player_one"];
 	if (choice_one == 1)
@@ -405,9 +360,7 @@ void m_controller::onMouseScroll(Event *event)
 {
 
 	EventMouse* e = (EventMouse*)event;
-	//string str = "Mouse Scroll detected, X: ";
-	//str = str + tostr(e->getScrollX()) + " Y: " + tostr(e->getScrollY());
-//	Catherine->pos = e->getLocation();
+
 }
 
 
@@ -448,10 +401,9 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			}
 			int dam = bodyB->receivetotaldamage(bodyA->get(), 0, 0, 0,0);
 			bodyB->changeproperty(Hp-dam,"HP");
-			if (/* tagB == m_lockTag&&*/ Hp <=dam)
+			if (Hp <=dam)
 				mouse_sprite->setTexture("mouse.png");
 			bodyA->removeFromParentAndCleanup(true);
-		//bodyA->setVisible(true);
 		}
 	}
 	if (tagA == 100002 &&(tagB != 10100 || tagB != 10200 || tagB != 10300 || tagB != 10400 || tagB != 11000 || tagB != 12000 || tagB != 13000))
@@ -468,10 +420,8 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			
 			dam=dam /5;
 			bodyB->temporary_property(10, -dam, "RHP");
-		//	bodyB->addproperty(- dam, "HP");
 			if (m_lockTag == m_lockTag_now &&Hp <= dam)
 				mouse_sprite->setTexture("mouse.png");
-			//bodyA->removeFromParentAndCleanup(true);
 		}
 	}
 	if (tagA == 100101 && (tagB != 20100 || tagB != 20200 || tagB != 20300 || tagB != 20400 || tagB != 21000 || tagB != 22000 || tagB != 23000))
@@ -486,10 +436,9 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			}
 			int dam = bodyB->receivetotaldamage(bodyA->get(), 0, 0, 0, 0);
 			bodyB->changeproperty(Hp - dam, "HP");
-			if (/* tagB == m_lockTag&&*/ Hp <= dam)
+			if (Hp <= dam)
 				mouse_sprite->setTexture("mouse.png");
 			bodyA->removeFromParentAndCleanup(true);
-			//bodyA->setVisible(true);
 		}
 	}
 	if (tagA == 100102 && (tagB != 20100 || tagB != 20200 || tagB != 20300 || tagB != 20400 || tagB != 21000 || tagB != 22000 || tagB != 23000))
@@ -506,23 +455,10 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 
 			dam = dam / 5;
 			bodyB->temporary_property(10, -dam, "RHP");
-			//	bodyB->addproperty(- dam, "HP");
 			if (m_lockTag == m_lockTag_now && Hp <= dam)
 				mouse_sprite->setTexture("mouse.png");
-			//bodyA->removeFromParentAndCleanup(true);
 		}
 	}
-/*
-	if (tagA == 100001&& (tagB == 20100 || tagB == 20200))
-	{
-	//	bodyB->removeFromParentAndCleanup(true);
-		//bodyB->removeFromParent();
-		bodyB->get().HP - 700;
-			if(tagB== m_lockTag && bodyB->get().HP <= 0)
-				mouse_sprite->setTexture("mouse.png");
-		bodyA->setVisible(true);
-		
-	}*/
 
 
 	if (tagB == 100001&& (tagA == 20100 || tagA == 20200 || tagA == 20300 || tagA == 20400 || tagA == 10000007 || tagA == 10000013 || tagA == 100  || tagA == 21000 || tagA == 22000 || tagA == 23000 || tagA == 10000020))
@@ -532,10 +468,10 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		{
 			mouse_sprite->setTexture("mouse.png");
 			return false;
-		}	//CCLOG("%d", bodyA->get().ATK);
+		}
 		int dam = bodyA->receivetotaldamage(bodyB->get(),0,0,0, 0);
 		bodyA->changeproperty(Hp - dam, "HP");
-		if (/* tagB == m_lockTag&&*/ Hp <= dam)
+		if ( Hp <= dam)
 			mouse_sprite->setTexture("mouse.png");
 		bodyB->removeFromParentAndCleanup(true);
 	}
@@ -546,13 +482,12 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		{
 			mouse_sprite->setTexture("mouse.png");
 			return false;
-		}	//CCLOG("%d", bodyA->get().ATK);
+		}
 		int dam = bodyA->receivetotaldamage(bodyB->get(), 0, 0, 0, 0);
 		dam = dam / 5;
 		bodyA->temporary_property(10, -dam, "RHP");
 		if (m_lockTag == m_lockTag_now && Hp <= dam)
 			mouse_sprite->setTexture("mouse.png");
-	//	bodyB->removeFromParentAndCleanup(true);
 	}
 	if (tagB == 100101 && (tagA == 10100 || tagA == 10200 || tagA == 10300 || tagA == 10400 || tagA == 10000000 || tagA == 10000012 || tagA == 100 || tagA == 11000 || tagA == 12000 || tagA == 13000 || tagA == 10000020))
 	{
@@ -561,10 +496,10 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		{
 			mouse_sprite->setTexture("mouse.png");
 			return false;
-		}	//CCLOG("%d", bodyA->get().ATK);
+		}
 		int dam = bodyA->receivetotaldamage(bodyB->get(), 0, 0, 0, 0);
 		bodyA->changeproperty(Hp - dam, "HP");
-		if (/* tagB == m_lockTag&&*/ Hp <= dam)
+		if ( Hp <= dam)
 			mouse_sprite->setTexture("mouse.png");
 		bodyB->removeFromParentAndCleanup(true);
 	}
@@ -575,39 +510,14 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 		{
 			mouse_sprite->setTexture("mouse.png");
 			return false;
-		}	//CCLOG("%d", bodyA->get().ATK);
+		}	
 		int dam = bodyA->receivetotaldamage(bodyB->get(), 0, 0, 0, 0);
 		dam = dam / 5;
 		bodyA->temporary_property(10, -dam, "RHP");
 		if (m_lockTag == m_lockTag_now && Hp <= dam)
 			mouse_sprite->setTexture("mouse.png");
-		//	bodyB->removeFromParentAndCleanup(true);
 	}
-	/*
-	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200|| tagB == 10000007 || tagB == 10000013))
-	{
-		if (bodyB->get().HP > 0)
-		{
-			m_lockTag = tagB;
-			Catherine->target = (UnitsSprite*)getChildByTag(m_lockTag);
-			m_lockTag_now = m_lockTag;
-			mouse_sprite->setTexture("mouse_attack.png");
-			if(tagB== 10000007 || tagB == 10000013)
-				Catherine->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
-		}
-	}
-	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200|| tagA == 10000007 || tagA == 10000013))
-	{
-		if (bodyA->get().HP > 0)
-		{
-			m_lockTag = tagA;
-			mouse_sprite->setTexture("mouse_attack.png");
-			m_lockTag_now = m_lockTag;
-			Catherine->target = (UnitsSprite*)getChildByTag(m_lockTag);
-			if (tagA == 10000007 || tagA == 10000013)
-				Catherine->target = (UnitsSprite*)this->getParent()->getChildByTag(m_lockTag);
-		}
-	}*/
+
 	if (hero_choices["player_one"] == 1)
 	{
 		SpriteCatherine* player_one = (SpriteCatherine*)this->getChildByTag(player1_tag);
@@ -720,34 +630,9 @@ bool m_controller::onContactBegin (PhysicsContact& contact)
 			}
 		}
 	}
-
-
-
-
-
-	//CCLOG("%d", bodyA->getPosition().x);
-	//CCLOG("%d", bodyB->getPosition().x);
 	return true;
 }
-/*
-bool m_controller::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve)
-{
-	auto bodyA = (UnitsSprite*)(contact.getShapeA()->getBody()->getNode());
-	auto bodyB = (UnitsSprite*)(contact.getShapeB()->getBody()->getNode());
-	int tagA = bodyA->getTag();
-	int tagB = bodyB->getTag();
-	if (tagA == 1000000 && (tagB == 20100 || tagB == 20200))
-	{
-		if(bodyB->get().HP<=0)
-			mouse_sprite->setTexture("mouse.png");
-	}
-	if (tagB == 1000000 && (tagA == 20100 || tagA == 20200))
-	{
-		if (bodyA->get().HP <= 0)
-			mouse_sprite->setTexture("mouse.png");
-	}
-	return true;
-}*/
+
 void m_controller::m_ai(float)
 {
 	if (BT_DES == false)
@@ -775,11 +660,20 @@ void m_controller::m_ai(float)
 			RC_DES = true;
 	}
 
+	if (BT_DES == true)
+	{
+		UnitsSprite* BCS = (UnitsSprite*)this->getParent()->getChildByTag(10000013);
+		BCS->changeproperty(0,"RHP");
+	}
+	if (RT_DES == true)
+	{
+		UnitsSprite* RCS = (UnitsSprite*)this->getParent()->getChildByTag(10000013);
+		RCS->changeproperty(0,"RHP");
+	}
+
+
 	SpriteCatherine* player_one = (SpriteCatherine*)this->getChildByTag(player1_tag);
 	SpriteCatherine* player_two_ca = (SpriteCatherine*)this->getChildByTag(player2_tag);
-	//SpriteNighttide* player_two_nt = (SpriteNighttide*)this->getChildByTag(player2_tag);
-	//SpriteRaider* player_two_ra = (SpriteRaider*)this->getChildByTag(player2_tag);
-	//SpritePecola* player_two_pe= (SpritePecola*)this->getChildByTag(player2_tag);
 	Vec2 range = player_one->old_pos - player_two_ca->old_pos;
 
 	if (player2_AI)
@@ -789,6 +683,8 @@ void m_controller::m_ai(float)
 			if (inattackrange(range, player_two_ca->get().ATR))
 			{
 				player_two_ca->target = (UnitsSprite*)player_one;
+			//	if (player_two_ca->skill_check() == 4)
+			//		player_two_ca->skillth(player_two_ca->target);
 				if (!RT_DES)
 				{
 					if (player_one->get().HP <= player_two_ca->get().ATK*1.5 || player_one->get().HP <= player_two_ca->get().ATKM * 1 || player_one->get().HP <= player_two_ca->get().ATKS * 1 && ai_safe())
@@ -998,67 +894,6 @@ void m_controller::m_ai(float)
 		}
 
 	}
-
-	/*
-	Spritetower*  tower_red= (Spritetower*)this->getParent()->getChildByTag(10000007);
-	Spritetower*  tower_blue = (Spritetower*)this->getParent()->getChildByTag(10000000);
-	Spritetower*  crystal_red = (Spritetower*)this->getParent()->getChildByTag(10000012);
-	Spritetower*  crystal_blue = (Spritetower*)this->getParent()->getChildByTag(10000013);
-	if (inattackrange(RT_pos - player_one->pos, 300)&& inattackrange(RT_pos - player_two_ca->pos, 300))
-	{
-		if (inattackrange(RT_pos - dogface4->pos, 300) || inattackrange(RT_pos - dogface5->pos, 300) || inattackrange(RT_pos - dogface6->pos, 300))
-		{
-			if (player_two_ca->target == (UnitsSprite*)player_one)
-				tower_red->target = (UnitsSprite*)player_two_ca;
-			else if(inattackrange(RT_pos - dogface5->pos, 300))
-				tower_red->target = (UnitsSprite*)dogface5;
-			else if (inattackrange(RT_pos - dogface4->pos, 300))
-				tower_red->target = (UnitsSprite*)dogface4;
-			else if (inattackrange(RT_pos - dogface6->pos, 300))
-				tower_red->target = (UnitsSprite*)dogface6;
-		}
-		else 
-		{
-			tower_red->target = (UnitsSprite*)player_two_ca;
-		}
-		if (tower_red->attackable)
-			tower_red->normal_attack(0);
-	}
-	else if (inattackrange(RT_pos - player_two_ca->pos, 300))
-	{
-		if (inattackrange(RT_pos - dogface4->pos, 300) || inattackrange(RT_pos - dogface5->pos, 300) || inattackrange(RT_pos - dogface6->pos, 300))
-		{
-			if (inattackrange(RT_pos - dogface5->pos, 300))
-				tower_red->target = (UnitsSprite*)dogface5;
-			else if (inattackrange(RT_pos - dogface4->pos, 300))
-				tower_red->target = (UnitsSprite*)dogface4;
-			else if (inattackrange(RT_pos - dogface6->pos, 300))
-				tower_red->target = (UnitsSprite*)dogface6;
-		}
-		else
-		{
-			tower_red->target = (UnitsSprite*)player_two_ca;
-		}
-		if (tower_red->attackable)
-			tower_red->normal_attack(0);
-	}
-	else
-	{
-		if (inattackrange(RT_pos - dogface4->pos, 300) || inattackrange(RT_pos - dogface5->pos, 300) || inattackrange(RT_pos - dogface6->pos, 300))
-		{
-			if (inattackrange(RT_pos - dogface5->pos, 300))
-				tower_red->target = (UnitsSprite*)dogface5;
-			else if (inattackrange(RT_pos - dogface4->pos, 300))
-				tower_red->target = (UnitsSprite*)dogface4;
-			else if (inattackrange(RT_pos - dogface6->pos, 300))
-				tower_red->target = (UnitsSprite*)dogface6;
-			if (tower_red->attackable)
-				tower_red->normal_attack(0);
-		}
-	}
-*/
-
-
 	if (inattackrange(RT_pos - player_one->pos, 300) && inattackrange(RT_pos - player_two_ca->pos, 300))
 	{
 		
@@ -1107,7 +942,7 @@ void m_controller::m_ai(float)
 				red_tower_target = (UnitsSprite*)dogface6;
 		}
 	}
-	////////
+
 
 	if (inattackrange(RC_pos - player_one->pos, 300) && inattackrange(RC_pos - player_two_ca->pos, 300))
 	{
@@ -1156,7 +991,7 @@ void m_controller::m_ai(float)
 				red_tower_target = (UnitsSprite*)dogface6;
 		}
 	}
-	/////
+
 	if (inattackrange(BC_pos - player_one->pos, 300) && inattackrange(BC_pos - player_two_ca->pos, 300))
 	{
 		if (inattackrange(BC_pos - dogface1->pos, 300) || inattackrange(BC_pos - dogface2->pos, 300) || inattackrange(BC_pos - dogface3->pos, 300))
@@ -1204,7 +1039,7 @@ void m_controller::m_ai(float)
 				blue_tower_target = (UnitsSprite*)dogface3;
 		}
 	}
-	////
+
 	if (inattackrange(BT_pos - player_one->pos, 300) && inattackrange(BT_pos - player_two_ca->pos, 300))
 	{
 		if (inattackrange(BT_pos - dogface1->pos, 300) || inattackrange(BT_pos - dogface2->pos, 300) || inattackrange(BT_pos - dogface3->pos, 300))
@@ -1257,11 +1092,11 @@ void m_controller::m_ai(float)
 
 	this->schedule(schedule_selector(m_controller::tower_attack), 0.10, 1, 0);
 
-	if (inattackrange(monster->getPosition() - player_one->pos, 200)&&monster->get().HP!= monster->get().MHP)
+	if (inattackrange(monster->getPosition() - player_one->pos, 350)&&monster->get().HP!= monster->get().MHP)
 	{
 		player_one->addproperty(-5, "HP");
 	}
-	else if (inattackrange(monster->getPosition() - player_two_ca->pos, 200) && monster->get().HP != monster->get().MHP)
+	else if (inattackrange(monster->getPosition() - player_two_ca->pos, 350) && monster->get().HP != monster->get().MHP)
 	{
 		player_two_ca->addproperty(-5, "HP");
 	}
@@ -1452,9 +1287,6 @@ Vec2 m_controller::getmouseloc()
 
 void m_controller::setscale(float size)
 {
-	//Catherine->setScale(size);
-	//Catherine2->setScale(size);
-
 	if (hero_choices["player_one"] == 1)
 	{
 		SpriteCatherine* player_one = (SpriteCatherine*)this->getChildByTag(player1_tag);
@@ -1584,13 +1416,11 @@ bool m_controller::init()
 	_mouseListener->onMouseScroll = CC_CALLBACK_1(m_controller::onMouseScroll, this);
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(_mouseListener, this);
-	//this->setTouchEnabled(true);
 	auto listener1 = EventListenerTouchOneByOne::create();
 	listener1->setSwallowTouches(true);
 	listener1->onTouchBegan = CC_CALLBACK_2(m_controller::onTouchBegan, this);
 	listener1->onTouchMoved = CC_CALLBACK_2(m_controller::onTouchMoved, this);
 	listener1->onTouchEnded = CC_CALLBACK_2(m_controller::onTouchEnded, this);
-	//listener1->onTouchCancelled = CC_CALLBACK_2(HelloWorld::onTouchesCancelled, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, this);
 
 
@@ -1598,75 +1428,18 @@ bool m_controller::init()
 	EventListenerPhysicsContact* evContact = EventListenerPhysicsContact::create();
 	evContact->onContactBegin = CC_CALLBACK_1(m_controller::onContactBegin, this);
 	//evContact->onContactSeparate= [](PhysicsContact& contact){return true;  };
-	//evContact->onContactPreSolve = CC_CALLBACK_2(m_controller::onContactPreSolve, this);
 	evContact->onContactSeparate = CC_CALLBACK_1(m_controller::onContactSeparate, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(evContact, this);
-	//mouse_sprite->setScale(0.5f);
-	//ShowCursor(FALSE);
-	//mouse_sprite->setAnchorPoint(Point(mouse_sprite->getContentSize().width,mouse_sprite->getContentSize().height));
+	ShowCursor(FALSE);
 	mouse_sprite->setAnchorPoint(Point(0,1));
 	this->addChild(mouse_sprite, 5);
-	
 	auto mouse_Body = PhysicsBody::createBox(this->getContentSize(), PHYSICSBODY_MATERIAL_DEFAULT);
-	//m_hero->setPhysicsBody(CaBody);
-	//CaBody->setContactTestBitmask(0xFFFFFFFF);
 	mouse_Body->setRotationEnable(false);
 	mouse_Body->setCategoryBitmask(0x01);
 	mouse_Body->setCollisionBitmask(0x00000000);
 	mouse_Body->setContactTestBitmask(0x01);
 	mouse_sprite->setPhysicsBody(mouse_Body);
 	mouse_sprite->setTag(1000000);
-	//Catherine->setPosition(80, 80);
-	//this->addChild(Catherine, 1);
-	
-//	Catherine_test->setPosition(Vec2(visibleSize.width / 2, visibleSize.height*0.3));
-//	Catherine_test->pos = Vec2(120, 120);
-//	this->addChild(Catherine_two, 1);
-
-
-	//static auto m_sprite = chose_character(1, 1);
-/*	Catherine = chose_character(1, 1);
-	Catherine2 = chose_character(2, 1);
-	Catherine->setPosition(300, 300);
-	Catherine->pos = Vec2(300,300);
-	Catherine2->setPosition(2500, 150);
-	Catherine2->pos=Vec2(2500, 150);*/
-
-
-	//chose_character(1, 4);
-	//chose_character(2, 2);
-	/*
-	if (hero_choices["player_one"] == 1)
-	{
-		SpriteCatherine* player_one = (SpriteCatherine*)this->getChildByTag(player1_tag);
-		player_one->setPosition(300, 300);
-		player_one->pos = Vec2(300, 300);
-		
-	}
-	else if (hero_choices["player_one"] == 2)
-	{
-		SpriteNighttide* player_one = (SpriteNighttide*)this->getChildByTag(player1_tag);
-		player_one->setPosition(300, 300);
-		player_one->pos = Vec2(300, 300);
-	}
-	if (hero_choices["player_two"] == 1)
-	{
-		SpriteCatherine* player_two = (SpriteCatherine*)this->getChildByTag(player2_tag);
-		player_two->setPosition(2500, 150);
-		player_two->pos = Vec2(2500, 150);
-	}
-	else if (hero_choices["player_two"] == 2)
-	{
-		SpriteNighttide* player_two = (SpriteNighttide*)this->getChildByTag(player2_tag);
-		player_two->setPosition(2500, 150);
-		player_two->pos = Vec2(2500, 150);
-	}*/
-
-	/*
-	auto tower = Sprite::create("def_tower_right.png");
-	tower->setPosition(Vec2(400, 400));
-	this->addChild(tower, 1);*/
-
 	dogface1 = Spritedogface::getInstance();
 	dogface2 = Spritedogface::getInstance();
 	dogface3 = Spritedogface::getInstance();
@@ -1700,7 +1473,6 @@ bool m_controller::init()
 	monster->setPhysicsBody(MoBody);
 	monster->HP_bar->setPosition(Vec2(150, 400));
 	monster->Hp_progress->setPosition(Vec2(150, 400));
-	//monster->Hp_progress->setScale(10);
 	monster->addproperty(1, "RHP");
 	monster->settag(10000020);
 
@@ -1711,8 +1483,3 @@ bool m_controller::init()
 	this->schedule(schedule_selector(m_controller::m_ai), 0.15f, kRepeatForever, 0);
 	return true;
 }
-/*
-void m_controller::clockon()
-{
-
-}*/

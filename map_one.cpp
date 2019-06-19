@@ -141,9 +141,12 @@ void MapScene::onMouseUp(Event *event)
 
 void MapScene::onMouseMove(Event *event)
 {
+	EventMouse* e = (EventMouse*)event;
+	another_sprite->setPosition(e->getCursorX(), e->getCursorY());
+
 //	CCLOG("here");
 	// to illustrate the event....
-	EventMouse* e = (EventMouse*)event;
+//	EventMouse* e = (EventMouse*)event;
 	//scene_move(Point(e->getCursorX(), e->getCursorY()));
 	scene_move(e->getLocation());
 	//string str = "MousePosition X:";
@@ -355,11 +358,13 @@ bool MapScene::init()
 	_tileMap->addChild(tower3, 1);
 	tower4->setPosition(500, 500);
 	_tileMap->addChild(tower4, 1);
-
+	tower4->changeproperty(500, "RHP");
+	tower2->changeproperty(500, "RHP");
 	m_control->chose_character(1, ID1);
 	m_control->chose_character(2, ID2);
 
-
+	another_sprite = Sprite::create("another_mouse.png");
+	this->addChild(another_sprite,15);
 	auto CaBody = PhysicsBody::createBox(Size(700, 600), PHYSICSBODY_MATERIAL_DEFAULT);
 	CaBody->setRotationEnable(false);
 	CaBody->setCategoryBitmask(0x01);
@@ -567,12 +572,12 @@ void MapScene::victory_judge(float)
 	int red_chealth = tower4->get().HP;
 	if (blue_chealth <= 0) {
 		auto victory = Sprite::create("victory.png");
-		victory->setPosition(1300, 500);
+		victory->setPosition(900, 500);
 		this->addChild(victory);
 	}
 	if (red_chealth <= 0) {
 		auto defeat = Sprite::create("defeat.png");
-		defeat->setPosition(1300, 500);
+		defeat->setPosition(1100, 500);
 		this->addChild(defeat);
 	}
 }
@@ -585,14 +590,14 @@ void MapScene::purchase(float)
 	if (purchase_key == 1 && bought1 == 0)
 	{
 		gold -= 50;
-		player_1->addproperty(200, "HP");
+		player_1->addproperty(800, "HP");
 		purchase_key = 0;
 		bought1 = 1;
 	}
 	if (purchase_key == 2 && bought2 == 0)
 	{
 		gold -= 60;
-		player_1->addproperty(200, "MP");
+		player_1->addproperty(800, "MP");
 		purchase_key = 0;
 		bought2 = 1;
 	}
@@ -613,14 +618,14 @@ void MapScene::purchase(float)
 	if (purchase_key == 5  && bought5 == 0)
 	{
 		gold -= 400;
-		player_1->addproperty(50, "ATK");
+		player_1->addproperty(500, "ATK");
 		purchase_key = 0;
 		bought5 = 1;
 	}
 	if (purchase_key == 6 && bought6 == 0)
 	{
 		gold -= 500;
-		player_1->addproperty(50, "ATKM");
+		player_1->addproperty(500, "ATKM");
 		purchase_key = 0;
 		bought6 = 1;
 	}

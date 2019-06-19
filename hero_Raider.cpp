@@ -411,7 +411,7 @@ bool SpriteRaider::init()
 	my_propertystruct.RMP = 1;
 	my_propertystruct.RSTA = 2;
 	my_propertystruct.EVA = 0;
-	my_propertystruct.SPE = 395;
+	my_propertystruct.SPE = 550;
 	my_propertystruct.ACC = 0;
 	my_propertystruct.ATK = 35;
 	my_propertystruct.ATKM = 2;
@@ -420,7 +420,7 @@ bool SpriteRaider::init()
 	my_propertystruct.RES = 0;
 	my_propertystruct.RDR = 0;
 	my_propertystruct.BP = 0;
-	my_propertystruct.ATR = 100;
+	my_propertystruct.ATR = 200;
 	my_propertystruct.ATRS = 200;
 	my_propertystruct.ATRN = 200;
 	my_propertystruct.ATRR = 100;
@@ -1171,6 +1171,19 @@ void SpriteRaider::strengthen(float)
 }
 
 
+int SpriteRaider::skill_check()
+{
+	if (cooldowning4 == 0)
+		return 4;
+	else if (cooldowning2 == 0)
+		return 2;
+	else if (cooldowning3 == 0)
+		return 3;
+	else if (cooldowning1 == 0)
+		return 1;
+	else
+		return 0;
+}
 
 void SpriteRaider::shock(float time)
 {
@@ -1214,9 +1227,9 @@ void SpriteRaider::revive(float time)
 {
 	if (this->getTag() > 20000)
 	{
-		this->setPosition(Vec2(2500, 150));
-		pos = Vec2(2500, 150);
-		old_pos = Vec2(2500, 150);
+		this->setPosition(Vec2(2500, 400));
+		pos = Vec2(2500, 400);
+		old_pos = Vec2(2500, 400);
 	}
 
 	else
@@ -1227,6 +1240,7 @@ void SpriteRaider::revive(float time)
 	}
 	death_judge = false;
 	this->changeproperty(get().MHP, "HP");
+	this->changeproperty(get().MMP, "MP");
 	this->setTexture("snow0_0.png");
 	this->schedule(schedule_selector(SpriteRaider::death), 0.01f, kRepeatForever, 0);
 	this->schedule(schedule_selector(SpriteRaider::restore), 1.0f, kRepeatForever, 0);

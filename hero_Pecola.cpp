@@ -412,7 +412,7 @@ bool SpritePecola::init()
 	my_propertystruct.RMP = 0;
 	my_propertystruct.RSTA = 2;
 	my_propertystruct.EVA = 0;
-	my_propertystruct.SPE = 400;
+	my_propertystruct.SPE = 480;
 	my_propertystruct.ACC = 0;
 	my_propertystruct.ATK = 20;
 	my_propertystruct.ATKM = 20;
@@ -1391,6 +1391,20 @@ void SpritePecola::strengthen(float)
 
 
 
+int SpritePecola::skill_check()
+{
+	if (cooldowning4 == 0)
+		return 4;
+	else if (cooldowning2 == 0)
+		return 2;
+	else if (cooldowning3 == 0)
+		return 3;
+	else if (cooldowning1 == 0)
+		return 1;
+	else
+		return 0;
+}
+
 void SpritePecola::shock(float time)
 {
 	shock_judge = true;
@@ -1429,9 +1443,9 @@ void SpritePecola::revive(float time)
 {
 	if (this->getTag() > 20000)
 	{
-		this->setPosition(Vec2(2500, 150));
-		pos = Vec2(2500, 150);
-		old_pos = Vec2(2500, 150);
+		this->setPosition(Vec2(2500, 400));
+		pos = Vec2(2500, 400);
+		old_pos = Vec2(2500, 400);
 	}
 	else
 	{

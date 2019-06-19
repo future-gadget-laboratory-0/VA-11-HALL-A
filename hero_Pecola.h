@@ -47,6 +47,7 @@ public:
 	void self_strengthen(int, int, __String, int, __String);
 	void self_strengthen(int, int, __String, int, __String, int, __String);
 	void self_strengthen(int, int, __String, int, __String, int, __String, int, __String);
+	int skill_check();
 private:
 	SpritePecola();
 	//void unchoose (float);

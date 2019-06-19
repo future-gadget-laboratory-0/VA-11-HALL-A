@@ -47,6 +47,7 @@ public:
 	void self_strengthen(int, int, __String, int, __String);
 	void self_strengthen(int, int, __String, int, __String, int, __String);
 	void self_strengthen(int, int, __String, int, __String, int, __String, int, __String);
+	int skill_check();
 	//float isexecute(int);//if int ==1, spell_judge=1,==0,=0,else won't change anything
 	//void reexecute();
 private:

@@ -403,7 +403,7 @@ bool SpriteCatherine::init()
 	my_propertystruct.RMP = 1;
 	my_propertystruct.RSTA = 2;
 	my_propertystruct.EVA = 0;
-	my_propertystruct.SPE = 395;
+	my_propertystruct.SPE = 450;
 	my_propertystruct.ACC = 0;
 	my_propertystruct.ATK = 35;
 	my_propertystruct.ATKM = 10;
@@ -1224,7 +1224,19 @@ void SpriteCatherine::strengthen(float)
 	strength_property_th = "";
 }
 
-
+int SpriteCatherine::skill_check()
+{
+	if (cooldowning4 == 0)
+		return 4;
+	else if (cooldowning2 == 0)
+		return 2;
+	else if (cooldowning3 == 0)
+		return 3;
+	else if (cooldowning1 == 0)
+		return 1;
+	else
+		return 0;
+}
 
 void SpriteCatherine::shock(float time)
 {
@@ -1278,6 +1290,7 @@ void SpriteCatherine::revive(float time)
 	}
 	death_judge = false;
 	this->changeproperty(get().MHP, "HP");
+	this->changeproperty(get().MMP, "MP");
 	this->setTexture("snow0_0.png");
 	this->schedule(schedule_selector(SpriteCatherine::death), 0.01f, kRepeatForever, 0);
 	this->schedule(schedule_selector(SpriteCatherine::restore), 1.0f, kRepeatForever, 0);

@@ -7,6 +7,7 @@
 #include "hero_Pecola.h"
 #include "dogface.h"
 #include "tower.h"
+#include <memory>
 
 USING_NS_CC;
 class m_controller:public Sprite
@@ -25,12 +26,10 @@ public:
 	void onTouchMoved(Touch* touch, Event* event);
 	void onTouchEnded(Touch* touch, Event* event);
 	bool onContactBegin(PhysicsContact& contact);
-	//bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve);
 	bool onContactSeparate(PhysicsContact& contact);
 	Vec2 getmouseloc();
-	void setscale(float);//change character size;
+	void setscale(float);
 	actor_property getproperty(int);
-	//auto chose_character(int,int);
 	void chose_character(int, int);
 	Spritetower* monster = Spritetower::getInstance();
 	Vec2 map_skewing;
@@ -38,11 +37,10 @@ public:
 	int gettag(__String);
 	CREATE_FUNC(m_controller);
 	bool player2_AI = true;
+	std::shared_ptr<int> ptra;
 protected:
-	//构造函数私有，这样就不可以随便声明这个类的对象了
 	m_controller();
 	static m_controller* instance;
-	//Sprite*m_sprite = NULL;
 	void reexecute(float);
 	void m_ai(float);
 	void tower_attack(float);
@@ -58,44 +56,15 @@ protected:
 	bool ai_getmoney(Vec2);
 	bool ai_getmoney(Vec2,int,int);
 	bool attackable=true;
-	bool PreventRepeated();//is revising
-	bool sptime=0;//is revising
-	bool execute = 0;//is revising
-	//SpriteCatherine* Catherine = SpriteCatherine::createWithSpriteFrameName("snow0_0.png");
-	//SpriteCatherine* Catherine = SpriteCatherine::getInstance();
-
+	bool PreventRepeated();
+	bool sptime=0;
+	bool execute = 0;
 	Spritedogface* dogface1 = NULL;
 	Spritedogface* dogface2 = NULL;
 	Spritedogface* dogface3 = NULL;
 	Spritedogface* dogface4 = NULL;
 	Spritedogface* dogface5 = NULL;
 	Spritedogface* dogface6 = NULL;
-
-
-
-
-	/*
-	SpriteCatherine* Catherine = NULL;
-	SpriteCatherine* Catherine2 = NULL;
-	SpriteCatherine* Catherine3 = NULL;
-	SpriteCatherine* Catherine4 = NULL;
-	SpriteCatherine* Catherine5 = NULL;
-	SpriteCatherine* Catherine6 = NULL;
-	SpriteCatherine* Catherine7 = NULL;
-	SpriteCatherine* Catherine8 = NULL;
-	SpriteCatherine* Catherine9 = NULL;
-	SpriteCatherine* Catherine10 = NULL;
-	SpriteNighttide* Nighttide1 = NULL;
-	SpriteNighttide* Nighttide2 = NULL;
-	SpriteNighttide* Nighttide3 = NULL;
-	SpriteNighttide* Nighttide4 = NULL;
-	SpriteNighttide* Nighttide5 = NULL;
-	SpriteNighttide* Nighttide6 = NULL;
-	SpriteNighttide* Nighttide7 = NULL;
-	SpriteNighttide* Nighttide8 = NULL;
-	SpriteNighttide* Nighttide9 = NULL;
-	SpriteNighttide* Nighttide10 = NULL;*/
-	
 	Vec2 BT_pos= Vec2(1800, 500);
 	Vec2 BC_pos = Vec2(2400, 500);
 	Vec2 RT_pos = Vec2(1100, 500);
@@ -105,8 +74,6 @@ protected:
 	bool RT_DES = false;
 	bool RC_DES = false;
 	Sprite* mouse_sprite = Sprite::create("mouse.png");
-	//SpriteCatherine* Catherine_test = SpriteCatherine::create();
-	//Vector<int> SPS;//store Sprites's tag;
 	int m_lockTag=0;
 	int m_lockTag_now=0;
 	int player1_tag;
@@ -119,9 +86,6 @@ protected:
 	int player8_tag;
 	int player9_tag;
 	int player10_tag;
-	//int player = 1; 
-	//int character=1;
-	//void lockon();
 };
 
 #endif
